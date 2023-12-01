@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseGameStateScript : 
+public class BaseGameStateScript
 {
 
     public void Enter()

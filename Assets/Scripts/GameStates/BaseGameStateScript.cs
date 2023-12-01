@@ -5,15 +5,15 @@ using UnityEngine;
 public class BaseGameStateScript : MonoBehaviour
 {
 
-    public void Enter()
+    public virtual void Enter()
     {
 
     }
-    public void Execute()
+    public virtual void Execute()
     {
 
     }
-    public void Exit()
+    public virtual void Exit()
     {
 
     }
