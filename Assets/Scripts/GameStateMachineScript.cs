@@ -5,22 +5,22 @@ using UnityEngine;
 public class GameStateMachineScript
 {
     private BaseGameStateScript _nowState;
-    public GameStateMachineScript()
+    public GameStateMachineScript(BaseGameStateScript initState)
     {
-        
+        _nowState = initState;
     }
     /// <summary>
     /// ó‘Ô‚ğ•Ï‚¦‚ê‚éê‡‚Í•Ï‚¦‚é
     /// </summary>
     public void UpdateState()
     {
-
+        
     }
     /// <summary>
     /// Œ»İ‚Ìó‘Ô‚Å‚Ì“®ì‚ğÀs‚·‚é
     /// </summary>
     public void Execute()
     {
-
+        _nowState.Execute();
     }
 }
