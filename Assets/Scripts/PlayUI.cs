@@ -1,7 +1,7 @@
-public class PlayUI:BaseUI
+public class PlayUI : BaseUIScript
 {
-    public void UpdateUI()
-    {
+	public void UpdateUI()
+	{
 
-    }
+	}
 }

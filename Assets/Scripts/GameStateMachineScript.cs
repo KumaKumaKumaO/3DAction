@@ -2,25 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ó‘Ô‚ğ‘JˆÚ‚³‚¹‚é
+/// </summary>
 public class GameStateMachineScript
 {
-    private BaseGameStateScript _nowState;
-    public GameStateMachineScript(BaseGameStateScript initState)
-    {
-        _nowState = initState;
-    }
-    /// <summary>
-    /// ó‘Ô‚ğ•Ï‚¦‚ê‚éê‡‚Í•Ï‚¦‚é
-    /// </summary>
-    public void UpdateState()
-    {
-        
-    }
-    /// <summary>
-    /// Œ»İ‚Ìó‘Ô‚Å‚Ì“®ì‚ğÀs‚·‚é
-    /// </summary>
-    public void Execute()
-    {
-        _nowState.Execute();
-    }
+	/// <summary>
+	/// ó‘Ô‚ğ•Ï‚¦‚ê‚éê‡‚Í•Ï‚¦‚é
+	/// </summary>
+	public BaseGameStateScript UpdateState()
+	{
+		return null;
+	}
 }

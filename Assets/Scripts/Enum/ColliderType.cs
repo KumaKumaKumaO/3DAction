@@ -1,6 +1,6 @@
 public enum ColliderType
 {
-    None,
-    Box,
-    Sphere
+	None,
+	Box,
+	Sphere
 }
