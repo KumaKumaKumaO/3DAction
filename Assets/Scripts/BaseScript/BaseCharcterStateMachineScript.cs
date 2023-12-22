@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class BaseCharcterStateMachineScript : MonoBehaviour
+/// <summary>
+/// それぞれのキャラのステートマシン
+/// </summary>
+public class BaseCharcterStateMachineScript:ICharacterStateUpdatable
 {
-	// Start is called before the first frame update
-	void Start()
+	public BaseCharcterStateScript UpdateState()
 	{
-
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
+		return null;
 	}
 }

@@ -63,15 +63,15 @@
     <Compile Include="Assets\Scripts\BaseScript\BaseStageObject,.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
     <Compile Include="Assets\Scripts\GameStateMachineScript.cs" />
-    <Compile Include="Assets\Input\IInput.cs" />
+    <Compile Include="Assets\Scripts\Interface\IStateMachine.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseCharcterStateScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseCharcterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\TitleGameState.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseObjectScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseBar.cs" />
+    <Compile Include="Assets\Scripts\Input\IInput.cs" />
     <Compile Include="Assets\Scripts\Enum\ColliderType.cs" />
     <Compile Include="Assets\Scripts\Structs\WeaponStatus.cs" />
-    <Compile Include="Assets\Input\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\PlayUI.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameGameStateScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseCharcterScript.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Structs\CharacterStatus.cs" />
     <Compile Include="Assets\Scripts\GameStates\BaseGameStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\StageObjectStatus.cs" />
+    <Compile Include="Assets\Scripts\Input\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\ObjectControllerScript.cs" />
   </ItemGroup>
   <ItemGroup>
