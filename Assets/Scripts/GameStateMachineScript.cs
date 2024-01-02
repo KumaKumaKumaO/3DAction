@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 状態を遷移させる
+/// ゲーム全体の状態を遷移させる
 /// </summary>
 public class GameStateMachineScript
 {
@@ -12,6 +11,22 @@ public class GameStateMachineScript
 	/// </summary>
 	public BaseGameStateScript UpdateState()
 	{
+        switch (SceneManager.GetActiveScene().name)
+        {
+			case "Title":
+                {
+					return new TitleGameState();
+                }
+			case "InGame":
+                {
+					return new InGameGameStateScript();
+                }
+			case "GameOver":
+                {
+					return new GameOverStateScript();
+                }
+        }
+		Debug.LogError("存在しないシーン名です。");
 		return null;
 	}
 }

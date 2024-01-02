@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// シングルトンクラス
 /// ゲーム全体をコントロールする
 /// </summary>
 public class GameManagerScript : MonoBehaviour
