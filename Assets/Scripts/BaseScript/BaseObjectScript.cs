@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseObjectScript : MonoBehaviour
 {
-	private ObjectControllerScript _objectControllerScript = default;
+	private ObjectManagerScript _objectControllerScript = default;
 	[SerializeField]
 	private bool isDebugColliderVisible = false;
 	[SerializeField]
@@ -14,7 +14,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	[SerializeField]
 	private Vector3 _collisionAreaOffSetSize = default;
 	private Transform _myTransform;
-	protected ObjectControllerScript ObjectControllerScript { get { return _objectControllerScript; } }
+	protected ObjectManagerScript ObjectControllerScript { get { return _objectControllerScript; } }
 	public ColliderType MyColisionType { get { return _myCollisionType; } }
 	public Vector3 ColisionAreaSize { get { return _collisionAreaSize; } }
 	public Vector3 CollisionAreaOffSetSize { get { return _collisionAreaOffSetSize; } }
@@ -27,7 +27,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		{
 			Debug.LogError("ObjectControllerÇ™éÊìæÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩÅB");
 		}
-		_objectControllerScript = objectControllerObj.GetComponent<ObjectControllerScript>();
+		_objectControllerScript = objectControllerObj.GetComponent<ObjectManagerScript>();
 		_myTransform = transform;
 	}
 }

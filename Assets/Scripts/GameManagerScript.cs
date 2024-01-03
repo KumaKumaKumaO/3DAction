@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,29 +6,30 @@ using UnityEngine;
 /// </summary>
 public class GameManagerScript : MonoBehaviour
 {
+	//自信のインスタンス
 	private static GameManagerScript _instanceGameManager = default;
+	//自分のステートマシン
 	private GameStateMachineScript _myStateMachine = default;
-	private BaseGameStateScript _nowState = default;
-	public static GameManagerScript GameManager
-	{
-		get { return _instanceGameManager; }
-	}
 	private void Start()
 	{
-		if (_instanceGameManager != null)
+		//インスタンスが存在するかを確認する
+		if (_instanceGameManager == null)
 		{
 			_instanceGameManager = this;
+			//シーンが変わっても消えないようにする
 			DontDestroyOnLoad(this);
+			_myStateMachine = new GameStateMachineScript();
 		}
 		else
 		{
+			//インスタンスが存在する場合は自分を削除する
 			Destroy(gameObject);
 		}
 	}
 
 	private void Update()
 	{
-		_nowState = _myStateMachine.UpdateState();
-		_nowState.Execute();
+		//現在のステートを実行する
+		_myStateMachine.UpdateState().Execute();
 	}
 }

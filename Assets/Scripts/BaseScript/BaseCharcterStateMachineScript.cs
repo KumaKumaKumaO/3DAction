@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// それぞれのキャラのステートマシン
 /// </summary>
-public class BaseCharcterStateMachineScript:ICharacterStateUpdatable
+public class BaseCharcterStateMachineScript
 {
 	public BaseCharcterStateScript UpdateState()
 	{

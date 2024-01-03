@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 public interface IInputCharcterAction
 {
-	void Move(Vector2 input);
-	void Attack();
-	void Evasion(Vector2 input);
-	void ChangeWeapon(BaseWeaponScript weapon);
-	void UseItem(int index);
+    Vector2 Move();
+    bool IsAttack();
+    Vector2 Evasion();
+    bool ChangeWeapon();
+    int UseItem();
 }
 public interface IInputPlayerAction
 {
-	void OpenPose();
-	void OpenInventory();
+    bool IsOpenPose();
+    bool IsOpenInventory();
 }
