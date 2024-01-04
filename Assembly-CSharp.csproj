@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
     <Compile Include="Assets\Scripts\GameStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InGameStateMachineScript.cs" />
+    <Compile Include="Assets\Scripts\Interface\IStateMachine.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseCharcterStateScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseCharcterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\TitleGameState.cs" />
@@ -77,17 +78,19 @@
     <Compile Include="Assets\Scripts\Structs\WeaponStatus.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseStateScript.cs" />
     <Compile Include="Assets\Scripts\PlayUI.cs" />
+    <Compile Include="Assets\Scripts\GameStates\InGameGameStateScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseCharcterScript.cs" />
-    <Compile Include="Assets\Scripts\InGameState\MenuStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />
     <Compile Include="Assets\Scripts\CollisionSystem.cs" />
     <Compile Include="Assets\Scripts\InGameState\PoseStateScript.cs" />
+    <Compile Include="Assets\Scripts\InGameState\InventoryStateScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseWeaponScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CharacterStatus.cs" />
     <Compile Include="Assets\Scripts\GameStates\BaseGameStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\StageObjectStatus.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionData.cs" />
     <Compile Include="Assets\Scripts\Input\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\ObjectControllerScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
