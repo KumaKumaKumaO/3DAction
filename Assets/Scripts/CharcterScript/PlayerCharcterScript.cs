@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectControllerScript
+public class PlayerCharcterScript : BaseCharcterScript
 {
 
 }
