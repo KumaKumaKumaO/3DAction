@@ -1,10 +1,18 @@
 using UnityEngine;
+[System.Serializable]
 public struct CollisionData
 {
-	private Vector3 _areaSize;
+	[SerializeField]
+	private Vector3 _areaHalfSize;
+	[SerializeField]
 	private Vector3 _offset;
-	private ColliderType _myColliderType;
-	public Vector3 AreaSize { get { return _areaSize; } }
+	private Transform _myTransform;
+	public Vector3 AreaHalfSize { get { return _areaHalfSize; } }
 	public Vector3 Offset { get { return _offset; } }
-	public ColliderType MyColliderType { get { return _myColliderType; } }
+	public Transform MyTransform { get { return _myTransform; } }
+
+	public void Init(Transform myTransform)
+	{
+		this._myTransform = myTransform;
+	}
 }

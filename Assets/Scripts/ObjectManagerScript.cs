@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class ObjectManagerScript
 {
-	private CollisionSystem _collisionSystem = default;
+	private List<StageFloorScript> _stageFloors = new List<StageFloorScript>();
+	
 }

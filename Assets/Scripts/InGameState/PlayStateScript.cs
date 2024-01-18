@@ -7,6 +7,8 @@ public class PlayStateScript : BaseInGameStateScript
 	public override void Enter()
 	{
 		base.Enter();
+		//“–‚½‚è”»’è‚ÌƒƒWƒbƒN‚ğ¶¬
+		new CollisionSystem().InstancateMyInstance();
 		_objectManagerScript = new ObjectManagerScript();
 	}
 	public override void Execute()
@@ -16,5 +18,6 @@ public class PlayStateScript : BaseInGameStateScript
 	public override void Exit()
 	{
 		base.Exit();
+		CollisionSystem.Instance.DeleteMyInstance();
 	}
 }

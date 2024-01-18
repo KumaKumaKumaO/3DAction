@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class GameManagerScript : MonoBehaviour
 {
-	//自信のインスタンス
+	//自分のインスタンス
 	private static GameManagerScript _instanceGameManager = default;
 	//自分のステートマシン
 	private GameStateMachineScript _myStateMachine = default;
@@ -18,6 +18,7 @@ public class GameManagerScript : MonoBehaviour
 			_instanceGameManager = this;
 			//シーンが変わっても消えないようにする
 			DontDestroyOnLoad(this);
+			//ステートマシンを生成
 			_myStateMachine = new GameStateMachineScript();
 		}
 		else

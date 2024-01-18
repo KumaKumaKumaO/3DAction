@@ -1,4 +1,4 @@
-public interface ICharacterStateUpdatable{
+public interface ICharacterStateMachine{
 	/// <summary>
 	/// キャラクターのステートを更新する
 	/// </summary>
