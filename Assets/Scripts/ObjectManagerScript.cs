@@ -27,7 +27,12 @@ public class ObjectManagerScript
 
 	private bool isCollisionFloor(CollisionData charcterColData)
 	{
+		foreach (StageFloorScript item in _stageFloors)
+		{
+			
+		}
 		return false;
+		//_collisionSystem.IsCollision(charcterColData);
 	}
 
 

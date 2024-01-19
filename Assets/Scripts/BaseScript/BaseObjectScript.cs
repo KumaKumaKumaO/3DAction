@@ -12,6 +12,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	private void Start()
 	{
 		_myCollisionData.Init(transform);
+		ObjectManagerScript.MyInstance.AddMyObject(this);
 	}
 
 	private void OnDrawGizmos()

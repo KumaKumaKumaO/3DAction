@@ -7,7 +7,6 @@ public class PlayStateScript : BaseInGameStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		//“–‚½‚è”»’è‚ÌƒƒWƒbƒN‚ğ¶¬
 		_objectManagerScript = new ObjectManagerScript();
 	}
 	public override void Execute()
