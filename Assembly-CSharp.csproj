@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\GameStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InGameStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseCharcterStateScript.cs" />
+    <Compile Include="Assets\Scripts\Debug\ErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\BaseCharcterScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\TitleGameState.cs" />
     <Compile Include="Assets\Scripts\InGameState\PlayStateScript.cs" />
@@ -74,10 +75,12 @@
     <Compile Include="Assets\Scripts\Input\PlayerInputScript.cs" />
     <Compile Include="Assets\Scripts\ObjectManagerScript.cs" />
     <Compile Include="Assets\Scripts\Structs\WeaponStatus.cs" />
+    <Compile Include="Assets\Scripts\Interface\IErrorManager.cs" />
     <Compile Include="Assets\Scripts\ObjectScripts\BaseStageObjectScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseStateScript.cs" />
     <Compile Include="Assets\Scripts\ObjectScripts\StageFloorScript.cs" />
     <Compile Include="Assets\Scripts\PlayUI.cs" />
+    <Compile Include="Assets\Scripts\Debug\NullErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\PlayerCharcterScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameGameStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />

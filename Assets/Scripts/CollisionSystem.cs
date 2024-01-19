@@ -5,23 +5,7 @@ using UnityEngine;
 /// </summary>
 public class CollisionSystem
 {
-	private static CollisionSystem _myInstance = default;
 	private Vector3 vector = default;
-
-	public static CollisionSystem Instance { get { return _myInstance; } }
-
-	public void InstancateMyInstance()
-	{
-		if (_myInstance == null)
-		{
-			_myInstance = this;
-		}
-	}
-
-	public void DeleteMyInstance()
-	{
-		_myInstance = null;
-	}
 
 	/// <summary>
 	/// 

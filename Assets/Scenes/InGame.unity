@@ -419,7 +419,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1476294783}
   - component: {fileID: 1476294782}
-  - component: {fileID: 1476294784}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -439,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e055e8013bc4849b92df65627c4e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugFlag: 0
 --- !u!4 &1476294783
 Transform:
   m_ObjectHideFlags: 0
@@ -454,19 +454,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1476294784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476294781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba76a59281968744a8a9b87c66c9ebd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stageFloors: []
 --- !u!1 &1507357761
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDebugColliderVisible: 0
   _myCollisionData:
-    _areaHalfSize: {x: 0, y: 0, z: 0}
+    _areaHalfSize: {x: 0.5, y: 0.5, z: 0.5}
     _offset: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -10,6 +10,8 @@ public class GameManagerScript : MonoBehaviour
 	private static GameManagerScript _instanceGameManager = default;
 	//自分のステートマシン
 	private GameStateMachineScript _myStateMachine = default;
+	[SerializeField]
+	private bool DebugFlag;
 	private void Start()
 	{
 		//インスタンスが存在するかを確認する
@@ -20,6 +22,12 @@ public class GameManagerScript : MonoBehaviour
 			DontDestroyOnLoad(this);
 			//ステートマシンを生成
 			_myStateMachine = new GameStateMachineScript();
+			if (DebugFlag)
+			{
+				new ErrorManagerScript().InstantiationMyInstance();
+			}
+			
+			
 		}
 		else
 		{
@@ -32,5 +40,10 @@ public class GameManagerScript : MonoBehaviour
 	{
 		//現在のステートを実行する
 		_myStateMachine.UpdateState().Execute();
+	}
+
+	private void OnDisable()
+	{
+		ErrorManagerScript.MyInstance.DeleteMyInstance();
 	}
 }
