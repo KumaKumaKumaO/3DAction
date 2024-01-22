@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 public class NullErrorManagerScript : IErrorManager
 {
+	private bool isDisplayNullMSG = false;
 	public void InstantiationMyInstance()
 	{
 		NullObjectMsg();
@@ -19,13 +20,26 @@ public class NullErrorManagerScript : IErrorManager
 	}
 	private void NullObjectMsg()
 	{
-		Debug.LogError(this +"ÇÕNullObjectÇ≈Ç∑ÅB");
+		if (!isDisplayNullMSG)
+		{
+			Debug.LogError(this + "ÇÕNullObjectÇ≈Ç∑ÅB");
+			isDisplayNullMSG = true;
+		}
 	}
 	public void NullGameObjectError(string className)
 	{
 		NullObjectMsg();
 	}
 	public void DeleteMyInstance()
+	{
+		NullObjectMsg();
+	}
+
+	public void NullSceneNameError(string SceneName)
+	{
+		NullObjectMsg();
+	}
+	public void CantExistObject(string objName)
 	{
 		NullObjectMsg();
 	}

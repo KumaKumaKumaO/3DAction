@@ -52,4 +52,12 @@ public class ErrorManagerScript : IErrorManager
 	{
 		_myInstance = null;
 	}
+	public void NullSceneNameError(string sceneName)
+	{
+		Debug.LogError(HEAD_MSG + sceneName + "という名前のシーンは存在しません。");
+	}
+	public void CantExistObject(string objName)
+	{
+		Debug.LogError(HEAD_MSG + objName + "は存在するはずではありません。");
+	}
 }

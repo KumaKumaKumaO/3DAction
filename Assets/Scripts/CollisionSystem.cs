@@ -15,12 +15,11 @@ public class CollisionSystem
 	/// <returns></returns>
 	public bool IsCollision(CollisionData targetA, CollisionData targetB)
 	{
-		vector = (targetA.MyTransform.position + targetA.Offset + targetA.AreaHalfSize) 
-			- (targetB.MyTransform.position + targetB.Offset + targetB.AreaHalfSize);
+		vector = (targetA.MyTransform.position + targetA.Offset) - (targetB.MyTransform.position + targetB.Offset);
 
-		return (AbsoluteProcess(vector.x) <= targetB.AreaHalfSize.x + targetA.AreaHalfSize.x
-			&& AbsoluteProcess(vector.y) <= targetB.AreaHalfSize.y + targetA.AreaHalfSize.y
-			&& AbsoluteProcess(vector.z) <= targetB.AreaHalfSize.z + targetA.AreaHalfSize.z);
+		return (AbsoluteProcess(vector.x) <= targetB.HalfAreaSize.x + targetA.HalfAreaSize.x
+			&& AbsoluteProcess(vector.y) <= targetB.HalfAreaSize.y + targetA.HalfAreaSize.y
+			&& AbsoluteProcess(vector.z) <= targetB.HalfAreaSize.z + targetA.HalfAreaSize.z);
 	}
 
 	/// <summary>

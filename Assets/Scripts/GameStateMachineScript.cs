@@ -54,7 +54,6 @@ public class GameStateMachineScript
 				return null;
 			}
 			//デバッグ用のメッセージ
-			Debug.Log(_nowSceneName + "シーンです。");
 			//新しいステートを開始させる
 			_nowState.Enter();
 			//前回のシーン名に今回のシーン名を入れる

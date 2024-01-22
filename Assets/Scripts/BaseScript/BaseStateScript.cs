@@ -1,3 +1,4 @@
+using UnityEngine;
 /// <summary>
 /// ステートの基底クラス
 /// </summary>
@@ -9,7 +10,7 @@ public abstract class BaseStateScript
 	/// </summary>
 	public virtual void Enter()
 	{
-
+		Debug.Log(this + "ステートに遷移");
 	}
 
 	/// <summary>

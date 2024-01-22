@@ -17,6 +17,7 @@ public class InGameStateMachineScript
 	public InGameStateMachineScript(BaseInGameStateScript initState)
 	{
 		this._nowState = initState;
+		_nowState.Enter();
 	}
 
 	/// <summary>
@@ -47,7 +48,7 @@ public class InGameStateMachineScript
 					_beforeState = _nowState;
 					//現在のステートをインベントリーにする
 					_nowState = new InventoryStateScript();
-					_nowState.Enter();
+					
 				}
 				//インベントリーを開いていたら
 				else if (_nowState.GetType() == typeof(InventoryStateScript))
@@ -58,6 +59,7 @@ public class InGameStateMachineScript
 					//前回のステートのアドレスを破棄する
 					_beforeState = null;
 				}
+				_nowState.Enter();
 			}
 			//ポーズを開くボタンを押したら
 			else if (_inputPlayerAction.IsOpenPose())
@@ -69,7 +71,7 @@ public class InGameStateMachineScript
 					_beforeState = _nowState;
 					//現在のステートをポーズステートにする
 					_nowState = new PoseStateScript();
-					_nowState.Enter();
+					
 				}
 				//ポーズを開いていたら
 				else if (_nowState.GetType() == typeof(PoseStateScript))
@@ -80,7 +82,9 @@ public class InGameStateMachineScript
 					//前回のステートのアドレスを破棄する
 					_beforeState = null;
 				}
+				_nowState.Enter();
 			}
+
 		}
 		//現在のステートを返す
 		return _nowState;
