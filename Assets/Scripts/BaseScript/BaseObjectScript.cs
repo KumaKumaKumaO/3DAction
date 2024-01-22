@@ -9,10 +9,11 @@ public abstract class BaseObjectScript : MonoBehaviour
 	private bool isDebugColliderVisible = false;
 	[SerializeField]
 	protected CollisionData _myCollisionData = default;
+
+	public CollisionData MyCollisionData { get { return _myCollisionData; } }
 	private void Start()
 	{
 		_myCollisionData.Init(transform);
-		ObjectManagerScript.MyInstance.AddMyObject(this);
 	}
 
 	private void OnDrawGizmos()

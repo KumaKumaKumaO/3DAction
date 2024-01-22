@@ -8,10 +8,10 @@ public class CollisionSystem
 	private Vector3 vector = default;
 
 	/// <summary>
-	/// 
+	/// 衝突しているかどうか
 	/// </summary>
-	/// <param name="targetA"></param>
-	/// <param name="targetB"></param>
+	/// <param name="targetA">当たり判定で使うデータ</param>
+	/// <param name="targetB">当たり判定で使うデータ</param>
 	/// <returns></returns>
 	public bool IsCollision(CollisionData targetA, CollisionData targetB)
 	{

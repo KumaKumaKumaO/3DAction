@@ -2,37 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectManagerScript
+public class ObjectManagerScript : MonoBehaviour
 {
 	private List<StageFloorScript> _stageFloors = new List<StageFloorScript>();
 	private List<BaseStageObjectScript> _stageObjects = new List<BaseStageObjectScript>();
 	private List<BaseCharcterScript> _charcterObjects = new List<BaseCharcterScript>();
 	private CollisionSystem _collisionSystem = new CollisionSystem();
-	private static ObjectManagerScript _myInstance = default;
 
-
-	public static ObjectManagerScript MyInstance { get { return _myInstance; } }
-
-	public void InstantiationMyInstance()
-	{
-		if (_myInstance == null)
-		{
-			_myInstance = this;
-		}
-		else
-		{
-			ErrorManagerScript.MyInstance.SingleTonError(this.GetType().Name);
-		}
-	}
-
-	private bool isCollisionFloor(CollisionData charcterColData)
+	private bool IsCollisionFloor(CollisionData charcterColData)
 	{
 		foreach (StageFloorScript item in _stageFloors)
 		{
-			
+			if(_collisionSystem.IsCollision(charcterColData, item.MyCollisionData))
+			{
+				return true;
+			}
 		}
 		return false;
-		//_collisionSystem.IsCollision(charcterColData);
 	}
 
 

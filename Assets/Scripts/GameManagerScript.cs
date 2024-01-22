@@ -6,18 +6,15 @@ using UnityEngine;
 /// </summary>
 public class GameManagerScript : MonoBehaviour
 {
-	//自分のインスタンス
-	private static GameManagerScript _instanceGameManager = default;
 	//自分のステートマシン
 	private GameStateMachineScript _myStateMachine = default;
 	[SerializeField]
 	private bool DebugFlag;
 	private void Start()
 	{
-		//インスタンスが存在するかを確認する
-		if (_instanceGameManager == null)
+		//GameControllerが他に存在するかを確認する
+		if (GameObject.FindGameObjectsWithTag("GameController").Length <= 1)
 		{
-			_instanceGameManager = this;
 			//シーンが変わっても消えないようにする
 			DontDestroyOnLoad(this);
 			//ステートマシンを生成
@@ -26,8 +23,6 @@ public class GameManagerScript : MonoBehaviour
 			{
 				new ErrorManagerScript().InstantiationMyInstance();
 			}
-			
-			
 		}
 		else
 		{

@@ -13,7 +13,7 @@ public class ErrorManagerScript : IErrorManager
 	{
 		get
 		{
-			if(_myInstance == null)
+			if (_myInstance == null)
 			{
 				_myInstance = new NullErrorManagerScript();
 			}
@@ -38,9 +38,14 @@ public class ErrorManagerScript : IErrorManager
 		Debug.LogError(HEAD_MSG + className + "のインスタンスが過剰です。");
 	}
 
-	public void NullError(string className)
+	public void NullScriptError(string className)
 	{
-		Debug.LogError(HEAD_MSG + className + "のが存在しません。");
+		Debug.LogError(HEAD_MSG + className + "が存在しません。");
+	}
+
+	public void NullGameObjectError(string gameObjectName)
+	{
+		Debug.LogError(HEAD_MSG + gameObjectName + "が存在しません。");
 	}
 
 	public void DeleteMyInstance()

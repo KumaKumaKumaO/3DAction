@@ -9,7 +9,7 @@ public class NullErrorManagerScript : IErrorManager
 	{
 		NullObjectMsg();
 	}
-	public void NullError(string classname)
+	public void NullScriptError(string classname)
 	{
 		NullObjectMsg();
 	}
@@ -19,11 +19,14 @@ public class NullErrorManagerScript : IErrorManager
 	}
 	private void NullObjectMsg()
 	{
-		Debug.LogError("NullObjectÇ≈Ç∑ÅB");
+		Debug.LogError(this +"ÇÕNullObjectÇ≈Ç∑ÅB");
+	}
+	public void NullGameObjectError(string className)
+	{
+		NullObjectMsg();
 	}
 	public void DeleteMyInstance()
 	{
 		NullObjectMsg();
-		ErrorManagerScript.MyInstance.DeleteMyInstance();
 	}
 }
