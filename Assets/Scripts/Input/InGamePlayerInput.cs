@@ -3,8 +3,12 @@ using UnityEngine;
 /// <summary>
 /// “ü—Í‚ð—pˆÓ‚·‚é
 /// </summary>
-public class PlayerInputScript : IInputPlayerAction,IInputCharcterAction
+public class InGamePlayerInput : IInputPlayerAction,IInputCharcterAction
 {
+	public bool IsRun()
+	{
+		return Input.GetKey(KeyCode.LeftShift);
+	}
 	public virtual int ChangeWeapon()
 	{
 		return 0;
@@ -17,7 +21,7 @@ public class PlayerInputScript : IInputPlayerAction,IInputCharcterAction
 	{
 		return Input.GetKeyDown(KeyCode.Return);
 	}
-	public virtual Vector2 Move()
+	public virtual Vector2 MoveInput()
 	{
 		return Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical");
 	}

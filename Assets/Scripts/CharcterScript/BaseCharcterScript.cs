@@ -7,9 +7,11 @@ using UnityEngine;
 /// </summary>
 public abstract class BaseCharcterScript : BaseObjectScript
 {
+
 	protected ICharacterStateMachine _myStateMachine = default;
-	protected BaseObjectScript _baseObjectScript = default;
 	protected StageFloorScript floorScriptTemp = default;
+	[SerializeField]
+	protected CharcterStatus _myCharcterStatus = default;
 	public override void ObjectUpdate()
 	{
 		base.ObjectUpdate();
@@ -23,5 +25,15 @@ public abstract class BaseCharcterScript : BaseObjectScript
 		{
 			floorScriptTemp.OnTopCharcter(this);
 		}
+	}
+
+	public virtual void HealHP(float healValue)
+	{
+		_myCharcterStatus.Hp += healValue;
+	}
+
+	public virtual void ReceiveDamage(float damage)
+	{
+		_myCharcterStatus.Hp -= damage;
 	}
 }

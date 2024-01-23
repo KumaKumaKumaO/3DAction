@@ -8,25 +8,17 @@ public class InGameStateMachineScript
 	//現在のステート
 	private BaseInGameStateScript _nowState = default;
 	//プレイヤーの入力
-	private IInputPlayerAction _inputPlayerAction = default;
+	private InGamePlayerInput _playerInput = default;
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
 	/// <param name="initState">初期のステート</param>
-	public InGameStateMachineScript(BaseInGameStateScript initState)
+	public InGameStateMachineScript(BaseInGameStateScript initState,InGamePlayerInput input)
 	{
+		_playerInput = input;
 		this._nowState = initState;
 		_nowState.Enter();
-	}
-
-	/// <summary>
-	/// 入力を設定する
-	/// </summary>
-	/// <param name="inputPlayerAction">プレイヤー入力</param>
-	public void SetPlayerInput(IInputPlayerAction inputPlayerAction)
-	{
-		this._inputPlayerAction = inputPlayerAction;
 	}
 
 	/// <summary>
@@ -36,22 +28,22 @@ public class InGameStateMachineScript
 	public BaseInGameStateScript UpdateState()
 	{
 		//入力が存在する場合
-		if (_inputPlayerAction != null)
+		if (_playerInput != null)
 		{
 			//インベントリーを開くボタンを押したら
-			if (_inputPlayerAction.IsOpenInventory())
+			if (_playerInput.IsOpenInventory())
 			{
 				//プレイ中だったら
-				if (_nowState.GetType() == typeof(PlayStateScript))
+				if (_nowState is PlayStateScript)
 				{
 					//現在のステートを保持する
 					_beforeState = _nowState;
 					//現在のステートをインベントリーにする
-					_nowState = new InventoryStateScript();
+					_nowState = new InventoryStateScript(_playerInput);
 					
 				}
 				//インベントリーを開いていたら
-				else if (_nowState.GetType() == typeof(InventoryStateScript))
+				else if (_nowState is InventoryStateScript)
 				{
 					_nowState.Exit();
 					//前回のステートに戻す
@@ -62,19 +54,19 @@ public class InGameStateMachineScript
 				_nowState.Enter();
 			}
 			//ポーズを開くボタンを押したら
-			else if (_inputPlayerAction.IsOpenPose())
+			else if (_playerInput.IsOpenPose())
 			{
 				//プレイ中だったら
-				if (_nowState.GetType() == typeof(PlayStateScript))
+				if (_nowState is PlayStateScript)
 				{
 					//現在のステートを保持する
 					_beforeState = _nowState;
 					//現在のステートをポーズステートにする
-					_nowState = new PoseStateScript();
+					_nowState = new PoseStateScript(_playerInput);
 					
 				}
 				//ポーズを開いていたら
-				else if (_nowState.GetType() == typeof(PoseStateScript))
+				else if (_nowState is PoseStateScript)
 				{
 					_nowState.Exit();
 					//前回のステートに戻す

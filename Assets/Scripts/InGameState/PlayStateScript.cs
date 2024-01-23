@@ -6,6 +6,11 @@ using UnityEngine;
 public class PlayStateScript : BaseInGameStateScript
 {
 	private ObjectManagerScript _objectManagerScript = default;
+	public PlayStateScript(InGamePlayerInput input) : base(input)
+	{
+
+	}
+
 	public override void Enter()
 	{
 		GameObject objectManager = GameObject.FindWithTag("ObjectManager");
@@ -16,7 +21,7 @@ public class PlayStateScript : BaseInGameStateScript
 		{
 			ErrorManagerScript.MyInstance.NullScriptError("ObjectManagerScript");
 		}
-		_objectManagerScript.Init();
+		_objectManagerScript.Init(_playerInput);
 		base.Enter();
 	}
 	public override void Execute()

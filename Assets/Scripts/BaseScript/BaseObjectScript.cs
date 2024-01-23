@@ -6,14 +6,15 @@ using UnityEngine;
 public abstract class BaseObjectScript : MonoBehaviour
 {
 	[SerializeField]
-	private bool isDebugColliderVisible = false;
-	[SerializeField]
 	protected bool isGravity = false;
 	[SerializeField]
 	protected CollisionData _myCollisionData = default;
 	protected ObjectManagerScript _objectManagerScript = default;
+	[Header("デバッグ用")]
 	[SerializeField]
 	protected BaseObjectScript _collisionObjectTemp = default;
+	[SerializeField]
+	private bool isDebugColliderVisible = false;
 	[SerializeField]
 	protected bool isGround = false;
 
@@ -52,34 +53,22 @@ public abstract class BaseObjectScript : MonoBehaviour
 	{
 		_collisionObjectTemp = _objectManagerScript.GetCollisionObject(_myCollisionData);
 
+		//なにともぶつかっていない
 		if (_collisionObjectTemp == null)
 		{
+			_myCollisionData.MyTransform.position -= Vector3.up * (_objectManagerScript.GravityPower * Time.deltaTime);
 			isGround = false;
-			//重力によって落ちるところが当たり判定の境界を貫通しそうか
-			if ( _collisionObjectTemp.MyCollisionData.MyTransform.position.y
-				+ _collisionObjectTemp.MyCollisionData.Offset.y + _collisionObjectTemp.MyCollisionData.HalfAreaSize.y
-				> _myCollisionData.MyTransform.position.y + _myCollisionData.Offset.y - _myCollisionData.HalfAreaSize.y 
-				- _objectManagerScript.GravityPower * Time.deltaTime)
-			{
-				//当たり判定のところに高さを移動する
-				_myCollisionData.MyTransform.position -= Vector3.up
-					* (_myCollisionData.MyTransform.position.y - _collisionObjectTemp.MyCollisionData.MyTransform.position.y 
-					- _collisionObjectTemp.MyCollisionData.MyTransform.position.y
-					+ _collisionObjectTemp.MyCollisionData.Offset.y + _collisionObjectTemp.MyCollisionData.HalfAreaSize.y
-					+ _myCollisionData.Offset.y + _myCollisionData.HalfAreaSize.y);
-			}
-			else
-			{
-				_myCollisionData.MyTransform.position -= Vector3.up * (_objectManagerScript.GravityPower * Time.deltaTime);
-			}
-			return;
 		}
-		else
+		//なにかとぶつかった
+		else if (!isGround)
 		{
 			isGround = true;
+			//貫通しないように高さを調整する
+			_myCollisionData.MyTransform.position += Vector3.up
+				* (_myCollisionData.MyTransform.position.y + _myCollisionData.Offset.y - _myCollisionData.HalfAreaSize.y
+				- _collisionObjectTemp.MyCollisionData.MyTransform.position.y + _collisionObjectTemp.MyCollisionData.Offset.y
+				- _collisionObjectTemp.MyCollisionData.HalfAreaSize.y);
 		}
-
-
 	}
 
 	private void OnDrawGizmos()

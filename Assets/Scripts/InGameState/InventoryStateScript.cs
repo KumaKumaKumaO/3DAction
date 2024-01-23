@@ -7,5 +7,8 @@ using UnityEngine;
 /// </summary>
 public class InventoryStateScript : BaseInGameStateScript
 {
+	public InventoryStateScript(InGamePlayerInput input) : base(input)
+	{
 
+	}
 }

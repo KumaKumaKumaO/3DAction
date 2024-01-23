@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// インスタンスされているオブジェクトを管理するクラス
+/// </summary>
 public class ObjectManagerScript : MonoBehaviour
 {
 	[SerializeField]
@@ -13,16 +16,25 @@ public class ObjectManagerScript : MonoBehaviour
 	
 	public float GravityPower { get { return _grivityPower; } }
 
-	public void Init()
+	public void Init(InGamePlayerInput playerInput)
 	{
-		foreach(GameObject item in GameObject.FindGameObjectsWithTag("Object"))
+		BaseObjectScript baseObjectScriptTemp = default;
+		foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
 		{
-			AddMyObject(item.GetComponent<BaseObjectScript>());
+			baseObjectScriptTemp = item.GetComponent<BaseObjectScript>();
+			if (baseObjectScriptTemp != null)
+			{
+				AddMyObject(baseObjectScriptTemp);
+			}
+			else
+			{
+				ErrorManagerScript.MyInstance.NullScriptError("BaseObjectScript");
+			}
 		}
-		AllObjectInit();
+		AllObjectInit(playerInput);
 	}
 
-	private void AllObjectInit()
+	private void AllObjectInit(InGamePlayerInput input)
 	{
 		foreach (StageFloorScript item in _stageFloors)
 		{
@@ -35,6 +47,10 @@ public class ObjectManagerScript : MonoBehaviour
 		foreach (BaseCharcterScript item in _charcterObjects)
 		{
 			item.Init();
+			if (item is PlayerCharcterScript playerScript)
+			{
+				playerScript.SetPlayerInput(input);
+			}
 		}
 	}
 	public void AllObjectUpdate()

@@ -9,8 +9,9 @@ public class InGameStateScript : BaseGameStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		BaseInGameStateScript initState = new PlayStateScript();
-		_myStateMachineScript = new InGameStateMachineScript(initState);
+		InGamePlayerInput input = new InGamePlayerInput();
+		BaseInGameStateScript initState = new PlayStateScript(input);
+		_myStateMachineScript = new InGameStateMachineScript(initState,input);
 	}
 
 	public override void Execute()

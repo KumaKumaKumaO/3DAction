@@ -6,7 +6,7 @@ public interface IInputCharcterAction
 	/// 移動
 	/// </summary>
 	/// <returns>移動する方向</returns>
-	Vector2 Move();
+	Vector2 MoveInput();
 
 	/// <summary>
 	/// 攻撃
@@ -19,6 +19,12 @@ public interface IInputCharcterAction
 	/// </summary>
 	/// <returns>回避ボタンが押されているか</returns>
 	bool IsEvasion();
+
+	/// <summary>
+	/// 走る
+	/// </summary>
+	/// <returns>走るボタンが押されているか</returns>
+	bool IsRun();
 
 	/// <summary>
 	/// 武器切り替え
