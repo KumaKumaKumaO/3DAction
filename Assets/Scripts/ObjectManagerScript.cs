@@ -13,7 +13,7 @@ public class ObjectManagerScript : MonoBehaviour
 	private List<BaseStageObjectScript> _stageObjects = new List<BaseStageObjectScript>();
 	private List<BaseCharcterScript> _charcterObjects = new List<BaseCharcterScript>();
 	private CollisionSystem _collisionSystem = new CollisionSystem();
-	
+
 	public float GravityPower { get { return _grivityPower; } }
 
 	public void Init(InGamePlayerInput playerInput)
@@ -71,33 +71,33 @@ public class ObjectManagerScript : MonoBehaviour
 	}
 
 
-	public BaseObjectScript GetCollisionObject(CollisionData charcterColData)
+	public void GetCollisionObject(CollisionData charcterColData,List<BaseObjectScript> collisionObjects)
 	{
-		foreach (StageFloorScript item in _stageFloors)
-		{
-			if(_collisionSystem.IsCollision(charcterColData, item.MyCollisionData) 
-				&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
-			{
-				return item;
-			}
-		}
-		foreach(BaseStageObjectScript item in _stageObjects)
-		{
-			if (_collisionSystem.IsCollision(charcterColData, item.MyCollisionData)
-				&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
-			{
-				return item;
-			}
-		}
-		foreach(BaseCharcterScript item in _charcterObjects)
-		{
-			if (_collisionSystem.IsCollision(charcterColData, item.MyCollisionData)
-				&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
-			{
-				return item;
-			}
-		}
-		return null;
+		collisionObjects.Clear();
+		//foreach (StageFloorScript item in _stageFloors)
+		//{
+		//	if(_collisionSystem.IsCollision(charcterColData, item.MyCollisionData) 
+		//		&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
+		//	{
+		//		collisionObjects.Add(item);
+		//	}
+		//}
+		//foreach(BaseStageObjectScript item in _stageObjects)
+		//{
+		//	if (_collisionSystem.IsCollision(charcterColData, item.MyCollisionData)
+		//		&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
+		//	{
+		//		collisionObjects.Add(item);
+		//	}
+		//}
+		//foreach(BaseCharcterScript item in _charcterObjects)
+		//{
+		//	if (_collisionSystem.IsCollision(charcterColData, item.MyCollisionData)
+		//		&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
+		//	{
+		//		collisionObjects.Add(item);
+		//	}
+		//}
 	}
 
 

@@ -11,16 +11,12 @@ public class PlayerCharcterScript : BaseCharcterScript
 	{
 		GetComponent<Renderer>().material.color = Color.black;
 	}
-	public void SetPlayerInput(InGamePlayerInput input)
+	public void SetPlayerInput(IInputCharcterAction input)
 	{
-
+		_myInput = input;
 	}
 	public override void Init()
 	{
 		base.Init();
-	}
-	public override void ObjectUpdate()
-	{
-		base.ObjectUpdate();
 	}
 }

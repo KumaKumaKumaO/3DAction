@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\PlayerCharcterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Debug\NullErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\PlayerCharcterScript.cs" />
+    <Compile Include="Assets\Scripts\Structs\CollisionResultData.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />
     <Compile Include="Assets\Scripts\CollisionSystem.cs" />
     <Compile Include="Assets\Scripts\InGameState\PoseStateScript.cs" />
@@ -96,6 +97,9 @@
     <Compile Include="Assets\Scripts\Structs\StageObjectStatus.cs" />
     <Compile Include="Assets\Scripts\Interface\ICharacterStateMachine.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\gimon.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

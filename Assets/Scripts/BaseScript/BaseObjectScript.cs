@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// 全てのオブジェクトの元のクラス
@@ -10,9 +11,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 	[SerializeField]
 	protected CollisionData _myCollisionData = default;
 	protected ObjectManagerScript _objectManagerScript = default;
+	protected List<BaseObjectScript> _myCollisionObjects = new List<BaseObjectScript>();
 	[Header("デバッグ用")]
-	[SerializeField]
-	protected BaseObjectScript _collisionObjectTemp = default;
 	[SerializeField]
 	private bool isDebugColliderVisible = false;
 	[SerializeField]
@@ -51,25 +51,40 @@ public abstract class BaseObjectScript : MonoBehaviour
 	}
 	protected virtual void GravityFall()
 	{
-		_collisionObjectTemp = _objectManagerScript.GetCollisionObject(_myCollisionData);
-
-		//なにともぶつかっていない
-		if (_collisionObjectTemp == null)
+		 _objectManagerScript.GetCollisionObject(_myCollisionData,_myCollisionObjects);
+		if(_myCollisionObjects.Count <= 0)
 		{
 			_myCollisionData.MyTransform.position -= Vector3.up * (_objectManagerScript.GravityPower * Time.deltaTime);
 			isGround = false;
-		}
-		//なにかとぶつかった
-		else if (!isGround)
+			return;
+		}else if (!isGround)
 		{
 			isGround = true;
-			//貫通しないように高さを調整する
-			_myCollisionData.MyTransform.position += Vector3.up
-				* (_myCollisionData.MyTransform.position.y + _myCollisionData.Offset.y - _myCollisionData.HalfAreaSize.y
-				- _collisionObjectTemp.MyCollisionData.MyTransform.position.y + _collisionObjectTemp.MyCollisionData.Offset.y
-				- _collisionObjectTemp.MyCollisionData.HalfAreaSize.y);
 		}
+
+		//下側が衝突しているか
+		//側面が衝突しているか
+		//上面が衝突しているか
+
+		//下側の中でも一番上で衝突しているオブジェクトの上に着地する
 	}
+
+	private void CollisionBottomData()
+	{
+		//if(_myCollisionData.BottomYPos )
+	}
+
+
+	protected virtual void Landing(BaseObjectScript baseObjectScript)
+	{
+		isGround = true;
+		//貫通しないように高さを調整する
+		_myCollisionData.MyTransform.position += Vector3.up
+			* (_myCollisionData.MyTransform.position.y + _myCollisionData.Offset.y - _myCollisionData.HalfAreaSize.y
+			- baseObjectScript.MyCollisionData.MyTransform.position.y + baseObjectScript.MyCollisionData.Offset.y 
+			- baseObjectScript.MyCollisionData.HalfAreaSize.y);
+	}
+
 
 	private void OnDrawGizmos()
 	{
