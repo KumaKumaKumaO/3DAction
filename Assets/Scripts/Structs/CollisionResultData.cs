@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public struct CollisionResultData
 {
+	//ぶつかっているところに対してキャラクターが左右のヒット判定を取る？
 	[SerializeField]
 	private bool isCollisionTop;
 	[SerializeField]
