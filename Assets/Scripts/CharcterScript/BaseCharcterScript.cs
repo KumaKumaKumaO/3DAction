@@ -20,19 +20,16 @@ public abstract class BaseCharcterScript : BaseObjectScript
 	protected override void GravityFall()
 	{
 		base.GravityFall();
-		
-	}
-	protected override void Landing(BaseObjectScript baseObjectScript)
-	{
-		base.Landing(baseObjectScript);
-		if (baseObjectScript is StageFloorScript floorScriptTemp)
+		if (_myCollisionObjects.Count <= 0) { return; }
+		if (_myCollisionObjects[0].CollisionObjectData is StageFloorScript floorScriptTemp)
 		{
 			floorScriptTemp.OnTopCharcter(this);
 		}
 	}
+
 	protected void MoveCharcter(Vector2 vector)
 	{
-		_myCollisionData.MyTransform.position += Vector3.right * vector.x * _myCharcterStatus.Speed * Time.deltaTime 
+		_myCollisionAreaData.MyTransform.position += Vector3.right * vector.x * _myCharcterStatus.Speed * Time.deltaTime 
 			+ Vector3.forward * vector.y * _myCharcterStatus.Speed * Time.deltaTime;
 	}
 

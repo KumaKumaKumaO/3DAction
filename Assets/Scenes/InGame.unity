@@ -313,13 +313,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0457553e464cca945a5bbe55c126eed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebugColliderVisible: 1
   isGravity: 0
-  _myCollisionData:
-    _areaHalfSize: {x: 5, y: 0.05, z: 5}
+  _myCollisionAreaData:
+    _halfAreaSize: {x: 5, y: 0.05, z: 5}
     _offset: {x: 0, y: 0, z: 0}
-  _collisionObjectTemp: {fileID: 0}
+    isCollision: 0
+  isDebugColliderVisible: 0
   isGround: 0
+  test:
+    isCollisionTop: 0
+    isCollisionBottom: 0
+    isCollisionRight: 0
+    isCollisionLeft: 0
+    isCollisionForward: 0
+    isCollisionBack: 0
+  value: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,13 +561,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f82913a08a9a643a7523b187892c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebugColliderVisible: 1
   isGravity: 1
-  _myCollisionData:
-    _areaHalfSize: {x: 0.5, y: 0.5, z: 0.5}
+  _myCollisionAreaData:
+    _halfAreaSize: {x: 0.5, y: 0.5, z: 0.5}
     _offset: {x: 0, y: 0, z: 0}
-  _collisionObjectTemp: {fileID: 0}
+    isCollision: 0
+  isDebugColliderVisible: 0
   isGround: 0
+  test:
+    isCollisionTop: 0
+    isCollisionBottom: 0
+    isCollisionRight: 0
+    isCollisionLeft: 0
+    isCollisionForward: 0
+    isCollisionBack: 0
+  value: 0
+  _myCharcterStatus:
+    _hp: 5
+    _defense: 5
+    _attack: 5
+    _speed: 5
+    _stamina: 5
 --- !u!1 &1695361744
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,19 @@
+using UnityEngine;
+
+[System.Serializable]
 public struct CollisionResultData
 {
+	[SerializeField]
 	private bool isCollisionTop;
+	[SerializeField]
 	private bool isCollisionBottom;
+	[SerializeField]
 	private bool isCollisionRight;
+	[SerializeField]
 	private bool isCollisionLeft;
+	[SerializeField]
 	private bool isCollisionForward;
+	[SerializeField]
 	private bool isCollisionBack;
 	private BaseObjectScript _collisionObjectData;
 	
@@ -14,7 +23,8 @@ public struct CollisionResultData
 			return (isCollisionRight || isCollisionLeft 
 				|| isCollisionTop || isCollisionBottom 
 				|| isCollisionForward || isCollisionBack);
-		} }
+		} 
+	}
 	public bool IsCollisionTop { get { return isCollisionTop; } }
 	public bool IsCollisionBottom { get { return isCollisionBottom; } }
 

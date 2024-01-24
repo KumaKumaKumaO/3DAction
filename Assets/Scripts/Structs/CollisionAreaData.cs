@@ -7,8 +7,11 @@ public struct CollisionAreaData
 	[SerializeField]
 	private Vector3 _offset;
 	private Transform _myTransform;
+	[SerializeField]
+	private bool isCollision;
 	public Vector3 HalfAreaSize { get { return _halfAreaSize; } }
 	public Vector3 Offset { get { return _offset; } }
+	public bool IsCollision { get { return isCollision; } }
 	public float TopYPos { get { return _myTransform.position.y + _offset.y + _halfAreaSize.y; } }
 	public float BottomYPos { get { return _myTransform.position.y + _offset.y - _halfAreaSize.y; } }
 	public float RightXPos { get { return _myTransform.position.x + _offset.x + _halfAreaSize.x; } }

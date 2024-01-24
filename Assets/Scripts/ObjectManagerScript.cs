@@ -88,14 +88,21 @@ public class ObjectManagerScript : MonoBehaviour
         {
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
-    }
+	}
 
 	private void AddCollisionObject(CollisionAreaData colData,BaseObjectScript checkObject
 		, List<CollisionResultData> collisionObjects)
     {
-		if (colData.MyTransform != checkObject.MyCollisionData.MyTransform)
+		if (colData.MyTransform != checkObject.MyCollisionAreaData.MyTransform)
 		{
 			collisionResultDataTemp = _collisionSystem.GetCollisionResult(colData, checkObject);
+			foreach(GameObject item in GameObject.FindGameObjectsWithTag("Object"))
+            {
+				if(item.GetComponent<BaseObjectScript>() is PlayerCharcterScript a)
+                {
+					a.test = collisionResultDataTemp;
+                }
+            }
 			if (collisionResultDataTemp.IsCollision)
 			{
 				collisionObjects.Add(collisionResultDataTemp);
