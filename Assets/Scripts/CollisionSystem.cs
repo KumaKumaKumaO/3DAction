@@ -6,32 +6,33 @@ using UnityEngine;
 public class CollisionSystem
 {
 	private Vector3 vector = default;
+	private Vector3 _hitDistanceVector = default;
+	private bool isRightTemp;
+	private bool isLeftTemp;
+	private bool isTopTemp;
+	private bool isBottomTemp;
+	private bool isForwardTemp;
+	private bool isBackTemp;
+
 	/// <summary>
-	/// 衝突しているかどうか
+	/// どこの部分が衝突しているかどうか
 	/// </summary>
-	/// <param name="targetA">当たり判定で使うデータ</param>
-	/// <param name="targetB">当たり判定で使うデータ</param>
+	/// <param name="myAreaData">当たり判定で使うデータ</param>
+	/// <param name="targetData">当たり判定で使うデータ</param>
 	/// <returns></returns>
-	public CollisionResultData IsCollision(CollisionData targetA, CollisionData targetB)
+	public CollisionResultData GetCollisionResult(CollisionAreaData myAreaData, BaseObjectScript targetData)
 	{
-		vector = (targetA.MyTransform.position + targetA.Offset) - (targetB.MyTransform.position + targetB.Offset);
+		_hitDistanceVector = myAreaData.HalfAreaSize + targetData.MyCollisionData.HalfAreaSize;
+		vector = (myAreaData.MyTransform.position + myAreaData.Offset) - (targetData.MyCollisionData.MyTransform.position 
+			+ targetData.MyCollisionData.Offset);
 
-		return new CollisionResultData();
-	}
+		isRightTemp = (vector.x < 0 &&vector.x >= -_hitDistanceVector.x);
+		isLeftTemp = (vector.x > 0 &&vector.x <= _hitDistanceVector.x);
+		isTopTemp = (vector.y < 0 && vector.y >= -_hitDistanceVector.y);
+		isBottomTemp =  (vector.y > 0 && vector.y <= _hitDistanceVector.y);
+		isForwardTemp  =  (vector.z < 0 && vector.z >= -_hitDistanceVector.z);
+		isBackTemp =  (vector.z > 0 && vector.z <= _hitDistanceVector.z);
 
-
-	/// <summary>
-	/// 値の絶対値を求める
-	/// </summary>
-	/// <param name="value">絶対値にしたい値</param>
-	/// <returns>結果</returns>
-	private float AbsoluteProcess(float value)
-	{
-		if (value < 0)
-		{
-			return value * -1;
-		}
-		return value;
-
+		return new CollisionResultData(isRightTemp,isLeftTemp,isTopTemp,isBottomTemp,isForwardTemp,isBottomTemp,targetData);
 	}
 }

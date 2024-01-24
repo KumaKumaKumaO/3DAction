@@ -13,6 +13,7 @@ public class ObjectManagerScript : MonoBehaviour
 	private List<BaseStageObjectScript> _stageObjects = new List<BaseStageObjectScript>();
 	private List<BaseCharcterScript> _charcterObjects = new List<BaseCharcterScript>();
 	private CollisionSystem _collisionSystem = new CollisionSystem();
+	private CollisionResultData collisionResultDataTemp = default;
 
 	public float GravityPower { get { return _grivityPower; } }
 
@@ -71,35 +72,36 @@ public class ObjectManagerScript : MonoBehaviour
 	}
 
 
-	public void GetCollisionObject(CollisionData charcterColData,List<BaseObjectScript> collisionObjects)
+	public void GetCollisionObject(CollisionAreaData charcterColAreaData,List<CollisionResultData> collisionObjectDatas)
 	{
-		collisionObjects.Clear();
-		//foreach (StageFloorScript item in _stageFloors)
-		//{
-		//	if(_collisionSystem.IsCollision(charcterColData, item.MyCollisionData) 
-		//		&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
-		//	{
-		//		collisionObjects.Add(item);
-		//	}
-		//}
-		//foreach(BaseStageObjectScript item in _stageObjects)
-		//{
-		//	if (_collisionSystem.IsCollision(charcterColData, item.MyCollisionData)
-		//		&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
-		//	{
-		//		collisionObjects.Add(item);
-		//	}
-		//}
-		//foreach(BaseCharcterScript item in _charcterObjects)
-		//{
-		//	if (_collisionSystem.IsCollision(charcterColData, item.MyCollisionData)
-		//		&& charcterColData.MyTransform != item.MyCollisionData.MyTransform)
-		//	{
-		//		collisionObjects.Add(item);
-		//	}
-		//}
-	}
+		collisionObjectDatas.Clear();
+        foreach (BaseObjectScript item in _stageFloors)
+        {
+			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
+		}
+		foreach (BaseObjectScript item in _stageObjects)
+        {
+			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 
+		}
+		foreach (BaseObjectScript item in _charcterObjects)
+        {
+			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
+		}
+    }
+
+	private void AddCollisionObject(CollisionAreaData colData,BaseObjectScript checkObject
+		, List<CollisionResultData> collisionObjects)
+    {
+		if (colData.MyTransform != checkObject.MyCollisionData.MyTransform)
+		{
+			collisionResultDataTemp = _collisionSystem.GetCollisionResult(colData, checkObject);
+			if (collisionResultDataTemp.IsCollision)
+			{
+				collisionObjects.Add(collisionResultDataTemp);
+			}
+		}
+	}
 
 	public void AddMyObject(BaseObjectScript obj)
 	{

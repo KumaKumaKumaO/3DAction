@@ -9,16 +9,16 @@ public abstract class BaseObjectScript : MonoBehaviour
 	[SerializeField]
 	protected bool isGravity = false;
 	[SerializeField]
-	protected CollisionData _myCollisionData = default;
+	protected CollisionAreaData _myCollisionData = default;
 	protected ObjectManagerScript _objectManagerScript = default;
-	protected List<BaseObjectScript> _myCollisionObjects = new List<BaseObjectScript>();
+	protected List<CollisionResultData> _myCollisionObjects = new List<CollisionResultData>();
 	[Header("デバッグ用")]
 	[SerializeField]
 	private bool isDebugColliderVisible = false;
 	[SerializeField]
 	protected bool isGround = false;
 
-	public CollisionData MyCollisionData { get { return _myCollisionData; } }
+	public CollisionAreaData MyCollisionData { get { return _myCollisionData; } }
 
 	public virtual void Init()
 	{
@@ -44,6 +44,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 
 	public virtual void ObjectUpdate()
 	{
+		
 		if (isGravity)
 		{
 			GravityFall();
@@ -57,10 +58,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			_myCollisionData.MyTransform.position -= Vector3.up * (_objectManagerScript.GravityPower * Time.deltaTime);
 			isGround = false;
 			return;
-		}else if (!isGround)
-		{
-			isGround = true;
 		}
+		
 
 		//下側が衝突しているか
 		//側面が衝突しているか
@@ -69,9 +68,18 @@ public abstract class BaseObjectScript : MonoBehaviour
 		//下側の中でも一番上で衝突しているオブジェクトの上に着地する
 	}
 
-	private void CollisionBottomData()
+	private bool SortHigherPosColObjectResult()
 	{
-		//if(_myCollisionData.BottomYPos )
+		bool isSorted = false;
+        for (int i = 1;i < _myCollisionObjects.Count ;i++)
+        {
+            if (_myCollisionObjects[i].IsCollisionBottom)
+            {
+				//上辺を比較する
+
+            }
+        }
+		return isSorted; 
 	}
 
 

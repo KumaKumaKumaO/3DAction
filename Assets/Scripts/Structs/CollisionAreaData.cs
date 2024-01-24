@@ -1,6 +1,6 @@
 using UnityEngine;
 [System.Serializable]
-public struct CollisionData
+public struct CollisionAreaData
 {
 	[SerializeField]
 	private Vector3 _halfAreaSize;
