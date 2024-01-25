@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class CollisionSystem
 {
-	private Vector3 vector = default;
+	private Vector3 _vector = default;
 	private Vector3 _hitDistanceVector = default;
 	private bool isRightTemp;
 	private bool isLeftTemp;
@@ -22,29 +22,44 @@ public class CollisionSystem
 	/// <returns></returns>
 	public CollisionResultData GetCollisionResult(CollisionAreaData myAreaData, BaseObjectScript targetData)
 	{
+		Init();
 		_hitDistanceVector = myAreaData.HalfAreaSize + targetData.MyCollisionAreaData.HalfAreaSize;
-		vector = (targetData.MyCollisionAreaData.MyTransform.position + targetData.MyCollisionAreaData.Offset)-(myAreaData.MyTransform.position + myAreaData.Offset);
+		_vector = (myAreaData.MyTransform.position + myAreaData.Offset)
+			- (targetData.MyCollisionAreaData.MyTransform.position + targetData.MyCollisionAreaData.Offset);
 
-		isRightTemp = (vector.x < 0 &&vector.x >= -_hitDistanceVector.x && IsYCollision() && IsZCollision());
-		isLeftTemp = (vector.x > 0 &&vector.x <= _hitDistanceVector.x && IsYCollision() && IsZCollision());
-		isTopTemp = (vector.y < 0 && vector.y >= -_hitDistanceVector.y && IsXCollision() && IsZCollision());
-		isBottomTemp =  (vector.y > 0 && vector.y <= _hitDistanceVector.y && IsXCollision() && IsZCollision());
-		isForwardTemp  =  (vector.z < 0 && vector.z >= -_hitDistanceVector.z && IsYCollision() && IsXCollision());
-		isBackTemp =  (vector.z > 0 && vector.z <= _hitDistanceVector.z && IsYCollision() && IsXCollision());
+		isTopTemp = (_vector.y < 0 && _vector.y >= -_hitDistanceVector.y && IsXCollision() && IsZCollision());
+		isBottomTemp = (_vector.y > 0 && _vector.y <= _hitDistanceVector.y && IsXCollision() && IsZCollision());
 
-		return new CollisionResultData(isRightTemp,isLeftTemp,isTopTemp,isBottomTemp,isForwardTemp,isBackTemp,targetData);
+		isRightTemp = (_vector.x < 0 && _vector.x >= -_hitDistanceVector.x && IsYCollision() && IsZCollision());
+		isLeftTemp = (_vector.x > 0 && _vector.x <= _hitDistanceVector.x&& IsYCollision() && IsZCollision());
+
+		isForwardTemp = (_vector.z < 0 && _vector.z >= -_hitDistanceVector.z && IsYCollision() && IsXCollision());
+		isBackTemp = (_vector.z > 0 && _vector.z <= _hitDistanceVector.z && IsYCollision() && IsXCollision());
+
+		return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp, targetData);
 	}
 	private bool IsXCollision()
-    {
-		return Mathf.Abs(vector.x) <= _hitDistanceVector.x;
-    }
+	{
+		return Mathf.Abs(_vector.x) < _hitDistanceVector.x;
+	}
 	private bool IsZCollision()
-    {
-		return Mathf.Abs(vector.z) <= _hitDistanceVector.z;
+	{
+		return Mathf.Abs(_vector.z) < _hitDistanceVector.z;
 	}
 
 	private bool IsYCollision()
-    {
-		return Mathf.Abs(vector.y) <= _hitDistanceVector.y;
-    }
+	{
+		return Mathf.Abs(_vector.y) < _hitDistanceVector.y;
+	}
+	private void Init()
+	{
+		_vector = default;
+		_hitDistanceVector = default;
+		isTopTemp = false;
+		isBottomTemp = false;
+		isRightTemp = false;
+		isLeftTemp = false;
+		isForwardTemp = false;
+		isBackTemp = false;
+	}
 }

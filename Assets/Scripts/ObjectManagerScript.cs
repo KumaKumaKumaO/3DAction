@@ -56,15 +56,15 @@ public class ObjectManagerScript : MonoBehaviour
 	}
 	public void AllObjectUpdate()
 	{
-		foreach(StageFloorScript item in _stageFloors)
+		foreach (StageFloorScript item in _stageFloors)
 		{
 			item.ObjectUpdate();
 		}
-		foreach(BaseStageObjectScript item in _stageObjects)
+		foreach (BaseStageObjectScript item in _stageObjects)
 		{
 			item.ObjectUpdate();
 		}
-		foreach(BaseCharcterScript item in _charcterObjects)
+		foreach (BaseCharcterScript item in _charcterObjects)
 		{
 			item.ObjectUpdate();
 		}
@@ -72,37 +72,37 @@ public class ObjectManagerScript : MonoBehaviour
 	}
 
 
-	public void GetCollisionObject(CollisionAreaData charcterColAreaData,List<CollisionResultData> collisionObjectDatas)
+	public void GetCollisionObject(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
 	{
 		collisionObjectDatas.Clear();
-        foreach (BaseObjectScript item in _stageFloors)
-        {
+		foreach (BaseObjectScript item in _stageFloors)
+		{
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 		foreach (BaseObjectScript item in _stageObjects)
-        {
+		{
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 
 		}
 		foreach (BaseObjectScript item in _charcterObjects)
-        {
+		{
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 	}
 
-	private void AddCollisionObject(CollisionAreaData colData,BaseObjectScript checkObject
+	private void AddCollisionObject(CollisionAreaData colData, BaseObjectScript checkObject
 		, List<CollisionResultData> collisionObjects)
-    {
+	{
 		if (colData.MyTransform != checkObject.MyCollisionAreaData.MyTransform)
 		{
 			collisionResultDataTemp = _collisionSystem.GetCollisionResult(colData, checkObject);
-			foreach(GameObject item in GameObject.FindGameObjectsWithTag("Object"))
-            {
-				if(item.GetComponent<BaseObjectScript>() is PlayerCharcterScript a)
-                {
+			foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
+			{
+				if (item.GetComponent<BaseObjectScript>() is PlayerCharcterScript a)
+				{
 					a.test = collisionResultDataTemp;
-                }
-            }
+				}
+			}
 			if (collisionResultDataTemp.IsCollision)
 			{
 				collisionObjects.Add(collisionResultDataTemp);
