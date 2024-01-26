@@ -12,12 +12,21 @@ public abstract class BaseObjectScript : MonoBehaviour
 	protected CollisionAreaData _myCollisionAreaData = default;
 	protected ObjectManagerScript _objectManagerScript = default;
 	protected List<CollisionResultData> _myCollisionObjects = new List<CollisionResultData>();
+	protected Vector3 _beforePos = default;
+
+	[SerializeField]
 	protected int _bottomCollisionIndex = -1;
+	[SerializeField]
 	protected int _topCollisionAreaDataIndex = -1;
+	[SerializeField]
 	protected int _rightCollisionAreaDataIndex = -1;
+	[SerializeField]
 	protected int _leftCollisionAreaDataIndex = -1;
+	[SerializeField]
 	protected int _forwardCollisionAreaDataIndex = -1;
+	[SerializeField]
 	protected int _backCollisionAreaDataIndex = -1;
+
 	[Header("デバッグ用")]
 	[SerializeField]
 	private bool isDebugColliderVisible = false;
@@ -46,6 +55,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		{
 			isGround = true;
 		}
+		_beforePos = _myCollisionAreaData.MyTransform.position;
 	}
 	private void CollisionIndexInit()
 	{
@@ -53,6 +63,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_topCollisionAreaDataIndex = -1;
 		_rightCollisionAreaDataIndex = -1;
 		_leftCollisionAreaDataIndex = -1;
+		_forwardCollisionAreaDataIndex = -1;
+		_backCollisionAreaDataIndex = -1;
 	}
 	private void Reset()
 	{
@@ -61,18 +73,20 @@ public abstract class BaseObjectScript : MonoBehaviour
 
 	public virtual void ObjectUpdate()
 	{
-		
+
 
 		if (_myCollisionAreaData.IsCollision)
 		{
+			_objectManagerScript.GetCollisionObject(_myCollisionAreaData, _myCollisionObjects);
+			CollisionIndexInit();
+			SelectColObjectResult();
 			if (isGravity)
 			{
-				_objectManagerScript.GetCollisionObject(_myCollisionAreaData, _myCollisionObjects);
 				GravityFall();
 			}
 			MoveClampCollision();
 		}
-		
+
 		//側面が衝突しているか
 		//上面が衝突しているか
 
@@ -80,12 +94,11 @@ public abstract class BaseObjectScript : MonoBehaviour
 
 	protected virtual void MoveClampCollision()
 	{
-		if(_myCollisionObjects.Count <= 0) { return; }
-		CollisionIndexInit();
-		SelectColObjectResult();
+		
+		
 		if (!isGround)
 		{
-			if (_bottomCollisionIndex > 0)
+			if (_bottomCollisionIndex >= 0)
 			{
 				_myCollisionAreaData.MyTransform.position += Vector3.up *
 					(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
@@ -93,18 +106,18 @@ public abstract class BaseObjectScript : MonoBehaviour
 				isGround = true;
 			}
 		}
-		if(_rightCollisionAreaDataIndex > 0)
+		if (_rightCollisionAreaDataIndex >= 0)
 		{
 			_myCollisionAreaData.MyTransform.position += Vector3.right *
-				(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos);
+				(_myCollisionObjects[_rightCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos);
 		}
-		
-		
+
+
 	}
 	protected virtual void GravityFall()
 	{
 		hitvalue = _myCollisionObjects.Count;
-		if (_myCollisionObjects.Count <= 0)
+		if (_bottomCollisionIndex < 0)
 		{
 			_myCollisionAreaData.MyTransform.position -= Vector3.up * (_objectManagerScript.GravityPower * Time.deltaTime);
 			isGround = false;
@@ -118,19 +131,18 @@ public abstract class BaseObjectScript : MonoBehaviour
 		{
 			if (_myCollisionObjects[i].IsCollisionBottom)
 			{
-				_bottomCollisionIndex = i;
-				if (i == 0) { continue; }
-				if (_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
-					< _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.TopYPos)
+				if (_bottomCollisionIndex < 0
+					|| !(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
+					< _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.TopYPos))
 				{
 					_bottomCollisionIndex = i;
+
 				}
 			}
 			if (_myCollisionObjects[i].IsCollisionTop)
 			{
-				_topCollisionAreaDataIndex = i;
-				if(i == 0) { continue; }
-				if(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.BottomYPos
+				if (_topCollisionAreaDataIndex < 0
+					|| _myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.BottomYPos
 					> _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.BottomYPos)
 				{
 					_topCollisionAreaDataIndex = i;
@@ -138,9 +150,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			}
 			if (_myCollisionObjects[i].IsCollisionRight)
 			{
-				_rightCollisionAreaDataIndex = i;
-				if (i == 0) { continue; }
-				if (_myCollisionObjects[_rightCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.LeftXPos
+				if (_rightCollisionAreaDataIndex < 0
+					|| _myCollisionObjects[_rightCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.LeftXPos
 					> _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.LeftXPos)
 				{
 					_rightCollisionAreaDataIndex = i;
@@ -148,9 +159,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			}
 			if (_myCollisionObjects[i].IsCollisionLeft)
 			{
-				_leftCollisionAreaDataIndex = i;
-				if (i == 0) { continue; }
-				if (_myCollisionObjects[_leftCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.RightXPos
+				if (_leftCollisionAreaDataIndex < 0
+					|| _myCollisionObjects[_leftCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.RightXPos
 					< _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.RightXPos)
 				{
 					_leftCollisionAreaDataIndex = i;
@@ -158,9 +168,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			}
 			if (_myCollisionObjects[i].IsCollisionForward)
 			{
-				_forwardCollisionAreaDataIndex = i;
-				if (i == 0) { continue; }
-				if (_myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.BackZPos
+				if (_forwardCollisionAreaDataIndex < 0
+					|| _myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.BackZPos
 					> _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.BackZPos)
 				{
 					_forwardCollisionAreaDataIndex = i;
@@ -168,9 +177,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			}
 			if (_myCollisionObjects[i].IsCollisionBack)
 			{
-				_backCollisionAreaDataIndex = i;
-				if (i == 0) { continue; }
-				if (_myCollisionObjects[_backCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.ForwardZPos
+				if (_backCollisionAreaDataIndex < 0
+					|| _myCollisionObjects[_backCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.ForwardZPos
 					< _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.ForwardZPos)
 				{
 					_backCollisionAreaDataIndex = i;
