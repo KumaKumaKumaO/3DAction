@@ -5,74 +5,43 @@ using UnityEngine;
 /// </summary>
 public class CollisionSystem
 {
-	private Vector3 _vector = default;
-	private Vector3 _hitDistanceVector = default;
-	private bool isRightTemp;
-	private bool isLeftTemp;
-	private bool isTopTemp;
-	private bool isBottomTemp;
-	private bool isForwardTemp;
-	private bool isBackTemp;
+    /// <summary>
+    /// どこの部分が衝突しているかどうか
+    /// </summary>
+    /// <param name="myAreaData">自信の当たり判定データ</param>
+    /// <param name="targetData">対象のオブジェクトデータ</param>
+    /// <returns></returns>
+    public CollisionResultData GetCollisionResult(CollisionAreaData myAreaData, BaseObjectScript targetData)
+    {
+        Vector3 hitDistanceVector = myAreaData.HalfAreaSize + targetData.MyCollisionAreaData.HalfAreaSize;
+        Vector3 targetToMeVector = (myAreaData.MyTransform.position + myAreaData.Offset)
+            - (targetData.MyCollisionAreaData.MyTransform.position + targetData.MyCollisionAreaData.Offset);
 
-	/// <summary>
-	/// どこの部分が衝突しているかどうか
-	/// </summary>
-	/// <param name="myAreaData">自信の当たり判定データ</param>
-	/// <param name="targetData">対象のオブジェクトデータ</param>
-	/// <returns></returns>
-	public CollisionResultData GetCollisionResult(CollisionAreaData myAreaData, BaseObjectScript targetData)
-	{
-		Init();
-		_hitDistanceVector = myAreaData.HalfAreaSize + targetData.MyCollisionAreaData.HalfAreaSize;
-		_vector = (myAreaData.MyTransform.position + myAreaData.Offset)
-			- (targetData.MyCollisionAreaData.MyTransform.position + targetData.MyCollisionAreaData.Offset);
+        bool isTopTemp = IsCollision(targetToMeVector + Vector3.up * (myAreaData.HalfAreaSize.y + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + Vector3.up * -(myAreaData.HalfAreaSize.y - myAreaData.AreaWidth));
 
-		isTopTemp = (myAreaData.TopYPos >= targetData.MyCollisionAreaData.BottomYPos
-			&& myAreaData.TopYPos < targetData.MyCollisionAreaData.TopYPos && IsXCollision() && IsZCollision());
+        bool isBottomTemp = IsCollision(targetToMeVector + Vector3.down * (myAreaData.HalfAreaSize.y + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + Vector3.up * -(myAreaData.HalfAreaSize.y - myAreaData.AreaWidth));
 
-		isBottomTemp = (myAreaData.BottomYPos <= targetData.MyCollisionAreaData.TopYPos
-			&& myAreaData.BottomYPos > targetData.MyCollisionAreaData.BottomYPos && IsXCollision() && IsZCollision());
+        bool isRightTemp = IsCollision(targetToMeVector + Vector3.right * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + Vector3.right * -(myAreaData.HalfAreaSize.x - myAreaData.AreaWidth));
 
-		isRightTemp = (myAreaData.RightXPos >= targetData.MyCollisionAreaData.LeftXPos
-			&& myAreaData.RightXPos < targetData.MyCollisionAreaData.RightXPos && IsYCollision(myAreaData, targetData.MyCollisionAreaData) && IsZCollision());
+        bool isLeftTemp = IsCollision(targetToMeVector + Vector3.left * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + Vector3.right * -(myAreaData.HalfAreaSize.x - myAreaData.AreaWidth));
 
-		isLeftTemp = (myAreaData.LeftXPos <= targetData.MyCollisionAreaData.RightXPos
-			&& myAreaData.LeftXPos > targetData.MyCollisionAreaData.LeftXPos && IsYCollision() && IsZCollision());
+        bool isForwardTemp = IsCollision(targetToMeVector + Vector3.forward * (myAreaData.HalfAreaSize.z + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + Vector3.forward * -(myAreaData.HalfAreaSize.z - myAreaData.AreaWidth));
 
-		isForwardTemp = (myAreaData.ForwardZPos >= targetData.MyCollisionAreaData.BackZPos
-			&& myAreaData.ForwardZPos < targetData.MyCollisionAreaData.ForwardZPos && IsYCollision() && IsXCollision());
+        bool isBackTemp = IsCollision(targetToMeVector + Vector3.back * (myAreaData.HalfAreaSize.z + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + Vector3.forward * -(myAreaData.HalfAreaSize.z - myAreaData.AreaWidth));
 
-		isBackTemp = (myAreaData.BackZPos <= targetData.MyCollisionAreaData.ForwardZPos
-			&& myAreaData.BackZPos > targetData.MyCollisionAreaData.BackZPos && IsYCollision() && IsXCollision());
-
-		return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp, targetData);
-	}
-	private bool IsXCollision()
-	{
-		return Mathf.Abs(_vector.x) < _hitDistanceVector.x;
-	}
-	private bool IsZCollision()
-	{
-		return Mathf.Abs(_vector.z) < _hitDistanceVector.z;
-	}
-
-	private bool IsYCollision()
-	{
-		return Mathf.Abs(_vector.y) < _hitDistanceVector.y;
-	}
-	private bool IsYCollision(CollisionAreaData myAreaData, CollisionAreaData targetAreaData)
-	{
-		return myAreaData.BottomYPos >= targetAreaData.TopYPos && myAreaData.TopYPos <= targetAreaData.BottomYPos;
-	}
-	private void Init()
-	{
-		_vector = default;
-		_hitDistanceVector = default;
-		isTopTemp = false;
-		isBottomTemp = false;
-		isRightTemp = false;
-		isLeftTemp = false;
-		isForwardTemp = false;
-		isBackTemp = false;
-	}
+        return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp, targetData);
+    }
+    private bool IsCollision(Vector3 myColDistance, Vector3 targetColDistance)
+    {
+        //Debug.Log(myColDistance + ":" + targetColDistance);
+        return Mathf.Abs(myColDistance.x) < targetColDistance.x
+            && Mathf.Abs(myColDistance.y) < targetColDistance.y
+            && Mathf.Abs(myColDistance.z) < targetColDistance.z;
+    }
 }
