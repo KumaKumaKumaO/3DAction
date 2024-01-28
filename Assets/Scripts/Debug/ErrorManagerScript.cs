@@ -32,7 +32,10 @@ public class ErrorManagerScript : IErrorManager
 			_myInstance.SingleTonError(this.GetType().Name);
 		}
 	}
-
+	public void NullCompornentError(string compornentName)
+    {
+		Debug.LogError(HEAD_MSG + compornentName + "が見つかりませんでした。");
+    }
 	public void SingleTonError(string className)
 	{
 		Debug.LogError(HEAD_MSG + className + "のインスタンスが過剰です。");

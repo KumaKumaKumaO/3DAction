@@ -9,32 +9,36 @@ public class InGamePlayerInput : IInputPlayerAction,IInputCharcterAction
 	{
 		return Input.GetKey(KeyCode.LeftShift);
 	}
-	public virtual int ChangeWeapon()
+	public  int ChangeWeapon()
 	{
 		return 0;
 	}
-	public virtual bool IsEvasion()
+	public  bool IsEvasion()
 	{
 		return Input.GetKeyDown(KeyCode.Space);
 	}
-	public virtual bool IsAttack()
+	public  bool IsAttack()
 	{
 		return Input.GetKeyDown(KeyCode.Return);
 	}
-	public virtual Vector2 MoveInput()
+	public  Vector2 MoveInput()
 	{
 		return Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical");
 	}
-	public virtual int UseItem()
+	public  int UseItem()
 	{
 		return 0;
 	}
-	public virtual bool IsOpenInventory()
+	public  bool IsOpenInventory()
 	{
 		return Input.GetKeyDown(KeyCode.I);
 	}
-	public virtual bool IsOpenPose()
+	public  bool IsOpenPose()
 	{
 		return Input.GetKeyDown(KeyCode.Escape);
 	}
+	public bool IsJump()
+    {
+		return Input.GetKeyDown(KeyCode.LeftControl);
+    }
 }

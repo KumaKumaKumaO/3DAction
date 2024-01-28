@@ -19,7 +19,7 @@ public interface IErrorManager
 	/// <param name="className">存在しなかったクラスの名前</param>
 	public void NullScriptError(string className);
 	/// <summary>
-	/// オブジェクトが存在しなかった時のエラー
+	/// オブジェクトが取得できなかった場合のエラー
 	/// </summary>
 	/// <param name="objectName">存在しなかったオブジェクトの名前</param>
 	public void NullGameObjectError(string objectName);
@@ -29,8 +29,14 @@ public interface IErrorManager
 	/// <param name="sceneName">存在しなかったシーン名</param>
 	public void NullSceneNameError(string sceneName);
 	/// <summary>
-	/// 存在しないはずのオブジェクトが見つかった時のエラー
+	/// 存在しないはずのオブジェクトが見つかった場合のエラー
 	/// </summary>
 	/// <param name="objName">存在しないはずのオブジェクト名</param>
 	public void CantExistObject(string objName);
+	/// <summary>
+	/// コンポーネントが取得できなかった場合のエラー
+	/// </summary>
+	/// <param name="compornentName">取得できなかったコンポーネント名</param>
+	public void NullCompornentError(string compornentName);
+
 }

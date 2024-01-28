@@ -7,6 +7,11 @@ public interface IInputCharcterAction
 	/// </summary>
 	/// <returns>移動する方向</returns>
 	Vector2 MoveInput();
+	/// <summary>
+	/// ジャンプ
+	/// </summary>
+	/// <returns>ジャンプボタンが押されているか</returns>
+	bool IsJump();
 
 	/// <summary>
 	/// 攻撃

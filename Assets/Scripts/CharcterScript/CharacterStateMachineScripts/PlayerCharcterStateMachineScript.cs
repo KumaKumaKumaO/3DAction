@@ -7,49 +7,9 @@ using UnityEngine;
 
 public class PlayerCharcterStateMachineScript : BaseCharcterStateMachineScript
 {
-	public PlayerCharcterStateMachineScript(InGamePlayerInput playerInput) : base(playerInput)
+	public PlayerCharcterStateMachineScript(PlayerCharcterScript myOwner,Animator myOwnerAnimator, IInputCharcterAction playerInput) : base(playerInput,myOwner)
 	{
-	}
-
-	public override BaseCharcterStateScript UpdateState()
-	{
-		if (_input.IsAttack())
-		{
-
-		}
-		else if (_input.IsEvasion())
-		{
-			
-		}
-		else if (_input.ChangeWeapon() != 0)
-		{
-
-		}
-		else if(_input.UseItem() != 0)
-		{
-
-		}
-		//Ž~‚Ü‚é
-		else if(_input.MoveInput() ==  Vector2.zero)
-		{
-
-		}
-		else if(_input.IsRun())
-		{
-
-		}
-		//•à‚­
-		else
-		{
-			if(_nowState is WalkStateScript)
-			{
-
-			}
-			else
-			{
-				return new WalkStateScript();
-			}
-		}
-		return null;
+		_nowState = new WalkStateScript(myOwner,myOwnerAnimator, playerInput);
+		_nowState.Enter();
 	}
 }

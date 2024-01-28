@@ -43,4 +43,9 @@ public class NullErrorManagerScript : IErrorManager
 	{
 		NullObjectMsg();
 	}
+	public void NullCompornentError(string compornentName)
+    {
+		NullObjectMsg();
+    }
+
 }

@@ -72,21 +72,34 @@ public class ObjectManagerScript : MonoBehaviour
 	}
 
 
-	public void GetCollisionObject(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
 	{
-		collisionObjectDatas.Clear();
+		GetCollisionFloor(charcterColAreaData,collisionObjectDatas);
+		GetCollisionObjects(charcterColAreaData, collisionObjectDatas);
+		GetCollisionCharcter(charcterColAreaData, collisionObjectDatas);
+	}
+
+	public void GetCollisionCharcter(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+    {
+		foreach (BaseObjectScript item in _charcterObjects)
+		{
+			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
+		}
+	}
+
+	public void GetCollisionFloor(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+	{
 		foreach (BaseObjectScript item in _stageFloors)
 		{
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
+	}
+	public void GetCollisionObjects(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+	{
 		foreach (BaseObjectScript item in _stageObjects)
 		{
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 
-		}
-		foreach (BaseObjectScript item in _charcterObjects)
-		{
-			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 	}
 
@@ -96,13 +109,6 @@ public class ObjectManagerScript : MonoBehaviour
 		if (colData.MyTransform != checkObject.MyCollisionAreaData.MyTransform)
 		{
 			collisionResultDataTemp = _collisionSystem.GetCollisionResult(colData, checkObject);
-			foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
-			{
-				if (item.GetComponent<BaseObjectScript>() is PlayerCharcterScript a)
-				{
-					a.test = collisionResultDataTemp;
-				}
-			}
 			if (collisionResultDataTemp.IsCollision)
 			{
 				collisionObjects.Add(collisionResultDataTemp);
@@ -127,9 +133,9 @@ public class ObjectManagerScript : MonoBehaviour
 			Debug.Log("ADDCharcter:" + obj.name);
 			_charcterObjects.Add(charcterObj);
 		}
-		else
-		{
-			ErrorManagerScript.MyInstance.CantExistObject(obj.name);
-		}
-	}
+        else if (!(obj is BaseWeaponScript))
+        {
+            ErrorManagerScript.MyInstance.CantExistObject(obj.name);
+        }
+    }
 }

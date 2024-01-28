@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\BaseCharcterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseUIScript.cs" />
     <Compile Include="Assets\Scripts\Input\InGamePlayerInput.cs" />
+    <Compile Include="Assets\Scripts\WeaponScripts\BaseWeaponScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharcterStateScripts\BaseCharcterStateScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameStateScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="Assets\Scripts\CollisionSystem.cs" />
     <Compile Include="Assets\Scripts\InGameState\PoseStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InventoryStateScript.cs" />
-    <Compile Include="Assets\Scripts\BaseScript\BaseWeaponScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CharacterStatus.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharcterStateScripts\AttackStateScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\BaseGameStateScript.cs" />

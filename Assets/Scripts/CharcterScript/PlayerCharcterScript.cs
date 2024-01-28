@@ -7,13 +7,15 @@ using UnityEngine;
 /// </summary>
 public class PlayerCharcterScript : BaseCharcterScript
 {
-	private void Start()
-	{
-		GetComponent<Renderer>().material.color = Color.black;
-	}
 	public void SetPlayerInput(IInputCharcterAction input)
 	{
 		_myInput = input;
+		Animator myAnimator = GetComponent<Animator>();
+		if (myAnimator == null)
+        {
+			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
+        }
+		_myStateMachine = new PlayerCharcterStateMachineScript(this,myAnimator, input);
 	}
 	public override void Init()
 	{
