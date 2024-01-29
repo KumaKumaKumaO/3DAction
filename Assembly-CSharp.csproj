@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\GameStates\BaseGameStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\StageObjectStatus.cs" />
     <Compile Include="Assets\Scripts\Interface\ICharacterStateMachine.cs" />
+    <Compile Include="Assets\Scripts\CameraScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\gimon.txt" />

@@ -18,28 +18,27 @@ public class CollisionSystem
             - (targetData.MyCollisionAreaData.MyTransform.position + targetData.MyCollisionAreaData.Offset);
 
         bool isTopTemp = IsCollision(targetToMeVector + myAreaData.MyTransform.up * (myAreaData.HalfAreaSize.y + myAreaData.HalfAreaWidth)
-            , hitDistanceVector + Vector3.up * -(myAreaData.HalfAreaSize.y - myAreaData.AreaWidth));
+            , hitDistanceVector + myAreaData.MyTransform.up * -(myAreaData.HalfAreaSize.y - myAreaData.AreaWidth));
 
-        bool isBottomTemp = IsCollision(targetToMeVector + -Vector3.up * (myAreaData.HalfAreaSize.y + myAreaData.HalfAreaWidth)
-            , hitDistanceVector + Vector3.up * -(myAreaData.HalfAreaSize.y - myAreaData.AreaWidth));
+        bool isBottomTemp = IsCollision(targetToMeVector + -myAreaData.MyTransform.up * (myAreaData.HalfAreaSize.y + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + myAreaData.MyTransform.up * -(myAreaData.HalfAreaSize.y - myAreaData.AreaWidth));
 
-        bool isRightTemp = IsCollision(targetToMeVector + Vector3.right * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
-            , hitDistanceVector + Vector3.right * -(myAreaData.HalfAreaSize.x - myAreaData.AreaWidth));
+        bool isRightTemp = IsCollision(targetToMeVector + myAreaData.MyTransform.right * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + myAreaData.MyTransform.right * -(myAreaData.HalfAreaSize.x - myAreaData.AreaWidth));
 
-        bool isLeftTemp = IsCollision(targetToMeVector + -Vector3.right * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
-            , hitDistanceVector + Vector3.right * -(myAreaData.HalfAreaSize.x - myAreaData.AreaWidth));
+        bool isLeftTemp = IsCollision(targetToMeVector + -myAreaData.MyTransform.right * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + myAreaData.MyTransform.right * -(myAreaData.HalfAreaSize.x - myAreaData.AreaWidth));
 
-        bool isForwardTemp = IsCollision(targetToMeVector + Vector3.forward * (myAreaData.HalfAreaSize.z + myAreaData.HalfAreaWidth)
-            , hitDistanceVector + Vector3.forward * -(myAreaData.HalfAreaSize.z - myAreaData.AreaWidth));
+        bool isForwardTemp = IsCollision(targetToMeVector + myAreaData.MyTransform.forward * (myAreaData.HalfAreaSize.z + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + myAreaData.MyTransform.forward * -(myAreaData.HalfAreaSize.z - myAreaData.AreaWidth));
 
-        bool isBackTemp = IsCollision(targetToMeVector + -Vector3.forward * (myAreaData.HalfAreaSize.z + myAreaData.HalfAreaWidth)
-            , hitDistanceVector + Vector3.forward * -(myAreaData.HalfAreaSize.z - myAreaData.AreaWidth));
+        bool isBackTemp = IsCollision(targetToMeVector + -myAreaData.MyTransform.forward * (myAreaData.HalfAreaSize.z + myAreaData.HalfAreaWidth)
+            , hitDistanceVector + myAreaData.MyTransform.forward * -(myAreaData.HalfAreaSize.z - myAreaData.AreaWidth));
 
         return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp, targetData);
     }
     private bool IsCollision(Vector3 myColDistance, Vector3 targetColDistance)
     {
-        //Debug.Log(myColDistance + ":" + targetColDistance);
         return Mathf.Abs(myColDistance.x) < targetColDistance.x
             && Mathf.Abs(myColDistance.y) < targetColDistance.y
             && Mathf.Abs(myColDistance.z) < targetColDistance.z;

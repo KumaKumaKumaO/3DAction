@@ -16,15 +16,7 @@ public abstract class BaseCharcterScript : BaseObjectScript
 
     public CharcterStatus MyCharcterStatus { get { return _myCharcterStatus; } }
 
-    private void CollisionIndexInit()
-    {
-        _bottomCollisionIndex = -1;
-        _topCollisionAreaDataIndex = -1;
-        _rightCollisionAreaDataIndex = -1;
-        _leftCollisionAreaDataIndex = -1;
-        _forwardCollisionAreaDataIndex = -1;
-        _backCollisionAreaDataIndex = -1;
-    }
+
     public override void ObjectUpdate()
     {
         base.ObjectUpdate();
@@ -43,7 +35,7 @@ public abstract class BaseCharcterScript : BaseObjectScript
     protected override void Reset()
     {
         base.Reset();
-        if(gameObject.GetComponent<Animator>() == null)
+        if (gameObject.GetComponent<Animator>() == null)
         {
             gameObject.AddComponent<Animator>();
         }
@@ -60,16 +52,16 @@ public abstract class BaseCharcterScript : BaseObjectScript
 
     protected void JumpCharcter()
     {
-        if(_myInput.IsJump() &&  isGround)
+        if (_myInput.IsJump() && isGround)
         {
             _myJumpCount = (int)_myCharcterStatus.JumpPower;
             isGravity = false;
         }
-        else if(_myJumpCount > 0)
+        else if (_myJumpCount > 0)
         {
             ObjectMove(Vector3.up * _myCharcterStatus.JumpPower * _myJumpCount * Time.deltaTime);
             _myJumpCount--;
-            if(_myJumpCount <= 0)
+            if (_myJumpCount <= 0)
             {
                 isGravity = true;
             }
@@ -89,43 +81,44 @@ public abstract class BaseCharcterScript : BaseObjectScript
         base.OnDrawGizmos();
         if (isDebugColliderVisible)
         {
-            //Ž©•ª‚ªŽg‚¤“–‚½‚è”»’è
+            //Ž©•ª‚Ì“–‚½‚è”»’è
             //ã
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + transform.up * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
-                , transform.right * 2 * _myCollisionAreaData.HalfAreaSize.x
-                + transform.up * _myCollisionAreaData.AreaWidth
-                + transform.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.up * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
+                + Vector3.up * _myCollisionAreaData.AreaWidth
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //‰º
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + -transform.up * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
-                , transform.right * 2 * _myCollisionAreaData.HalfAreaSize.x
-                + transform.up * _myCollisionAreaData.AreaWidth
-                + transform.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.down * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
+                + Vector3.up * _myCollisionAreaData.AreaWidth
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //‰E
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + transform.right * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
-                , transform.right * _myCollisionAreaData.AreaWidth
-                + transform.up * 2 * _myCollisionAreaData.HalfAreaSize.y
-                + transform.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.right * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.AreaWidth
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //¶
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + -transform.right * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
-                , transform.right * _myCollisionAreaData.AreaWidth
-                + transform.up * 2 * _myCollisionAreaData.HalfAreaSize.y
-                + transform.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                 + Vector3.left * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.AreaWidth
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //‘O
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + transform.forward * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
-                , transform.right * 2 * _myCollisionAreaData.HalfAreaSize.x
-                + transform.up * 2 * _myCollisionAreaData.HalfAreaSize.y
-                + transform.forward * _myCollisionAreaData.AreaWidth);
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.forward * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
+                + Vector3.forward * _myCollisionAreaData.AreaWidth);
             //Œã
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + -transform.forward * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
-                , transform.right * 2 * _myCollisionAreaData.HalfAreaSize.x
-                + transform.up * 2 * _myCollisionAreaData.HalfAreaSize.y
-                + transform.forward * _myCollisionAreaData.AreaWidth);
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.back * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
+                + Vector3.forward * _myCollisionAreaData.AreaWidth);
+            Gizmos.matrix = _matrixTemp;
         }
     }
     private void SelectColObjectResult()

@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class PoseStateScript : BaseInGameStateScript
 {
-	public PoseStateScript(InGamePlayerInput input):base(input)
+	public PoseStateScript(InGamePlayerInput input)
 	{
 
 	}

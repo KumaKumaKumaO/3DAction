@@ -6,6 +6,8 @@ public class BaseWeaponScript : BaseObjectScript
 {
     [SerializeField]
     protected WeaponStatus _myStatus = default;
+    [SerializeField]
+    protected bool isHit = default;
     public override void Init()
     {
         base.Init();
@@ -13,54 +15,57 @@ public class BaseWeaponScript : BaseObjectScript
     public override void ObjectUpdate()
     {
         _myCollisionObjects.Clear();
+        CollisionIndexInit();
         _objectManagerScript.GetCollisionCharcter(_myCollisionAreaData, _myCollisionObjects);
+        isHit = _myCollisionObjects.Count > 0;
         foreach(CollisionResultData resultData in _myCollisionObjects)
         {
             (resultData.CollisionObjectData as BaseCharcterScript).ReceiveDamage(_myStatus.Attack);
-            Debug.LogWarning("aa");
         }
     }
     protected override void OnDrawGizmos()
     {
+        base.OnDrawGizmos();
         if (isDebugColliderVisible)
         {
-            //é©ï™Ç™égÇ§ìñÇΩÇËîªíË
+            //é©ï™ÇÃìñÇΩÇËîªíË
             //è„
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + transform.up * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
-                , Vector3.right * 2 * _myCollisionAreaData.HalfAreaSize.x
+            Gizmos.DrawWireCube(_myCollisionAreaData.Offset
+                + Vector3.up * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
                 + Vector3.up * _myCollisionAreaData.AreaWidth
-                + Vector3.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //â∫
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + -transform.up * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
-                , Vector3.right * 2 * _myCollisionAreaData.HalfAreaSize.x
+            Gizmos.DrawWireCube(_myCollisionAreaData.Offset
+                + Vector3.down * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
                 + Vector3.up * _myCollisionAreaData.AreaWidth
-                + Vector3.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //âE
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + transform.right * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.right * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
                 , Vector3.right * _myCollisionAreaData.AreaWidth
-                + Vector3.up * 2 * _myCollisionAreaData.HalfAreaSize.y
-                + Vector3.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //ç∂
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + -transform.right * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                 + Vector3.left * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
                 , Vector3.right * _myCollisionAreaData.AreaWidth
-                + Vector3.up * 2 * _myCollisionAreaData.HalfAreaSize.y
-                + Vector3.forward * 2 * _myCollisionAreaData.HalfAreaSize.z);
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
+                + Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
             //ëO
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + transform.forward * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
-                , Vector3.right * 2 * _myCollisionAreaData.HalfAreaSize.x
-                + Vector3.up * 2 * _myCollisionAreaData.HalfAreaSize.y
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.forward * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
                 + Vector3.forward * _myCollisionAreaData.AreaWidth);
             //å„
-            Gizmos.DrawWireCube(transform.position + _myCollisionAreaData.Offset
-                + -transform.forward * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
-                , Vector3.right * 2 * _myCollisionAreaData.HalfAreaSize.x
-                + Vector3.up * 2 * _myCollisionAreaData.HalfAreaSize.y
+            Gizmos.DrawWireCube( _myCollisionAreaData.Offset
+                + Vector3.back * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
+                , Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
+                + Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
                 + Vector3.forward * _myCollisionAreaData.AreaWidth);
+            Gizmos.matrix = _matrixTemp;
         }
     }
 }

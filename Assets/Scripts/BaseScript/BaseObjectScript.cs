@@ -24,6 +24,7 @@ public abstract class BaseObjectScript : MonoBehaviour
     [SerializeField]
     protected int _backCollisionAreaDataIndex = -1;
     protected ObjectManagerScript _objectManagerScript = default;
+    protected Matrix4x4 _matrixTemp = default;
 
     [Header("デバッグ用")]
 
@@ -56,7 +57,15 @@ public abstract class BaseObjectScript : MonoBehaviour
     {
         gameObject.tag = "Object";
     }
-
+    protected void CollisionIndexInit()
+    {
+        _bottomCollisionIndex = -1;
+        _topCollisionAreaDataIndex = -1;
+        _rightCollisionAreaDataIndex = -1;
+        _leftCollisionAreaDataIndex = -1;
+        _forwardCollisionAreaDataIndex = -1;
+        _backCollisionAreaDataIndex = -1;
+    }
     public virtual void ObjectMove(Vector3 vector)
     {
         _myCollisionAreaData.MyTransform.position += vector;
@@ -131,8 +140,8 @@ public abstract class BaseObjectScript : MonoBehaviour
     {
         if (isDebugColliderVisible)
         {
-            //相手から見たときの当たり判定
-            Gizmos.DrawCube(transform.position + _myCollisionAreaData.Offset, _myCollisionAreaData.HalfAreaSize * 2);
+            _matrixTemp = Gizmos.matrix;
+            Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
         }
     }
 }

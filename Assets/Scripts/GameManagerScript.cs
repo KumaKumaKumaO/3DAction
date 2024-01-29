@@ -9,7 +9,10 @@ public class GameManagerScript : MonoBehaviour
 	//自分のステートマシン
 	private GameStateMachineScript _myStateMachine = default;
 	[SerializeField]
-	private bool DebugFlag;
+	private bool _debugFlag = default;
+	[SerializeField]
+	private float _cameraSpeed = default;
+	public float CameraSpeed { get { return _cameraSpeed; } }
 	private void Start()
 	{
 		//GameControllerが他に存在するかを確認する
@@ -19,7 +22,7 @@ public class GameManagerScript : MonoBehaviour
 			DontDestroyOnLoad(this);
 			//ステートマシンを生成
 			_myStateMachine = new GameStateMachineScript();
-			if (DebugFlag)
+			if (_debugFlag)
 			{
 				new ErrorManagerScript().InstantiationMyInstance();
 			}

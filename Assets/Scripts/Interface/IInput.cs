@@ -57,3 +57,7 @@ public interface IInputPlayerAction
 	/// <returns>インベントリーボタンが押されているか</returns>
 	bool IsOpenInventory();
 }
+public interface IInputCameraControl
+{
+	Vector2 CameraMoveInput();
+}
