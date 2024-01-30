@@ -9,13 +9,13 @@ public class PlayerCharcterScript : BaseCharcterScript
 {
 	public void SetPlayerInput(IInputCharcterAction input)
 	{
-		_myInput = input;
 		Animator myAnimator = GetComponent<Animator>();
 		if (myAnimator == null)
-        {
+		{
 			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
-        }
-		_myStateMachine = new PlayerCharcterStateMachineScript(this,myAnimator, input);
+		}
+		_myAnimator = myAnimator;
+		_myStateMachine = new PlayerCharcterStateMachineScript(this, _myAnimator, input);
 	}
 	public override void Init()
 	{

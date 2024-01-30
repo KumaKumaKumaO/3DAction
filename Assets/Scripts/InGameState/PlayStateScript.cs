@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayStateScript : BaseInGameStateScript
 {
 	private ObjectManagerScript _objectManagerScript = default;
-	private CameraScript _cameraScript = default;
 	public PlayStateScript(InGamePlayerInput input)
 	{
 		GameObject objectManager = GameObject.FindWithTag("ObjectManager");
@@ -19,7 +18,6 @@ public class PlayStateScript : BaseInGameStateScript
 			ErrorManagerScript.MyInstance.NullScriptError("ObjectManagerScript");
 		}
 		_objectManagerScript.Init(input);
-		_cameraScript = new CameraScript(input);
 	}
 
 	public override void Enter()
@@ -31,7 +29,6 @@ public class PlayStateScript : BaseInGameStateScript
 	{
 		base.Execute();
 		_objectManagerScript.AllObjectUpdate();
-		_cameraScript.UpdateCameraControl();
 	}
 	public override void Exit()
 	{

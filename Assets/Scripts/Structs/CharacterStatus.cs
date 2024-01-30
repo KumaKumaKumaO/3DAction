@@ -34,6 +34,7 @@ public struct CharcterStatus
 	public float Attack { get { return _attack; } set { _attack = value; } }
 	public float DefaultSpeed { get { return _defaultSpeed; }  set { _defaultSpeed = value; } }
 	public float Speed { get { return _speed; } set { _speed = value; } }
+	public float AirSpeed { get { return _speed / 2; } }
 	public float DefaultStamina { get { return _defaultStamina; } set { _defaultStamina = value; } }
 	public float Stamina { get { return _stamina; } set { _stamina = value; } }
 	public float DefaultJumpPower { get { return _defaultJumpPower; } set { _defaultJumpPower = value; } }
