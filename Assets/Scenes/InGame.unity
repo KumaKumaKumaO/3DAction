@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugFlag: 1
-  _cameraSpeed: 500
+  _cameraSpeed: 1000
 --- !u!4 &1476294783
 Transform:
   m_ObjectHideFlags: 0

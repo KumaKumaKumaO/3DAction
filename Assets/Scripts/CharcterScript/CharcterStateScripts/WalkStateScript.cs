@@ -40,8 +40,4 @@ public class WalkStateScript : BaseCharcterStateScript
 		_myOwner.ObjectMove(Vector3.right * _inputVector.x * _myOwner.MyCharcterStatus.Speed * Time.deltaTime
 			+ Vector3.forward * _inputVector.y * _myOwner.MyCharcterStatus.Speed * Time.deltaTime);
 	}
-	public override void Exit()
-	{
-		base.Exit();
-	}
 }

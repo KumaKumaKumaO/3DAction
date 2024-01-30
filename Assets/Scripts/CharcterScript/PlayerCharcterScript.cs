@@ -15,7 +15,8 @@ public class PlayerCharcterScript : BaseCharcterScript
 			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
 		}
 		_myAnimator = myAnimator;
-		_myStateMachine = new PlayerCharcterStateMachineScript(this, _myAnimator, input);
+		_myStateMachine = new PlayerCharcterStateMachineScript(this, _myAnimator, input
+			,_objectManagerScript.CameraScript.CameraTransform);
 	}
 	public override void Init()
 	{

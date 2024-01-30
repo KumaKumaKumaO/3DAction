@@ -57,8 +57,8 @@ public class ObjectManagerScript : MonoBehaviour
 				ErrorManagerScript.MyInstance.NullScriptError("BaseObjectScript");
 			}
 		}
-		AllObjectInit(playerInput);
 		_cameraScript = new CameraScript(playerInput);
+		AllObjectInit(playerInput);
 
 	}
 
