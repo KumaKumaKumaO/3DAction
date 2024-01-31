@@ -9,6 +9,9 @@ public class ObjectManagerScript : MonoBehaviour
 {
 	[SerializeField]
 	private float _grivityPower = 9.8f;
+	[SerializeField]
+	private float _cameraSpeed = default;
+	
 	private List<StageFloorScript> _stageFloors = new List<StageFloorScript>();
 	private List<BaseStageObjectScript> _stageObjects = new List<BaseStageObjectScript>();
 	private List<BaseCharcterScript> _charcterObjects = new List<BaseCharcterScript>();
@@ -17,6 +20,7 @@ public class ObjectManagerScript : MonoBehaviour
 	private CollisionResultData collisionResultDataTemp = default;
 	private CameraScript _cameraScript = default;
 
+	public float CameraSpeed { get { return _cameraSpeed; } }
 	public CameraScript CameraScript { get { return _cameraScript; } }
 
 	public float GravityPower { get { return _grivityPower; } }

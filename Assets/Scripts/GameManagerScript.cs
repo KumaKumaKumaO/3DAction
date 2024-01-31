@@ -10,9 +10,7 @@ public class GameManagerScript : MonoBehaviour
 	private GameStateMachineScript _myStateMachine = default;
 	[SerializeField]
 	private bool _debugFlag = default;
-	[SerializeField]
-	private float _cameraSpeed = default;
-	public float CameraSpeed { get { return _cameraSpeed; } }
+	
 	private void Start()
 	{
 		//GameController‚ª‘¼‚É‘¶İ‚·‚é‚©‚ğŠm”F‚·‚é

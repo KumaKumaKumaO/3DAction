@@ -8,7 +8,7 @@ using UnityEngine;
 public class CameraScript
 {
     private Transform _cameraTransform = default;
-    private GameManagerScript _gameManagerScript = default;
+    private ObjectManagerScript _objectManagerScript = default;
     private Transform _playerCharcterTransform = default;
     private IInputCameraControl _input = default;
     private Vector2 _inputVector = default;
@@ -23,26 +23,16 @@ public class CameraScript
             ErrorManagerScript.MyInstance.NullGameObjectError("MainCameraTagObject");
         }
         _cameraTransform = cameraObj.transform;
-        GameObject gameManager = GameObject.FindWithTag("GameController");
-        if (gameManager == null)
-        {
-            ErrorManagerScript.MyInstance.NullGameObjectError("GameControllerTagObject");
-        }
-        else if (!gameManager.TryGetComponent<GameManagerScript>(out _gameManagerScript))
-        {
-            ErrorManagerScript.MyInstance.NullCompornentError("GameManagerScript");
-        }
         GameObject objectManager = GameObject.FindWithTag("ObjectManager");
-        ObjectManagerScript objectManagerScript = default;
         if (objectManager == null)
         {
             ErrorManagerScript.MyInstance.NullGameObjectError("ObjectManagerTagObject");
         }
-        else if (!objectManager.TryGetComponent<ObjectManagerScript>(out objectManagerScript))
+        else if (!objectManager.TryGetComponent<ObjectManagerScript>(out _objectManagerScript))
         {
             ErrorManagerScript.MyInstance.NullCompornentError("ObjectManagerScript");
         }
-        _playerCharcterTransform = objectManagerScript.PlayerCharcter.transform;
+        _playerCharcterTransform = _objectManagerScript.PlayerCharcter.transform;
         _beforePlayerPos = _playerCharcterTransform.position;
     }
 
@@ -56,12 +46,12 @@ public class CameraScript
         if (_inputVector.x != 0)
         {
             _cameraTransform.RotateAround(_playerCharcterTransform.position
-                , Vector3.up, _inputVector.x * _gameManagerScript.CameraSpeed * Time.deltaTime);
+                , Vector3.up, _inputVector.x * _objectManagerScript.CameraSpeed * Time.deltaTime);
         }
         if (_inputVector.y != 0)
         {
             _cameraTransform.RotateAround(_playerCharcterTransform.position
-                , _cameraTransform.right, -_inputVector.y * _gameManagerScript.CameraSpeed * Time.deltaTime);
+                , _cameraTransform.right, -_inputVector.y * _objectManagerScript.CameraSpeed * Time.deltaTime);
         }
     }
 }

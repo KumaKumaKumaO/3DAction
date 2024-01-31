@@ -33,7 +33,6 @@ public struct CollisionResultData
 	public bool IsCollisionForward { get { return isCollisionForward; } }
 	public bool IsCollisionBack { get { return isCollisionBack; } }
 	public BaseObjectScript CollisionObjectData { get { return _collisionObjectData; } }
-	
 	public CollisionResultData(bool right,bool left , bool top, bool bottom , bool forward , bool back,BaseObjectScript collisionObjectData )
 	{
 		isCollisionTop = top;

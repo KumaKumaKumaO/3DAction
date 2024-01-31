@@ -38,13 +38,10 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 
 		if (_inputVector != Vector2.zero)
 		{
-			Vector3 moveVector = _cameraTansform.right * _inputVector.x + _cameraTansform.forward * _inputVector.y;
-			Debug.LogWarning(Vector3.SignedAngle(_myOwner.MyCollisionAreaData.MyTransform.forward, moveVector, Vector3.up)
-				+":" + moveVector +":" + _myOwner.MyCollisionAreaData.MyTransform.forward);
-			_myOwner.MyCollisionAreaData.MyTransform.Rotate(
-				0
-				, Vector3.Angle(_myOwner.MyCollisionAreaData.MyTransform.forward, moveVector)
-				, 0) ;
+			_myOwner.MyCollisionAreaData.MyTransform.rotation
+				= Quaternion.Euler(0,Vector3.SignedAngle(Vector3.forward,_cameraTansform.forward 
+				- Vector3.up * _cameraTansform.forward.y ,Vector3.up)
+				+  Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg, 0);
 
 			_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward
 				* _myOwner.MyCharcterStatus.Speed * Time.deltaTime);
