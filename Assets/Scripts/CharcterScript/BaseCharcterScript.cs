@@ -29,14 +29,6 @@ public abstract class BaseCharcterScript : BaseObjectScript
 	public override void ObjectUpdate()
 	{
 		base.ObjectUpdate();
-		_myCollisionObjects.Clear();
-		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData, _myCollisionObjects);
-		CollisionIndexInit();
-		SelectColObjectResult();
-		if (isGravity)
-		{
-			GravityFall();
-		}
 
 		_myAnimator.SetBool(_isGroundHashValue, isGround);
 		_myStateMachine.UpdateState().Execute();

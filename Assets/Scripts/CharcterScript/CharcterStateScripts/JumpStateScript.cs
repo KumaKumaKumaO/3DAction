@@ -7,7 +7,7 @@ public class JumpStateScript : BaseCharcterStateScript
 	private float _jumpPowerTemp = 0;
 	private Vector2 _inputVector = default;
 	private float _fallSpeed = 9.8f;
-	private int _yVelocityAnimamtorHashValue = default;
+	private int _isJumpAnimamtorHashValue = default;
 	public JumpStateScript(BaseCharcterScript myOwner, Animator myAnimator, IInputCharcterAction input) : base(myOwner, myAnimator, input)
 	{
 
@@ -15,14 +15,13 @@ public class JumpStateScript : BaseCharcterStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		_yVelocityAnimamtorHashValue = Animator.StringToHash("YVelocity");
+		_isJumpAnimamtorHashValue = Animator.StringToHash("IsJump");
 		JumpInit();
 	}
 	public override void Execute()
 	{
 		base.Execute();
 		Debug.LogWarning(_jumpPowerTemp);
-		_ownerAnimator.SetFloat(_yVelocityAnimamtorHashValue,_jumpPowerTemp);
 		_inputVector = _input.MoveInput();
 		if (_jumpPowerTemp > 0)
 		{
@@ -36,6 +35,7 @@ public class JumpStateScript : BaseCharcterStateScript
 			if (!_myOwner.IsGravity)
 			{
 				_myOwner.IsGravity = true;
+				_ownerAnimator.SetBool(_isJumpAnimamtorHashValue, false);
 			}
 			if (_myOwner.IsGround)
 			{
@@ -46,6 +46,7 @@ public class JumpStateScript : BaseCharcterStateScript
 	}
 	private void JumpInit()
 	{
+		_ownerAnimator.SetBool(_isJumpAnimamtorHashValue,true);
 		_jumpPowerTemp = _myOwner.MyCharcterStatus.JumpPower;
 		_myOwner.IsGravity = false;
 		canInterruption = false;

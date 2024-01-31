@@ -1,3 +1,5 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// InGameステートでのメイン処理
 /// </summary>
@@ -16,6 +18,10 @@ public class InGameStateScript : BaseGameStateScript
 
 	public override void Execute()
 	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			SceneManager.LoadScene("Title");
+		}
 		base.Execute();
 		//ステート更新して実行する
 		_myStateMachineScript.UpdateState().Execute();

@@ -61,3 +61,8 @@ public interface IInputCameraControl
 {
 	Vector2 CameraMoveInput();
 }
+public interface IInputUIContorl
+{
+	Vector2 MoveInput();
+	bool IsSubmit();
+}

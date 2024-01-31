@@ -51,8 +51,10 @@ public abstract class BaseObjectScript : MonoBehaviour
 	}
 	public virtual void ObjectUpdate()
 	{
-
-
+		if (isGravity)
+		{
+			GravityFall();
+		}
 
 	}
 	protected void SelectColObjectResult()
@@ -133,9 +135,10 @@ public abstract class BaseObjectScript : MonoBehaviour
 	{
 		_myCollisionAreaData.MyTransform.position += vector;
 		CollisionIndexInit();
+		_myCollisionObjects.Clear();
 		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData, _myCollisionObjects);
 		SelectColObjectResult();
-		MoveClamp(vector);
+		MoveClamp(_myCollisionAreaData.MyTransform.InverseTransformDirection(vector));
 	}
 
 	private void MoveClamp(Vector3 moveDirection)
@@ -147,6 +150,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 				(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
 				- _myCollisionAreaData.BottomYPos + _myCollisionAreaData.AreaWidth);
 			isGround = true;
+			Debug.Log("‚µ‚½");
 		}
 		//ã
 		else if (moveDirection.y > 0 && _topCollisionAreaDataIndex >= 0)
@@ -158,7 +162,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		//‰E
 		if (moveDirection.x > 0 && _rightCollisionAreaDataIndex >= 0)
 		{
-			//Debug.Log("‚Ý‚¬");
+			//Debug.LogError("‚Ý‚¬");
 			_myCollisionAreaData.MyTransform.position += Vector3.left *
 				(-_myCollisionObjects[_rightCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.LeftXPos
 				+ _myCollisionAreaData.RightXPos + _myCollisionAreaData.AreaWidth);
