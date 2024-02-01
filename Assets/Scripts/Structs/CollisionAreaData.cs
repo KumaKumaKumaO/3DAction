@@ -21,60 +21,69 @@ public struct CollisionAreaData
 	public float AreaWidth { get { return _areaWidth; } }
 	public Transform MyTransform { get { return _myTransform; } }
 
-	public float GetCollisionLinePosValue(Vector3 moveVector)
+	public float GetCollisionLinePosValue(Vector3 moveVector,Vector3 nowPos)
 	{
-		Debug.Log(moveVector);
-		float xAbs = Mathf.Abs(moveVector.x);
-		float yAbs = Mathf.Abs(moveVector.y);
-		float zAbs = Mathf.Abs(moveVector.z);
+		Vector3 a = nowPos - _myTransform.position;
+		float xAbs = Mathf.Abs(a.x);
+		float yAbs = Mathf.Abs(a.y);
+		float zAbs = Mathf.Abs(a.z);
 		if (xAbs >= yAbs)
 		{
 			if (xAbs >= zAbs)
 			{
-				if (Mathf.Sign(moveVector.x) > 0)
+				if (Mathf.Sign(a.x) > 0)
 				{
-					return -_halfAreaSize.x;
+					//Debug.Log("left");
+					return LeftXPos;
 				}
 				else
 				{
-					return _halfAreaSize.x;
+					//Debug.Log("right");
+					return RightXPos;
 				}
 			}
 			else
 			{
-				if (Mathf.Sign(moveVector.z) > 0)
+				if (Mathf.Sign(a.z) > 0)
 				{
-					return -_halfAreaSize.z;
+					//Debug.Log("forward");
+					return ForwardZPos;
 				}
 				else
 				{
-					return _halfAreaSize.z;
+					//Debug.Log("back");
+					return BackZPos;
 				}
 			}
 		}
 		else if (yAbs >= zAbs)
 		{
-			if (Mathf.Sign(moveVector.y) > 0)
+			if (Mathf.Sign(a.y) > 0)
 			{
-				return -_halfAreaSize.y;
+				return TopYPos;
 			}
 			else
 			{
-				return _halfAreaSize.y;
+				return BottomYPos;
 			}
 		}
 		else
 		{
-			if (Mathf.Sign(moveVector.z) > 0)
+			if (Mathf.Sign(a.z) > 0)
 			{
-				return -_halfAreaSize.z;
+				//Debug.Log("forward2");
+				return ForwardZPos;
 			}
 			else
 			{
-				return _halfAreaSize.z;
+				//Debug.Log("back2");
+				return BackZPos;
 			}
 		}
 	}
+
+
+	
 
 	public void Init(Transform myTransform)
 	{

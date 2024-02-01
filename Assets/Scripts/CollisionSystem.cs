@@ -24,8 +24,7 @@ public class CollisionSystem
 			, hitDistanceVector + myAreaData.MyTransform.up * -(myAreaData.HalfAreaSize.y - myAreaData.HalfAreaWidth));
 
 		bool isRightTemp = IsCollision(targetToMeVector + myAreaData.MyTransform.right * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
-			, hitDistanceVector + (myAreaData.MyTransform.right * -(myAreaData.HalfAreaSize.x - myAreaData.HalfAreaWidth))
-			- Vector3.up *  myAreaData.AreaWidth);
+			, hitDistanceVector + myAreaData.MyTransform.right * -(myAreaData.HalfAreaSize.x - myAreaData.HalfAreaWidth));
 
 		bool isLeftTemp = IsCollision(targetToMeVector + -myAreaData.MyTransform.right * (myAreaData.HalfAreaSize.x + myAreaData.HalfAreaWidth)
 			, hitDistanceVector + myAreaData.MyTransform.right * -(myAreaData.HalfAreaSize.x - myAreaData.HalfAreaWidth));

@@ -137,7 +137,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_myCollisionAreaData.MyTransform.position += vector;
 		SearchHitObjects();
 		//Debug.LogWarning("Dot:" + Vector3.Dot(Vector3.forward, vector - Vector3.up * vector.y));
-		MoveClamp(_myCollisionAreaData.MyTransform.position - beforPos);
+		MoveClamp(_myCollisionAreaData.MyTransform.position - beforPos,beforPos);
 	}
 	protected virtual void SearchHitObjects()
 	{
@@ -146,7 +146,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData, _myCollisionObjects);
 		SelectColObjectResult();
 	}
-	private void MoveClamp(Vector3 moveDirection)
+	private void MoveClamp(Vector3 moveDirection, Vector3 beforPos)
 	{
 		//下
 		//動いている方向は世界軸　自分の下のオブジェクトのインデックス
@@ -166,52 +166,75 @@ public abstract class BaseObjectScript : MonoBehaviour
 				- _myCollisionAreaData.BottomYPos + _myCollisionAreaData.AreaWidth);
 			SearchHitObjects();
 		}
-		////右
-		////世界軸で右　自分から見て右にあたる
-		//if (moveDirection.x > 0 && _rightCollisionAreaDataIndex >= 0)
-		//{
-		//	Debug.LogError("みぎ");
-		//	//左 * 当たった左端　+ 自身の右
-		//	_myCollisionAreaData.MyTransform.position += Vector3.left *
-		//		(-_myCollisionObjects[_rightCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.LeftXPos
-		//		+ _myCollisionAreaData.RightXPos - _myCollisionAreaData.AreaWidth);
-		//	SearchHitObjects();
-		//}
-		//////左
-		//else if (moveDirection.x < 0 && _leftCollisionAreaDataIndex >= 0)
-		//{
-		//	Debug.Log("左");
-		//	_myCollisionAreaData.MyTransform.position += Vector3.right *
-		//		(_myCollisionObjects[_leftCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.RightXPos
-		//		- _myCollisionAreaData.LeftXPos - _myCollisionAreaData.AreaWidth);
-		//	SearchHitObjects();
-		//}
-		int index = SelectDirectionIndex(moveDirection);
 		//前
 		if (_forwardCollisionAreaDataIndex >= 0)
 		{
-			Debug.Log(_forwardCollisionAreaDataIndex);
-			Debug.Log("前:" +
-				_myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData
-				.GetCollisionLinePosValue(moveDirection)
-				+ ":" + _myCollisionAreaData.ForwardZPos + ":" + _myCollisionAreaData.AreaWidth);
-
-			_myCollisionAreaData.MyTransform.position += transform.forward *
-				(_myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData
-				.GetCollisionLinePosValue(moveDirection)
-				- _myCollisionAreaData.ForwardZPos + _myCollisionAreaData.AreaWidth);
-
+			_myCollisionAreaData.MyTransform.position = beforPos;
+			//_myCollisionAreaData.MyTransform.position = test();
 		}
-		////後
-		//else if (moveDirection.z < 0 && _backCollisionAreaDataIndex >= 0)
+	}
+	public Vector3 test(CollisionAreaData me, CollisionAreaData target)
+	{
+		Vector3 c = me.MyTransform.position - target.MyTransform.position;
+		float xAbs = Mathf.Abs(c.x);
+		float yAbs = Mathf.Abs(c.y);
+		float zAbs = Mathf.Abs(c.z);
+		float myHitBoxForward = me.ForwardZPos + me.AreaWidth;
+		if (xAbs >= yAbs)
+		{
+			if (xAbs >= zAbs)
+			{
+				if (Mathf.Sign(c.x) > 0)
+				{
+					Debug.Log("left");
+					return -target.MyTransform.right * (target.LeftXPos - myHitBoxForward);
+				}
+				else
+				{
+					Debug.Log("right");
+					return target.MyTransform.right * (target.RightXPos - me.ForwardZPos + me.AreaWidth);
+				}
+			}
+			else
+			{
+				if (Mathf.Sign(c.z) > 0)
+				{
+					Debug.Log("forward");
+					return target.MyTransform.forward * (target.ForwardZPos - me.ForwardZPos + me.AreaWidth);
+				}
+				else
+				{
+					Debug.Log("back");
+					return -target.MyTransform.forward * (target.BackZPos - me.ForwardZPos + me.AreaWidth);
+				}
+			}
+		}
+		return Vector3.zero;
+		//else if (yAbs >= zAbs)
 		//{
-		//	_myCollisionAreaData.MyTransform.position += Vector3.forward *
-		//		(_myCollisionObjects[_backCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.ForwardZPos
-		//		- _myCollisionAreaData.BackZPos - _myCollisionAreaData.AreaWidth);
-		//	Debug.LogError("後ろ");
+		//	if (Mathf.Sign(c.y) > 0)
+		//	{
+		//		return TopYPos;
+		//	}
+		//	else
+		//	{
+		//		return BottomYPos;
+		//	}
+		//}
+		//else
+		//{
+		//	if (Mathf.Sign(c.z) > 0)
+		//	{
+		//		Debug.Log("forward2");
+		//		return ForwardZPos;
+		//	}
+		//	else
+		//	{
+		//		Debug.Log("back2");
+		//		return BackZPos;
+		//	}
 		//}
 	}
-
 	private int SelectDirectionIndex(Vector3 moveVector)
 	{
 		float xAbs = Mathf.Abs(moveVector.x);
