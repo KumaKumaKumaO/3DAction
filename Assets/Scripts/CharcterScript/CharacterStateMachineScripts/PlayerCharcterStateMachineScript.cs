@@ -37,10 +37,6 @@ public class PlayerCharcterStateMachineScript : BaseCharcterStateMachineScript
 		{
 
 		}
-		else if (_input.IsJump())
-		{
-			ChangeState(new JumpStateScript(_myOwner, _myOwnerAnimator, _input));
-		}
 		else if (_input.IsRun())
 		{
 
