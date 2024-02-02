@@ -11,34 +11,32 @@ public class ObjectManagerScript : MonoBehaviour
 	private float _grivityPower = 9.8f;
 	[SerializeField]
 	private float _cameraSpeed = default;
-	
+
 	private List<StageFloorScript> _stageFloors = new List<StageFloorScript>();
 	private List<BaseStageObjectScript> _stageObjects = new List<BaseStageObjectScript>();
-	private List<BaseCharcterScript> _charcterObjects = new List<BaseCharcterScript>();
+	private List<BaseCharacterScript> _charcterObjects = new List<BaseCharacterScript>();
 	private List<BaseWeaponScript> _weaponObjects = new List<BaseWeaponScript>();
 	private CollisionSystem _collisionSystem = new CollisionSystem();
 	private CollisionResultData collisionResultDataTemp = default;
 	private CameraScript _cameraScript = default;
+	private PlayerCharacterScript _playerCharcterScript = default;
 
 	public float CameraSpeed { get { return _cameraSpeed; } }
 	public CameraScript CameraScript { get { return _cameraScript; } }
-
 	public float GravityPower { get { return _grivityPower; } }
-	public PlayerCharcterScript PlayerCharcter
+	public PlayerCharacterScript PlayerCharcterScript
 	{
 		get
 		{
-			foreach (BaseCharcterScript item in _charcterObjects)
+			if(_playerCharcterScript != null)
 			{
-				if (item is PlayerCharcterScript playerCharcterScript)
-				{
-					return playerCharcterScript;
-				}
+				return _playerCharcterScript;
 			}
 			foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
 			{
-				if (item.TryGetComponent<PlayerCharcterScript>(out PlayerCharcterScript playerCharcterScript))
+				if (item.TryGetComponent<PlayerCharacterScript>(out PlayerCharacterScript playerCharcterScript))
 				{
+					this._playerCharcterScript = playerCharcterScript;
 					return playerCharcterScript;
 				}
 			}
@@ -76,10 +74,10 @@ public class ObjectManagerScript : MonoBehaviour
 		{
 			item.Init();
 		}
-		foreach (BaseCharcterScript item in _charcterObjects)
+		foreach (BaseCharacterScript item in _charcterObjects)
 		{
 			item.Init();
-			if (item is PlayerCharcterScript playerScript)
+			if (item is PlayerCharacterScript playerScript)
 			{
 				playerScript.SetPlayerInput(input);
 			}
@@ -99,7 +97,7 @@ public class ObjectManagerScript : MonoBehaviour
 		{
 			item.ObjectUpdate();
 		}
-		foreach (BaseCharcterScript item in _charcterObjects)
+		foreach (BaseCharacterScript item in _charcterObjects)
 		{
 			item.ObjectUpdate();
 		}
@@ -155,6 +153,18 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
+	public BaseWeaponScript GetMyWeapon(BaseCharacterScript myData)
+	{
+		foreach (BaseWeaponScript item in _weaponObjects)
+		{
+			if (item.transform.root == myData.transform)
+			{
+				return item;
+			}
+		}
+		return null;
+	}
+
 	public void AddMyObject(BaseObjectScript obj)
 	{
 		if (obj is StageFloorScript stageFloor)
@@ -165,7 +175,7 @@ public class ObjectManagerScript : MonoBehaviour
 		{
 			_stageObjects.Add(stageObj);
 		}
-		else if (obj is BaseCharcterScript charcterObj)
+		else if (obj is BaseCharacterScript charcterObj)
 		{
 			_charcterObjects.Add(charcterObj);
 		}

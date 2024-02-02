@@ -38,7 +38,7 @@ public class CollisionSystem
 		return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp, targetData);
 	}
 	private bool IsCollision(Vector3 myColDistance, Vector3 targetColDistance)
-	{	
+	{
 		return Mathf.Abs(myColDistance.x) < targetColDistance.x
 			&& Mathf.Abs(myColDistance.y) < targetColDistance.y
 			&& Mathf.Abs(myColDistance.z) < targetColDistance.z;

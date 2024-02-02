@@ -32,7 +32,7 @@ public class CameraScript
         {
             ErrorManagerScript.MyInstance.NullCompornentError("ObjectManagerScript");
         }
-        _playerCharcterTransform = _objectManagerScript.PlayerCharcter.transform;
+        _playerCharcterTransform = _objectManagerScript.PlayerCharcterScript.transform;
         _beforePlayerPos = _playerCharcterTransform.position;
     }
 

@@ -8,7 +8,7 @@ public class StageFloorScript : BaseObjectScript
     {
         GetComponent<Renderer>().material.color = Color.black;
     }
-    public virtual void OnTopCharcter(BaseCharcterScript charcterScript)
+    public virtual void OnTopCharcter(BaseCharacterScript charcterScript)
 	{
 
 	}
