@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// キャラクターの操作や実際の動き
 /// </summary>
-public abstract class BaseCharacterScript : BaseObjectScript
+public class BaseCharacterScript : BaseObjectScript
 {
 
 	protected ICharacterStateMachine _myStateMachine = default;
@@ -58,7 +58,7 @@ public abstract class BaseCharacterScript : BaseObjectScript
 		_myCharcterStatus.Hp += healValue;
 	}
 
-	public virtual void ReceiveDamage(float damage)
+	public virtual void ReceiveDamage(float damage,float staggerThreshold)
 	{
 		_myCharcterStatus.Hp -= damage;
 	}

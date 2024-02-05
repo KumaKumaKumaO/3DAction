@@ -98,16 +98,18 @@ public abstract class BaseObjectScript : MonoBehaviour
 					_leftCollisionAreaDataIndex = i;
 				}
 			}
+			//ものから見て前側にヒットしている
 			if (_myCollisionObjects[i].IsCollisionForward)
 			{
 				if (_forwardCollisionAreaDataIndex < 0
+					//
 					|| _myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.BackZPos
 					> _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.BackZPos)
 				{
 					_forwardCollisionAreaDataIndex = i;
 				}
 			}
-			if (_myCollisionObjects[i].IsCollisionBack)
+			else if (_myCollisionObjects[i].IsCollisionBack)
 			{
 				if (_backCollisionAreaDataIndex < 0
 					|| _myCollisionObjects[_backCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.ForwardZPos
@@ -136,8 +138,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		Vector3 beforPos = _myCollisionAreaData.MyTransform.position;
 		_myCollisionAreaData.MyTransform.position += vector;
 		SearchHitObjects();
-		//Debug.LogWarning("Dot:" + Vector3.Dot(Vector3.forward, vector - Vector3.up * vector.y));
-		MoveClamp(_myCollisionAreaData.MyTransform.position - beforPos,beforPos);
+		MoveClamp(_myCollisionAreaData.MyTransform.position - beforPos, beforPos);
 	}
 	protected virtual void SearchHitObjects()
 	{
@@ -145,6 +146,15 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_myCollisionObjects.Clear();
 		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData, _myCollisionObjects);
 		SelectColObjectResult();
+	}
+	[ContextMenu("test")]
+	public void MsgOut()
+	{
+		if (_forwardCollisionAreaDataIndex >= 0)
+		{
+			Debug.Log
+			(_myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.MyTransform.name);
+		}
 	}
 	private void MoveClamp(Vector3 moveDirection, Vector3 beforPos)
 	{
@@ -155,7 +165,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 			_myCollisionAreaData.MyTransform.position += Vector3.up *
 				(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
 				- _myCollisionAreaData.BottomYPos + _myCollisionAreaData.AreaWidth);
-			//Debug.Log("した");
+			//Debug.Log("下");
 			SearchHitObjects();
 		}
 		//上
@@ -167,126 +177,54 @@ public abstract class BaseObjectScript : MonoBehaviour
 			SearchHitObjects();
 		}
 		//前
-		if (_forwardCollisionAreaDataIndex >= 0)
+		else if (moveDirection.y == 0 && _forwardCollisionAreaDataIndex >= 0)
 		{
-			_myCollisionAreaData.MyTransform.position = beforPos;
-			//_myCollisionAreaData.MyTransform.position = test();
+			//_myCollisionAreaData.MyTransform.position = beforPos;
+			_myCollisionAreaData.MyTransform.position += ForwardClamp(_myCollisionAreaData
+				, _myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData, moveDirection);
 		}
 	}
-	public Vector3 test(CollisionAreaData me, CollisionAreaData target)
+	public Vector3 ForwardClamp(CollisionAreaData me, CollisionAreaData target, Vector3 moveDir)
 	{
-		Vector3 c = me.MyTransform.position - target.MyTransform.position;
-		float xAbs = Mathf.Abs(c.x);
-		float yAbs = Mathf.Abs(c.y);
-		float zAbs = Mathf.Abs(c.z);
-		float myHitBoxForward = me.ForwardZPos + me.AreaWidth;
+		float xAbs = Mathf.Abs(moveDir.x);
+		float yAbs = Mathf.Abs(moveDir.y);
+		float zAbs = Mathf.Abs(moveDir.z);
 		if (xAbs >= yAbs)
 		{
 			if (xAbs >= zAbs)
 			{
-				if (Mathf.Sign(c.x) > 0)
+				float moveCorrection = (target.HalfAreaSize.x + target.Offset.x)
+						+ (me.HalfAreaSize.x + me.HalfAreaWidth + me.Offset.x);
+				//動いた方向が右
+				if (moveDir.x > 0)
 				{
-					Debug.Log("left");
-					return -target.MyTransform.right * (target.LeftXPos - myHitBoxForward);
+					Debug.Log("right:" + target.MyTransform.name);
+					return Vector3.left * moveCorrection;
 				}
 				else
 				{
-					Debug.Log("right");
-					return target.MyTransform.right * (target.RightXPos - me.ForwardZPos + me.AreaWidth);
+					Debug.Log("left;" + target.MyTransform.name);
+					return Vector3.right * moveCorrection;
 				}
 			}
 			else
 			{
-				if (Mathf.Sign(c.z) > 0)
+				float moveCorrection = (target.HalfAreaSize.z + target.Offset.z)
+						+ (me.HalfAreaSize.z + me.HalfAreaWidth + me.Offset.z);
+				if (Mathf.Sign(moveDir.z) > 0)
 				{
 					Debug.Log("forward");
-					return target.MyTransform.forward * (target.ForwardZPos - me.ForwardZPos + me.AreaWidth);
+					return Vector3.forward * moveCorrection;
 				}
 				else
 				{
 					Debug.Log("back");
-					return -target.MyTransform.forward * (target.BackZPos - me.ForwardZPos + me.AreaWidth);
+					return Vector3.back * moveCorrection;
 				}
 			}
 		}
+		Debug.Log("zero:" + moveDir);
 		return Vector3.zero;
-		//else if (yAbs >= zAbs)
-		//{
-		//	if (Mathf.Sign(c.y) > 0)
-		//	{
-		//		return TopYPos;
-		//	}
-		//	else
-		//	{
-		//		return BottomYPos;
-		//	}
-		//}
-		//else
-		//{
-		//	if (Mathf.Sign(c.z) > 0)
-		//	{
-		//		Debug.Log("forward2");
-		//		return ForwardZPos;
-		//	}
-		//	else
-		//	{
-		//		Debug.Log("back2");
-		//		return BackZPos;
-		//	}
-		//}
-	}
-	private int SelectDirectionIndex(Vector3 moveVector)
-	{
-		float xAbs = Mathf.Abs(moveVector.x);
-		float yAbs = Mathf.Abs(moveVector.y);
-		float zAbs = Mathf.Abs(moveVector.z);
-		if (xAbs >= yAbs)
-		{
-			if (xAbs >= zAbs)
-			{
-				if (Mathf.Sign(moveVector.x) > 0)
-				{
-					return _leftCollisionAreaDataIndex;
-				}
-				else
-				{
-					return _rightCollisionAreaDataIndex;
-				}
-			}
-			else
-			{
-				if (Mathf.Sign(moveVector.z) > 0)
-				{
-					return _backCollisionAreaDataIndex;
-				}
-				else
-				{
-					return _forwardCollisionAreaDataIndex;
-				}
-			}
-		}
-		else if (yAbs >= zAbs)
-		{
-			if (Mathf.Sign(moveVector.y) > 0)
-			{
-				return _bottomCollisionIndex;
-			}
-			else
-			{
-				return _topCollisionAreaDataIndex;
-			}
-		}
-		else
-		{
-			if (Mathf.Sign(moveVector.z) > 0)
-			{
-				return _backCollisionAreaDataIndex;
-			}
-			else
-			{
-				return _forwardCollisionAreaDataIndex;
-			}
-		}
 	}
 
 	protected virtual void GravityFall()

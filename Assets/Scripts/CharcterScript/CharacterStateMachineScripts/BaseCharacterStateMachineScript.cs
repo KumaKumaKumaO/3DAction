@@ -2,14 +2,15 @@ using UnityEngine;
 /// <summary>
 /// キャラクター用のステートマシンのベース
 /// </summary>
-public abstract class BaseCharacterStateMachineScript : ICharacterStateMachine
+public class BaseCharacterStateMachineScript : ICharacterStateMachine
 {
 	protected IInputCharcterAction _input = default;
 	protected BaseCharcterStateScript _nowState = default;
 	protected BaseCharacterScript _myOwner = default;
 	protected Animator _myOwnerAnimator = default;
 
-	public BaseCharacterStateMachineScript(IInputCharcterAction input, BaseCharacterScript myOwner, Animator myOwnerAnimator)
+	public BaseCharacterStateMachineScript(IInputCharcterAction input
+		, BaseCharacterScript myOwner, Animator myOwnerAnimator)
 	{
 		this._input = input;
 		this._myOwner = myOwner;

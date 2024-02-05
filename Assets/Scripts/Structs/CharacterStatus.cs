@@ -23,9 +23,10 @@ public struct CharcterStatus
 	[SerializeField]
 	private float _defaultStamina;
 	[SerializeField]
-	private float _jumpPower;
+	private float _staggerThreshold;
 	[SerializeField]
-	private float _defaultJumpPower;
+	private float _staggerMaxThreshold;
+
 	public float MaxHP { get { return _maxHp; }set { _maxHp = value; } }
 	public float Hp { get { return _hp; } set { _hp = value; } }
 	public float DefaultDefence { get { return _defaultDefence; } set { _defaultDefence = value; } }
@@ -37,6 +38,6 @@ public struct CharcterStatus
 	public float AirSpeed { get { return _speed / 2; } }
 	public float DefaultStamina { get { return _defaultStamina; } set { _defaultStamina = value; } }
 	public float Stamina { get { return _stamina; } set { _stamina = value; } }
-	public float DefaultJumpPower { get { return _defaultJumpPower; } set { _defaultJumpPower = value; } }
-	public float JumpPower { get { return _jumpPower; } set { _jumpPower = value; } }
+	public float StaggerThreshold { get { return _staggerThreshold; } set { _staggerThreshold = value; } }
+	public float StaggerMaxThreshold { get { return _staggerMaxThreshold; } set { _staggerMaxThreshold = value; } }
 }

@@ -25,9 +25,9 @@ public class JumpStateScript : BaseCharcterStateScript
 		_inputVector = _input.MoveInput();
 		if (_jumpPowerTemp > 0)
 		{
-			_myOwner.ObjectMove((Vector3.up * _myOwner.MyCharcterStatus.JumpPower 
-				+ Vector3.right * _inputVector.x * _myOwner.MyCharcterStatus.AirSpeed
-				+ Vector3.forward * _inputVector.y * _myOwner.MyCharcterStatus.AirSpeed) * Time.deltaTime);
+			//_myOwner.ObjectMove((Vector3.up * _myOwner.MyCharcterStatus.JumpPower 
+			//	+ Vector3.right * _inputVector.x * _myOwner.MyCharcterStatus.AirSpeed
+			//	+ Vector3.forward * _inputVector.y * _myOwner.MyCharcterStatus.AirSpeed) * Time.deltaTime);
 			_jumpPowerTemp -= Time.deltaTime * _fallSpeed;
 		}
 		else if (_jumpPowerTemp <= 0)
@@ -47,7 +47,7 @@ public class JumpStateScript : BaseCharcterStateScript
 	private void JumpInit()
 	{
 		_ownerAnimator.SetBool(_isJumpAnimamtorHashValue,true);
-		_jumpPowerTemp = _myOwner.MyCharcterStatus.JumpPower;
+		//_jumpPowerTemp = _myOwner.MyCharcterStatus.JumpPower;
 		_myOwner.IsGravity = false;
 		canInterruption = false;
 	}

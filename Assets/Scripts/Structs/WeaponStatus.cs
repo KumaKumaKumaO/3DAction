@@ -6,11 +6,9 @@ public struct WeaponStatus
 	private float _attack;
 	[SerializeField]
 	private float _weight;
+	[SerializeField]
+	private float _staggerValue;
 	public float Attack { get { return _attack; } }
 	public float Weight { get { return _weight; } }
-	public WeaponStatus(float attack, float weight)
-	{
-		this._attack = attack;
-		this._weight = weight;
-	}
+	public float StaggerValue { get { return _staggerValue; } }
 }

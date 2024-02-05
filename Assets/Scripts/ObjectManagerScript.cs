@@ -120,6 +120,10 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
 		{
+			if (charcterColAreaData.MyTransform.root == item.MyCollisionAreaData.MyTransform)
+			{
+				continue;
+			}
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 	}
@@ -128,6 +132,10 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		foreach (BaseObjectScript item in _stageFloors)
 		{
+			if (charcterColAreaData.MyTransform == item.MyCollisionAreaData.MyTransform)
+			{
+				continue;
+			}
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 	}
@@ -135,8 +143,11 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		foreach (BaseObjectScript item in _stageObjects)
 		{
+			if (charcterColAreaData.MyTransform == item.MyCollisionAreaData.MyTransform)
+			{
+				continue;
+			}
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
-
 		}
 	}
 

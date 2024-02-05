@@ -7,16 +7,22 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 	private Transform _playerTransform = default;
 	private Transform _myTransform = default;
 	private float _attackDistance = default;
-	public DemonGuardAIInputScript(Transform myTransform,Transform playerTransform,float attackDistance)
+	public DemonGuardAIInputScript(Transform myTransform, Transform playerTransform, float attackDistance)
 	{
 		this._attackDistance = attackDistance;
 		this._playerTransform = playerTransform;
 		this._myTransform = myTransform;
 	}
+
+	private Vector3 CutYValue(Vector3 vector)
+	{
+		return vector - (Vector3.up * vector.y);
+	}
+
 	public Vector2 MoveInput()
 	{
-		Vector3 toPlayerVector = _playerTransform.position - _myTransform.position;
-		if(toPlayerVector.magnitude  < 1.5f)
+		Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
+		if (Mathf.Abs(toPlayerVector.normalized.x) < 0.05f && toPlayerVector.magnitude < _attackDistance)
 		{
 			return Vector2.zero;
 		}
@@ -28,8 +34,9 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 	}
 	public bool IsAttack()
 	{
-		Vector3 toPlayerVector = _playerTransform.position - _myTransform.position;
-		if(toPlayerVector.magnitude <= _attackDistance)
+		Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
+		if (toPlayerVector.magnitude <= _attackDistance 
+			&& Mathf.Abs(Vector3.SignedAngle(_myTransform.forward,toPlayerVector,_myTransform.up)) < 0.1f)
 		{
 			return true;
 		}

@@ -5,10 +5,10 @@ using UnityEngine;
 public class BaseWeaponScript : BaseObjectScript
 {
 	[SerializeField]
-	protected WeaponStatus _myStatus = default;
-	[SerializeField]
 	protected bool isHit = default;
 	protected bool isAttack = default;
+	[SerializeField]
+	protected WeaponStatus _myStatus = default;
 
 	public bool IsAttack { get { return isAttack; } set { isAttack = value; } }
 	public override void Init()
@@ -24,10 +24,13 @@ public class BaseWeaponScript : BaseObjectScript
 			if (isHit)
 			{
 				isAttack = false;
+				Debug.LogWarning("aaaa");
+				isHit = false;
 			}
 			foreach (CollisionResultData resultData in _myCollisionObjects)
 			{
-				(resultData.CollisionObjectData as BaseCharacterScript).ReceiveDamage(_myStatus.Attack);
+				(resultData.CollisionObjectData as BaseCharacterScript)
+					.ReceiveDamage(_myStatus.Attack,_myStatus.StaggerValue);
 			}
 		}
 	}

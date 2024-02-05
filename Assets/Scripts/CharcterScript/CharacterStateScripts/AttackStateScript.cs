@@ -38,6 +38,12 @@ public class AttackStateScript : BaseCharcterStateScript
 	public override void Execute()
 	{
 		base.Execute();
+		if (_nowState == AttackState.End)
+		{
+			_nowState = AttackState.Wait;
+			ResetAttackCount();
+			_nowAnimationHash = 0;
+		}
 
 		bool isChangeAnimation = _ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash != _nowAnimationHash;
 		//アニメーションが変更されたら
@@ -65,7 +71,7 @@ public class AttackStateScript : BaseCharcterStateScript
 			}
 		}
 		//攻撃継続をさせたかったら
-		else if(_input.IsAttack() && _nowState == AttackState.Attacking && _attackCount <= 2)
+		else if(_input.IsAttack() && _nowState == AttackState.Attacking && _attackCount < 2)
 		{
 			IncrementAttackCount();
 			_nowState = AttackState.NextAttack;
