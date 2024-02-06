@@ -502,10 +502,11 @@ MonoBehaviour:
   _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 1
+  isHit: 0
   _myStatus:
     _attack: 0
     _weight: 0
-  isHit: 0
+    _staggerValue: 0
 --- !u!1 &923026631093361054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,8 +1910,8 @@ MonoBehaviour:
     _defaultSpeed: 3
     _stamina: 5
     _defaultStamina: 5
-    _jumpPower: 10
-    _defaultJumpPower: 5
+    _staggerThreshold: 0
+    _staggerMaxThreshold: 0
 --- !u!1 &8632767246620876828
 GameObject:
   m_ObjectHideFlags: 0

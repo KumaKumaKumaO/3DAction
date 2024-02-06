@@ -47,7 +47,7 @@ public class BaseCharacterScript : BaseObjectScript
 	{
 		base.GravityFall();
 		if (_myCollisionObjects.Count <= 0) { return; }
-		if (_myCollisionObjects[0].CollisionObjectData is StageFloorScript floorScriptTemp)
+		if (_myCollisionObjects[0].ObjectData is StageFloorScript floorScriptTemp)
 		{
 			floorScriptTemp.OnTopCharcter(this);
 		}

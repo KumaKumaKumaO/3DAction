@@ -29,7 +29,7 @@ public class BaseWeaponScript : BaseObjectScript
 			}
 			foreach (CollisionResultData resultData in _myCollisionObjects)
 			{
-				(resultData.CollisionObjectData as BaseCharacterScript)
+				(resultData.ObjectData as BaseCharacterScript)
 					.ReceiveDamage(_myStatus.Attack,_myStatus.StaggerValue);
 			}
 		}

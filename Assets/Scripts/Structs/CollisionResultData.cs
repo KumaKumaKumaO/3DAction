@@ -16,7 +16,7 @@ public struct CollisionResultData
 	private bool isCollisionForward;
 	[SerializeField]
 	private bool isCollisionBack;
-	private BaseObjectScript _collisionObjectData;
+	private BaseObjectScript _objectData;
 	public bool IsCollision { 
 		get
 		{
@@ -32,7 +32,7 @@ public struct CollisionResultData
 	public bool IsCollisionLeft { get { return isCollisionLeft; } }
 	public bool IsCollisionForward { get { return isCollisionForward; } }
 	public bool IsCollisionBack { get { return isCollisionBack; } }
-	public BaseObjectScript CollisionObjectData { get { return _collisionObjectData; } }
+	public BaseObjectScript ObjectData { get { return _objectData; } }
 	public CollisionResultData(bool right,bool left , bool top, bool bottom , bool forward , bool back,BaseObjectScript collisionObjectData )
 	{
 		isCollisionTop = top;
@@ -41,6 +41,6 @@ public struct CollisionResultData
 		isCollisionLeft = left;
 		isCollisionForward = forward;
 		isCollisionBack = back;
-		this._collisionObjectData = collisionObjectData;
+		this._objectData = collisionObjectData;
 	}
 }

@@ -27,7 +27,7 @@ public class InGamePlayerInput : IInputPlayerAction, IInputCharcterAction, IInpu
 	}
 	public Vector2 MoveInput()
 	{
-		return Vector2.left;
+		//return Vector2.up + Vector2.left;
 		return Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical");
 	}
 	public int UseItem()

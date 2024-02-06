@@ -64,18 +64,17 @@ public abstract class BaseObjectScript : MonoBehaviour
 			if (_myCollisionObjects[i].IsCollisionBottom)
 			{
 				if (_bottomCollisionIndex < 0
-					|| !(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
-					< _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.TopYPos))
+					|| !(_myCollisionObjects[_bottomCollisionIndex].ObjectData.MyCollisionAreaData.TopYPos
+					< _myCollisionObjects[i].ObjectData.MyCollisionAreaData.TopYPos))
 				{
 					_bottomCollisionIndex = i;
-
 				}
 			}
 			if (_myCollisionObjects[i].IsCollisionTop)
 			{
 				if (_topCollisionAreaDataIndex < 0
-					|| _myCollisionObjects[_topCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.BottomYPos
-					> _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.BottomYPos)
+					|| _myCollisionObjects[_topCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.BottomYPos
+					> _myCollisionObjects[i].ObjectData.MyCollisionAreaData.BottomYPos)
 				{
 					_topCollisionAreaDataIndex = i;
 				}
@@ -83,8 +82,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			if (_myCollisionObjects[i].IsCollisionRight)
 			{
 				if (_rightCollisionAreaDataIndex < 0
-					|| _myCollisionObjects[_rightCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.LeftXPos
-					> _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.LeftXPos)
+					|| _myCollisionObjects[_rightCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.LeftXPos
+					> _myCollisionObjects[i].ObjectData.MyCollisionAreaData.LeftXPos)
 				{
 					_rightCollisionAreaDataIndex = i;
 				}
@@ -92,8 +91,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			if (_myCollisionObjects[i].IsCollisionLeft)
 			{
 				if (_leftCollisionAreaDataIndex < 0
-					|| _myCollisionObjects[_leftCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.RightXPos
-					< _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.RightXPos)
+					|| _myCollisionObjects[_leftCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.RightXPos
+					< _myCollisionObjects[i].ObjectData.MyCollisionAreaData.RightXPos)
 				{
 					_leftCollisionAreaDataIndex = i;
 				}
@@ -103,8 +102,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			{
 				if (_forwardCollisionAreaDataIndex < 0
 					//
-					|| _myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.BackZPos
-					> _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.BackZPos)
+					|| _myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.BackZPos
+					> _myCollisionObjects[i].ObjectData.MyCollisionAreaData.BackZPos)
 				{
 					_forwardCollisionAreaDataIndex = i;
 				}
@@ -112,8 +111,8 @@ public abstract class BaseObjectScript : MonoBehaviour
 			else if (_myCollisionObjects[i].IsCollisionBack)
 			{
 				if (_backCollisionAreaDataIndex < 0
-					|| _myCollisionObjects[_backCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.ForwardZPos
-					< _myCollisionObjects[i].CollisionObjectData.MyCollisionAreaData.ForwardZPos)
+					|| _myCollisionObjects[_backCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.ForwardZPos
+					< _myCollisionObjects[i].ObjectData.MyCollisionAreaData.ForwardZPos)
 				{
 					_backCollisionAreaDataIndex = i;
 				}
@@ -138,7 +137,11 @@ public abstract class BaseObjectScript : MonoBehaviour
 		Vector3 beforPos = _myCollisionAreaData.MyTransform.position;
 		_myCollisionAreaData.MyTransform.position += vector;
 		SearchHitObjects();
-		MoveClamp(_myCollisionAreaData.MyTransform.position - beforPos, beforPos);
+		Debug.Log("pos:" + _myCollisionAreaData.MyTransform.position + ":" + beforPos + "vector:" + vector);
+
+		_myCollisionAreaData.MyTransform.position = GetClampPos(_myCollisionAreaData
+			, (_myCollisionAreaData.MyTransform.position - beforPos).normalized);
+
 	}
 	protected virtual void SearchHitObjects()
 	{
@@ -153,78 +156,87 @@ public abstract class BaseObjectScript : MonoBehaviour
 		if (_forwardCollisionAreaDataIndex >= 0)
 		{
 			Debug.Log
-			(_myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.MyTransform.name);
+			(_myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.MyTransform.name);
 		}
 	}
-	private void MoveClamp(Vector3 moveDirection, Vector3 beforPos)
+	public Vector3 GetClampPos(CollisionAreaData myData, Vector3 moveDir)
 	{
-		//下
-		//動いている方向は世界軸　自分の下のオブジェクトのインデックス
-		if (moveDirection.y < 0 && _bottomCollisionIndex >= 0)
+		Vector3 returnValue = Vector3.zero;
+		if (moveDir.x != 0)
 		{
-			_myCollisionAreaData.MyTransform.position += Vector3.up *
-				(_myCollisionObjects[_bottomCollisionIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
-				- _myCollisionAreaData.BottomYPos + _myCollisionAreaData.AreaWidth);
-			//Debug.Log("下");
-			SearchHitObjects();
-		}
-		//上
-		else if (moveDirection.y > 0 && _topCollisionAreaDataIndex >= 0)
-		{
-			_myCollisionAreaData.MyTransform.position += Vector3.down *
-				(_myCollisionObjects[_topCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData.TopYPos
-				- _myCollisionAreaData.BottomYPos + _myCollisionAreaData.AreaWidth);
-			SearchHitObjects();
-		}
-		//前
-		else if (moveDirection.y == 0 && _forwardCollisionAreaDataIndex >= 0)
-		{
-			//_myCollisionAreaData.MyTransform.position = beforPos;
-			_myCollisionAreaData.MyTransform.position += ForwardClamp(_myCollisionAreaData
-				, _myCollisionObjects[_forwardCollisionAreaDataIndex].CollisionObjectData.MyCollisionAreaData, moveDirection);
-		}
-	}
-	public Vector3 ForwardClamp(CollisionAreaData me, CollisionAreaData target, Vector3 moveDir)
-	{
-		float xAbs = Mathf.Abs(moveDir.x);
-		float yAbs = Mathf.Abs(moveDir.y);
-		float zAbs = Mathf.Abs(moveDir.z);
-		if (xAbs >= yAbs)
-		{
-			if (xAbs >= zAbs)
+			//動いた方向が右
+			if (moveDir.x > 0)
 			{
-				float moveCorrection = (target.HalfAreaSize.x + target.Offset.x)
-						+ (me.HalfAreaSize.x + me.HalfAreaWidth + me.Offset.x);
-				//動いた方向が右
-				if (moveDir.x > 0)
+				if (_rightCollisionAreaDataIndex >= 0)
 				{
-					Debug.Log("right:" + target.MyTransform.name);
-					return Vector3.left * moveCorrection;
-				}
-				else
-				{
-					Debug.Log("left;" + target.MyTransform.name);
-					return Vector3.right * moveCorrection;
+					returnValue += Vector3.right * (_myCollisionObjects[_rightCollisionAreaDataIndex]
+						.ObjectData.MyCollisionAreaData.LeftXPos - myData.RightXPos - myData.AreaWidth);
+					_myCollisionObjects.RemoveAt(_rightCollisionAreaDataIndex);
+					SearchHitObjects();
 				}
 			}
 			else
 			{
-				float moveCorrection = (target.HalfAreaSize.z + target.Offset.z)
-						+ (me.HalfAreaSize.z + me.HalfAreaWidth + me.Offset.z);
-				if (Mathf.Sign(moveDir.z) > 0)
+				if (_leftCollisionAreaDataIndex >= 0)
 				{
-					Debug.Log("forward");
-					return Vector3.forward * moveCorrection;
+					returnValue += Vector3.right * (_myCollisionObjects[_leftCollisionAreaDataIndex]
+						.ObjectData.MyCollisionAreaData.RightXPos - myData.LeftXPos + myData.AreaWidth);
+					_myCollisionObjects.RemoveAt(_leftCollisionAreaDataIndex);
+					SearchHitObjects();
 				}
-				else
+			}
+			
+		}
+		if (moveDir.z != 0)
+		{
+			if (moveDir.z > 0)
+			{
+				if (_forwardCollisionAreaDataIndex >= 0)
 				{
-					Debug.Log("back");
-					return Vector3.back * moveCorrection;
+					returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+						.ObjectData.MyCollisionAreaData.BackZPos - myData.ForwardZPos - myData.AreaWidth);
+					_myCollisionObjects.RemoveAt(_forwardCollisionAreaDataIndex);
+					SearchHitObjects();
+				}
+			}
+			else
+			{
+				if (_backCollisionAreaDataIndex >= 0)
+				{
+					returnValue += Vector3.forward * (_myCollisionObjects[_backCollisionAreaDataIndex]
+						.ObjectData.MyCollisionAreaData.ForwardZPos - myData.BackZPos - myData.AreaWidth);
+					_myCollisionObjects.RemoveAt(_backCollisionAreaDataIndex);
+					SearchHitObjects();
 				}
 			}
 		}
-		Debug.Log("zero:" + moveDir);
-		return Vector3.zero;
+		if (moveDir.y != 0)
+		{
+			if (moveDir.y < 0)
+			{
+				if (_bottomCollisionIndex >= 0)
+				{
+					returnValue += Vector3.up * (_myCollisionObjects[_bottomCollisionIndex]
+						.ObjectData.MyCollisionAreaData.TopYPos - myData.BottomYPos + myData.AreaWidth);
+					_myCollisionObjects.RemoveAt(_bottomCollisionIndex);
+					SearchHitObjects();
+				}
+			}
+			else
+			{
+				if (_forwardCollisionAreaDataIndex >= 0)
+				{
+					returnValue += Vector3.up * (_myCollisionObjects[_topCollisionAreaDataIndex]
+						.ObjectData.MyCollisionAreaData.BottomYPos - myData.TopYPos + myData.AreaWidth);
+					_myCollisionObjects.RemoveAt(_topCollisionAreaDataIndex);
+					SearchHitObjects();
+				}
+			}
+		}
+		returnValue += myData.MyTransform.position;
+
+		Debug.Log("clamp" + returnValue);
+		return returnValue;
 	}
 
 	protected virtual void GravityFall()
