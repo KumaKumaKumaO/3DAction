@@ -28,7 +28,7 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		get
 		{
-			if(_playerCharcterScript != null)
+			if (_playerCharcterScript != null)
 			{
 				return _playerCharcterScript;
 			}
@@ -112,7 +112,7 @@ public class ObjectManagerScript : MonoBehaviour
 	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
 	{
 		GetCollisionFloor(charcterColAreaData, collisionObjectDatas);
-		GetCollisionObject(charcterColAreaData, collisionObjectDatas);
+		GetCollisionStageObject(charcterColAreaData, collisionObjectDatas);
 		GetCollisionCharcter(charcterColAreaData, collisionObjectDatas);
 	}
 
@@ -139,15 +139,11 @@ public class ObjectManagerScript : MonoBehaviour
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 	}
-	public void GetCollisionObject(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+	public void GetCollisionStageObject(CollisionAreaData colAreaData, List<CollisionResultData> collisionObjectDatas)
 	{
 		foreach (BaseObjectScript item in _stageObjects)
 		{
-			if (charcterColAreaData.MyTransform == item.MyCollisionAreaData.MyTransform)
-			{
-				continue;
-			}
-			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
+			AddCollisionObject(colAreaData, item, collisionObjectDatas);
 		}
 	}
 
@@ -162,6 +158,11 @@ public class ObjectManagerScript : MonoBehaviour
 				collisionObjects.Add(collisionResultDataTemp);
 			}
 		}
+	}
+
+	public CollisionResultData CollisionObject(CollisionAreaData myData, BaseObjectScript targetObject)
+	{
+		return _collisionSystem.GetCollisionResult(myData, targetObject);
 	}
 
 	public BaseWeaponScript GetMyWeapon(BaseCharacterScript myData)

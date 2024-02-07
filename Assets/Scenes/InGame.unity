@@ -173,7 +173,7 @@ MonoBehaviour:
   _myCollisionAreaData:
     _halfAreaSize: {x: 50, y: 5, z: 0.05}
     _offset: {x: 0, y: 0, z: 0}
-    _areaWidth: 0
+    _areaWidth: 0.1
   _bottomCollisionIndex: -1
   _topCollisionAreaDataIndex: -1
   _rightCollisionAreaDataIndex: -1
@@ -401,7 +401,7 @@ MonoBehaviour:
   _myCollisionAreaData:
     _halfAreaSize: {x: 0.05, y: 5, z: 50}
     _offset: {x: 0, y: 0, z: 0}
-    _areaWidth: 0
+    _areaWidth: 0.1
   _bottomCollisionIndex: -1
   _topCollisionAreaDataIndex: -1
   _rightCollisionAreaDataIndex: -1
@@ -612,7 +612,7 @@ MonoBehaviour:
   _myCollisionAreaData:
     _halfAreaSize: {x: 0.05, y: 5, z: 50}
     _offset: {x: 0, y: 0, z: 0}
-    _areaWidth: 0
+    _areaWidth: 0.1
   _bottomCollisionIndex: -1
   _topCollisionAreaDataIndex: -1
   _rightCollisionAreaDataIndex: -1
@@ -721,7 +721,7 @@ MonoBehaviour:
   _myCollisionAreaData:
     _halfAreaSize: {x: 50, y: 5, z: 5}
     _offset: {x: 0, y: 0, z: 0}
-    _areaWidth: 0
+    _areaWidth: 0.1
   _bottomCollisionIndex: -1
   _topCollisionAreaDataIndex: -1
   _rightCollisionAreaDataIndex: -1
@@ -924,7 +924,7 @@ MonoBehaviour:
   _myCollisionAreaData:
     _halfAreaSize: {x: 50, y: 5, z: 0.05}
     _offset: {x: 0, y: 0, z: 0}
-    _areaWidth: 0
+    _areaWidth: 0.1
   _bottomCollisionIndex: -1
   _topCollisionAreaDataIndex: -1
   _rightCollisionAreaDataIndex: -1
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   _myCollisionAreaData:
     _halfAreaSize: {x: 0.05, y: 5, z: 50}
     _offset: {x: 0, y: 0, z: 0}
-    _areaWidth: 0
+    _areaWidth: 0.1
   _bottomCollisionIndex: -1
   _topCollisionAreaDataIndex: -1
   _rightCollisionAreaDataIndex: -1

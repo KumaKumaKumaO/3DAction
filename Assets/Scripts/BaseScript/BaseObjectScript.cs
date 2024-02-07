@@ -28,6 +28,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	[SerializeField]
 	protected bool isGround = false;
 
+	protected int _forwardCollisionCount = 0;
 
 	[Header("デバッグ用")]
 
@@ -57,6 +58,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		}
 
 	}
+	//今の向きに対して
 	protected void SelectColObjectResult()
 	{
 		for (int i = 0; i < _myCollisionObjects.Count; i++)
@@ -79,6 +81,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 					_topCollisionAreaDataIndex = i;
 				}
 			}
+
 			if (_myCollisionObjects[i].IsCollisionRight)
 			{
 				if (_rightCollisionAreaDataIndex < 0
@@ -88,7 +91,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 					_rightCollisionAreaDataIndex = i;
 				}
 			}
-			if (_myCollisionObjects[i].IsCollisionLeft)
+			else if (_myCollisionObjects[i].IsCollisionLeft)
 			{
 				if (_leftCollisionAreaDataIndex < 0
 					|| _myCollisionObjects[_leftCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.RightXPos
@@ -100,6 +103,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 			//ものから見て前側にヒットしている
 			if (_myCollisionObjects[i].IsCollisionForward)
 			{
+				_forwardCollisionCount += 1;
 				if (_forwardCollisionAreaDataIndex < 0
 					//
 					|| _myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.BackZPos
@@ -131,6 +135,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_leftCollisionAreaDataIndex = -1;
 		_forwardCollisionAreaDataIndex = -1;
 		_backCollisionAreaDataIndex = -1;
+		_forwardCollisionCount = 0;
 	}
 	public virtual void ObjectMove(Vector3 vector)
 	{
@@ -140,7 +145,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		Debug.Log("pos:" + _myCollisionAreaData.MyTransform.position + ":" + beforPos + "vector:" + vector);
 
 		_myCollisionAreaData.MyTransform.position = GetClampPos(_myCollisionAreaData
-			, (_myCollisionAreaData.MyTransform.position - beforPos).normalized);
+			, _myCollisionAreaData.MyTransform.position - beforPos);
 
 	}
 	protected virtual void SearchHitObjects()
@@ -159,66 +164,18 @@ public abstract class BaseObjectScript : MonoBehaviour
 			(_myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.MyTransform.name);
 		}
 	}
-	public Vector3 GetClampPos(CollisionAreaData myData, Vector3 moveDir)
+	public Vector3 GetClampPos(CollisionAreaData myData, Vector3 moveVector)
 	{
-		Vector3 returnValue = Vector3.zero;
-		if (moveDir.x != 0)
+		Vector3 returnValue = myData.MyTransform.position;
+		if (moveVector.y != 0)
 		{
-			//動いた方向が右
-			if (moveDir.x > 0)
-			{
-				if (_rightCollisionAreaDataIndex >= 0)
-				{
-					returnValue += Vector3.right * (_myCollisionObjects[_rightCollisionAreaDataIndex]
-						.ObjectData.MyCollisionAreaData.LeftXPos - myData.RightXPos - myData.AreaWidth);
-					_myCollisionObjects.RemoveAt(_rightCollisionAreaDataIndex);
-					SearchHitObjects();
-				}
-			}
-			else
-			{
-				if (_leftCollisionAreaDataIndex >= 0)
-				{
-					returnValue += Vector3.right * (_myCollisionObjects[_leftCollisionAreaDataIndex]
-						.ObjectData.MyCollisionAreaData.RightXPos - myData.LeftXPos + myData.AreaWidth);
-					_myCollisionObjects.RemoveAt(_leftCollisionAreaDataIndex);
-					SearchHitObjects();
-				}
-			}
-			
-		}
-		if (moveDir.z != 0)
-		{
-			if (moveDir.z > 0)
-			{
-				if (_forwardCollisionAreaDataIndex >= 0)
-				{
-					returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
-						.ObjectData.MyCollisionAreaData.BackZPos - myData.ForwardZPos - myData.AreaWidth);
-					_myCollisionObjects.RemoveAt(_forwardCollisionAreaDataIndex);
-					SearchHitObjects();
-				}
-			}
-			else
-			{
-				if (_backCollisionAreaDataIndex >= 0)
-				{
-					returnValue += Vector3.forward * (_myCollisionObjects[_backCollisionAreaDataIndex]
-						.ObjectData.MyCollisionAreaData.ForwardZPos - myData.BackZPos - myData.AreaWidth);
-					_myCollisionObjects.RemoveAt(_backCollisionAreaDataIndex);
-					SearchHitObjects();
-				}
-			}
-		}
-		if (moveDir.y != 0)
-		{
-			if (moveDir.y < 0)
+			if (moveVector.y < 0)
 			{
 				if (_bottomCollisionIndex >= 0)
 				{
 					returnValue += Vector3.up * (_myCollisionObjects[_bottomCollisionIndex]
 						.ObjectData.MyCollisionAreaData.TopYPos - myData.BottomYPos + myData.AreaWidth);
-					_myCollisionObjects.RemoveAt(_bottomCollisionIndex);
+					//_myCollisionObjects.RemoveAt(_bottomCollisionIndex);
 					SearchHitObjects();
 				}
 			}
@@ -228,14 +185,73 @@ public abstract class BaseObjectScript : MonoBehaviour
 				{
 					returnValue += Vector3.up * (_myCollisionObjects[_topCollisionAreaDataIndex]
 						.ObjectData.MyCollisionAreaData.BottomYPos - myData.TopYPos + myData.AreaWidth);
-					_myCollisionObjects.RemoveAt(_topCollisionAreaDataIndex);
+					//_myCollisionObjects.RemoveAt(_topCollisionAreaDataIndex);
 					SearchHitObjects();
 				}
 			}
 		}
-		returnValue += myData.MyTransform.position;
-
-		Debug.Log("clamp" + returnValue);
+		if (_forwardCollisionAreaDataIndex < 0)
+		{
+			return returnValue;
+		}
+		//斜め入力
+		if (moveVector.x != 0 && moveVector.z != 0)
+		{
+			CollisionResultData resultData = _objectManagerScript.CollisionObject(
+			   _myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData, this);
+			if (resultData.IsCollisionRight)
+			{
+				Debug.LogWarning("right");
+				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+				.ObjectData.MyCollisionAreaData.RightXPos - myData.LeftXPos + myData.AreaWidth);
+			}
+			else if (resultData.IsCollisionLeft)
+			{
+				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+				.ObjectData.MyCollisionAreaData.LeftXPos - myData.RightXPos + myData.AreaWidth);
+			}
+			else if (resultData.IsCollisionForward)
+			{
+				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+				.ObjectData.MyCollisionAreaData.ForwardZPos - myData.BackZPos - myData.AreaWidth);
+			}
+			else
+			{
+				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+				.ObjectData.MyCollisionAreaData.BackZPos - myData.ForwardZPos - myData.AreaWidth);
+			}
+		}
+		else if (moveVector.x != 0)
+		{
+			//動いた方向が右
+			if (moveVector.x > 0)
+			{
+				//Debug.LogWarning("右");
+				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.LeftXPos - myData.RightXPos + myData.AreaWidth);
+			}
+			else
+			{
+				//Debug.LogWarning("左");
+				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.RightXPos - myData.LeftXPos + myData.AreaWidth);
+			}
+		}
+		else if (moveVector.z != 0)
+		{
+			if (moveVector.z > 0)
+			{
+				//Debug.LogWarning("前");
+				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.BackZPos - myData.ForwardZPos - myData.AreaWidth);
+			}
+			else
+			{
+				//Debug.LogWarning("後ろ");
+				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.ForwardZPos - myData.BackZPos - myData.AreaWidth);
+			}
+		}
 		return returnValue;
 	}
 
