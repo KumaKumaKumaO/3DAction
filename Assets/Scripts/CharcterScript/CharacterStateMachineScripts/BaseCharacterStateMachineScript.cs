@@ -26,9 +26,9 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		}
 		if (_input.IsAttack())
 		{
-			if (!(_nowState is AttackStateScript))
+			if (!(_nowState is PlayerAttackStateScript))
 			{
-				ChangeState(new AttackStateScript(_myOwner, _myOwnerAnimator, _input));
+				ChangeState(new PlayerAttackStateScript(_myOwner, _myOwnerAnimator, _input));
 			}
 		}
 		else if (_input.IsEvasion())

@@ -16,10 +16,11 @@ public class PlayerCharacterScript : BaseCharacterScript
 		}
 		_myAnimator = myAnimator;
 		_myStateMachine = new PlayerCharacterStateMachineScript(this, _myAnimator, input
-			,_objectManagerScript.CameraScript.CameraTransform);
+			, _objectManagerScript.CameraScript.CameraTransform);
 	}
 	public override void Init()
 	{
 		base.Init();
 	}
+	
 }

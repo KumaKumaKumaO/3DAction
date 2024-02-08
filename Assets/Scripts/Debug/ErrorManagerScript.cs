@@ -33,9 +33,9 @@ public class ErrorManagerScript : IErrorManager
 		}
 	}
 	public void NullCompornentError(string compornentName)
-    {
+	{
 		Debug.LogError(HEAD_MSG + compornentName + "が見つかりませんでした。");
-    }
+	}
 	public void SingleTonError(string className)
 	{
 		Debug.LogError(HEAD_MSG + className + "のインスタンスが過剰です。");
@@ -62,5 +62,9 @@ public class ErrorManagerScript : IErrorManager
 	public void CantExistObject(string objName)
 	{
 		Debug.LogError(HEAD_MSG + objName + "は存在するはずではありません。");
+	}
+	public void OverFlow(string className,int i)
+	{
+		Debug.LogError(HEAD_MSG + className + "の中で"+i+"という入力が入りオーバーフローしました。");
 	}
 }

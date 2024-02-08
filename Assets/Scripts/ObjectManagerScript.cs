@@ -177,6 +177,17 @@ public class ObjectManagerScript : MonoBehaviour
 		return null;
 	}
 
+	public bool IsCollisionCharcter(BaseCharacterScript targetCharcterScript)
+	{
+		foreach (BaseObjectScript item in _charcterObjects)
+		{
+			if (item as BaseCharacterScript == targetCharcterScript)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	public void AddMyObject(BaseObjectScript obj)
 	{
 		if (obj is StageFloorScript stageFloor)

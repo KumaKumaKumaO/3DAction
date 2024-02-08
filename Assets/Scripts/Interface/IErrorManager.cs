@@ -38,5 +38,9 @@ public interface IErrorManager
 	/// </summary>
 	/// <param name="compornentName">取得できなかったコンポーネント名</param>
 	public void NullCompornentError(string compornentName);
-
+	/// <summary>
+	/// オーバーフローした場合のエラー
+	/// </summary>
+	/// <param name="className">オーバーフローが起きたクラス</param>
+	public void OverFlow(string className,int i);
 }

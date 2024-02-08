@@ -62,9 +62,10 @@
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseUIScript.cs" />
     <Compile Include="Assets\Scripts\Input\InGamePlayerInput.cs" />
+    <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\BaseAttackStateScript.cs" />
     <Compile Include="Assets\Scripts\WeaponScripts\BaseWeaponScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameStateScript.cs" />
-    <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\AttackStateScript.cs" />
+    <Compile Include="Assets\Scripts\ScriptableScripts\AttackDistanceScriptableScript.cs" />
     <Compile Include="Assets\Scripts\Input\TitleInputScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
     <Compile Include="Assets\Scripts\GameStateMachineScript.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\Structs\CollisionAreaData.cs" />
     <Compile Include="Assets\Scripts\PlayUI.cs" />
     <Compile Include="Assets\Scripts\Debug\NullErrorManagerScript.cs" />
+    <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerAttackStateScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerWalkStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionResultData.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />

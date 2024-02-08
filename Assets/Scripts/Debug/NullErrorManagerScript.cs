@@ -47,5 +47,8 @@ public class NullErrorManagerScript : IErrorManager
     {
 		NullObjectMsg();
     }
-
+	public void OverFlow(string className,int i)
+	{
+		NullObjectMsg();
+	}
 }

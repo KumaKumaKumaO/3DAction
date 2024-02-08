@@ -1910,8 +1910,8 @@ MonoBehaviour:
     _defaultSpeed: 3
     _stamina: 5
     _defaultStamina: 5
-    _staggerThreshold: 0
-    _staggerMaxThreshold: 0
+    _staggerThreshold: 10
+    _staggerMaxThreshold: 10
 --- !u!1 &8632767246620876828
 GameObject:
   m_ObjectHideFlags: 0

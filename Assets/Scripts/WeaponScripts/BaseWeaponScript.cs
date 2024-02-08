@@ -6,6 +6,7 @@ public class BaseWeaponScript : BaseObjectScript
 {
 	[SerializeField]
 	protected bool isHit = default;
+	[SerializeField]
 	protected bool isAttack = default;
 	[SerializeField]
 	protected WeaponStatus _myStatus = default;
@@ -24,7 +25,6 @@ public class BaseWeaponScript : BaseObjectScript
 			if (isHit)
 			{
 				isAttack = false;
-				Debug.LogWarning("aaaa");
 				isHit = false;
 			}
 			foreach (CollisionResultData resultData in _myCollisionObjects)
