@@ -35,7 +35,7 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 	public bool IsAttack()
 	{
 		Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
-		if (toPlayerVector.magnitude <= _attackDistance 
+		if (toPlayerVector.magnitude < _attackDistance 
 			&& Mathf.Abs(Vector3.SignedAngle(_myTransform.forward,toPlayerVector,_myTransform.up)) < 0.1f)
 		{
 			return true;

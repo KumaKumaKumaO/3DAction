@@ -19,17 +19,24 @@ public class BaseCharacterScript : BaseObjectScript
 	[SerializeField]
 	protected float _staggerRecastTime = default;
 	protected float _staggerRecastTimeTemp = default;
+	[SerializeField]
+	protected bool isDeath = default;
 
 	public BaseWeaponScript MyWeapon { get { return _myWeapon; } }
 	public bool IsGravity { get { return isGravity; } set { isGravity = value; } }
 	public Animator MyAnimator { get { return _myAnimator; } }
 	public CharcterStatus MyCharcterStatus { get { return _myCharcterStatus; } }
+	public bool IsDeath { get { return isDeath; } }
 
 	public override void Init()
 	{
 		base.Init();
 		_isGroundHashValue = Animator.StringToHash("IsGround");
 		_myWeapon = _objectManagerScript.GetMyWeapon(this);
+		if (!TryGetComponent<Animator>(out _myAnimator))
+		{
+			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
+		}
 	}
 	public override void ObjectUpdate()
 	{
@@ -70,6 +77,7 @@ public class BaseCharacterScript : BaseObjectScript
 		if(_myCharcterStatus.Hp < damage)
 		{
 			_myCharcterStatus.Hp = 0;
+			isDeath = true;
 			return;
 		}
 		else

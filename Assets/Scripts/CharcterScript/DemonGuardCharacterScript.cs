@@ -7,10 +7,6 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 	public override void Init()
 	{
 		base.Init();
-		if (!TryGetComponent<Animator>(out _myAnimator))
-		{
-			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
-		}
 		_myStateMachine = new DemonGuardCharacterStateMachineScript
 			(new DemonGuardAIInputScript(transform
 			,_objectManagerScript.PlayerCharcterScript.MyCollisionAreaData.MyTransform

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseAttackStateScript : BaseCharcterStateScript
+public class BaseAttackStateScript : BaseCharcterStateScript
 {
 	private BaseWeaponScript _myOwnerWeapon = default;
 	private int _attackTriggerHash = default;
@@ -10,6 +10,9 @@ public abstract class BaseAttackStateScript : BaseCharcterStateScript
 	protected AttackState _nowState = default;
 	protected int _attackCount = default;
 
+	protected AttackDistanceScriptableScript _attackDistanceData = default;
+	private Vector3 _attackMoveVectorTemp = default;
+	private Vector3 _attackMoveVectorClac = default;
 	/// <summary>
 	/// UŒ‚‚Ìó‘Ô‘JˆÚ
 	/// </summary>
@@ -37,6 +40,7 @@ public abstract class BaseAttackStateScript : BaseCharcterStateScript
 		, IInputCharcterAction input) : base(myOwner, ownerAnimator, input)
 	{
 		_myOwnerWeapon = myOwner.MyWeapon;
+		_attackDistanceData = Resources.Load<AttackDistanceScriptableScript>("Scriptable/BaseAttackMoveData");
 	}
 	public override void Enter()
 	{
@@ -116,16 +120,32 @@ public abstract class BaseAttackStateScript : BaseCharcterStateScript
 	}
 	protected virtual void AttackCountUp()
 	{
+		_attackMoveVectorTemp = _attackDistanceData[_attackCount];
 		_attackCount += 1;
 	}
 	/// <summary>
 	/// UŒ‚’†‚ÌˆÚ“®
 	/// </summary>
-	public abstract void AttackMove();
+	public virtual void AttackMove()
+	{
+		switch (_nowState)
+		{
+			case AttackState.Attacking:
+				{
+					_attackMoveVectorClac = (_myOwner.MyTransform.forward * _attackMoveVectorTemp.z
+						+ _myOwner.MyTransform.right * _attackMoveVectorTemp.x
+						+ _myOwner.MyTransform.up * _attackMoveVectorTemp.y)
+						* Time.deltaTime;
+					_myOwner.ObjectMove(_attackMoveVectorClac);
+					break;
+				}
+		}
+	}
 	public override void Exit()
 	{
 		base.Exit();
 		//ƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
 		_myOwnerWeapon = null;
+		_attackDistanceData = null;
 	}
 }

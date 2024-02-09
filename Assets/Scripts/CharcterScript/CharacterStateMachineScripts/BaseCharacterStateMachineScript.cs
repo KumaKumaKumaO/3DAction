@@ -20,15 +20,23 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 	}
 	public virtual BaseCharcterStateScript UpdateState()
 	{
+		if (_nowState is DeathStateScript)
+		{
+			return _nowState;
+		}
+		else if (_myOwner.IsDeath )
+		{
+			ChangeState(new DeathStateScript(_myOwner, _myOwnerAnimator, _input));
+		}
 		if (!_nowState.CanInterruption)
 		{
 			return _nowState;
 		}
 		if (_input.IsAttack())
 		{
-			if (!(_nowState is PlayerAttackStateScript))
+			if (!(_nowState is BaseAttackStateScript))
 			{
-				ChangeState(new PlayerAttackStateScript(_myOwner, _myOwnerAnimator, _input));
+				ChangeState(new BaseAttackStateScript(_myOwner, _myOwnerAnimator, _input));
 			}
 		}
 		else if (_input.IsEvasion())

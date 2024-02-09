@@ -63,8 +63,8 @@ public class ErrorManagerScript : IErrorManager
 	{
 		Debug.LogError(HEAD_MSG + objName + "は存在するはずではありません。");
 	}
-	public void OverFlow(string className,int i)
+	public void OverFlow(string className, int i)
 	{
-		Debug.LogError(HEAD_MSG + className + "の中で"+i+"という入力が入りオーバーフローしました。");
+		Debug.LogError(HEAD_MSG + className + "の中で" + i + "という入力が入りオーバーフローしました。");
 	}
 }

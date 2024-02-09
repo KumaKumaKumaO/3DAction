@@ -2489,6 +2489,7 @@ MonoBehaviour:
     _staggerThreshold: 0
     _staggerMaxThreshold: 0
   _staggerRecastTime: 0
+  isDeath: 0
 --- !u!4 &2528255922588159190
 Transform:
   m_ObjectHideFlags: 0
@@ -2568,6 +2569,10 @@ PrefabInstance:
     - target: {fileID: 6410031541259436265, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492468349993454234, guid: dab69392156713544847fffb4629aebf, type: 3}
+      propertyPath: _myCharcterStatus._hp
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8553130376786099965, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_Name
@@ -4638,7 +4643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGravity: 0
   _myCollisionAreaData:
-    _halfAreaSize: {x: 0.05, y: 0.05, z: 3}
+    _halfAreaSize: {x: 0.1, y: 0.1, z: 3}
     _offset: {x: 0, y: 0, z: 0.1}
     _areaWidth: 0.05
   _bottomCollisionIndex: -1

@@ -8,52 +8,55 @@ using UnityEngine;
 public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 {
 	private Transform _cameraTransform = default;
-	public PlayerCharacterStateMachineScript(PlayerCharacterScript myOwner,Animator myOwnerAnimator
-		, IInputCharcterAction playerInput,Transform cameraTransform) : base(playerInput,myOwner,myOwnerAnimator)
+	public PlayerCharacterStateMachineScript(PlayerCharacterScript myOwner, Animator myOwnerAnimator
+		, IInputCharcterAction playerInput, Transform cameraTransform) : base(playerInput, myOwner, myOwnerAnimator)
 	{
-		_nowState = new PlayerWalkStateScript(myOwner,myOwnerAnimator, playerInput,cameraTransform);
+		_nowState = new PlayerWalkStateScript(myOwner, myOwnerAnimator, playerInput, cameraTransform);
 		_nowState.Enter();
 		_cameraTransform = cameraTransform;
 	}
-    public override BaseCharcterStateScript UpdateState()
-    {
-		if(_myOwner.MyCharcterStatus.Hp <= 0)
-		{
-
-		}
-		if (!_nowState.CanInterruption)
+	public override BaseCharcterStateScript UpdateState()
+	{
+		if (_nowState is DeathStateScript)
 		{
 			return _nowState;
 		}
-		if (_input.IsAttack())
+		else if (_myOwner.IsDeath)
 		{
-			if (!(_nowState is PlayerAttackStateScript))
+			ChangeState(new DeathStateScript(_myOwner, _myOwnerAnimator, _input));
+		}
+		else if (_nowState.CanInterruption)
+		{
+			if (_input.IsAttack())
 			{
-				ChangeState(new PlayerAttackStateScript(_myOwner, _myOwnerAnimator, _input));
+				if (!(_nowState is BaseAttackStateScript))
+				{
+					ChangeState(new BaseAttackStateScript(_myOwner, _myOwnerAnimator, _input));
+				}
 			}
-		}
-		else if (_input.IsEvasion())
-		{
-
-		}
-		else if (_input.ChangeWeapon() != 0)
-		{
-
-		}
-		else if (_input.UseItem() != 0)
-		{
-
-		}
-		else if (_input.IsRun())
-		{
-
-		}
-		//•à‚­
-		else
-		{
-			if (!(_nowState is PlayerWalkStateScript))
+			else if (_input.IsEvasion())
 			{
-				ChangeState(new PlayerWalkStateScript(_myOwner, _myOwnerAnimator, _input,_cameraTransform));
+
+			}
+			else if (_input.ChangeWeapon() != 0)
+			{
+
+			}
+			else if (_input.UseItem() != 0)
+			{
+
+			}
+			else if (_input.IsRun())
+			{
+
+			}
+			//•à‚­
+			else
+			{
+				if (!(_nowState is PlayerWalkStateScript))
+				{
+					ChangeState(new PlayerWalkStateScript(_myOwner, _myOwnerAnimator, _input, _cameraTransform));
+				}
 			}
 		}
 		return _nowState;
