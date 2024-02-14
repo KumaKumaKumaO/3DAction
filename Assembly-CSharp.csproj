@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\ScriptableScripts\AttackDistanceScriptableScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InGameStateMachineScript.cs" />
+    <Compile Include="Assets\Scripts\Interface\IDeletable.cs" />
     <Compile Include="Assets\Scripts\Debug\ErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\DemonGuardAIInputScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\DemonGuardCharacterScript.cs" />
@@ -79,7 +80,9 @@
     <Compile Include="Assets\Scripts\BaseScript\BaseBar.cs" />
     <Compile Include="Assets\Scripts\ObjectManagerScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\PlayerCharacterStateMachineScript.cs" />
+    <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\Structs\WeaponStatus.cs" />
+    <Compile Include="Assets\Scripts\StateMachineBehaviour\AttackStateMachineBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\Interface\IErrorManager.cs" />
     <Compile Include="Assets\Scripts\ObjectScripts\BaseStageObjectScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseStateScript.cs" />
@@ -90,7 +93,6 @@
     <Compile Include="Assets\Scripts\PlayUI.cs" />
     <Compile Include="Assets\Scripts\Debug\NullErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameStateMachineScript.cs" />
-    <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerAttackStateScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerWalkStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionResultData.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />

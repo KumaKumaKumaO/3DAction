@@ -7,10 +7,18 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 	public override void Init()
 	{
 		base.Init();
+		IInputCharcterAction input = default;
+		if (isDebugInputPlayer)
+		{
+			input = new InGamePlayerInput();
+		}
+		else
+		{
+			input = new DemonGuardAIInputScript(_myTransform,_objectManagerScript.PlayerCharcterScript.MyTransform,
+				_myWeapon.MyCollisionAreaData.HalfAreaSize.z);
+		}
+
 		_myStateMachine = new DemonGuardCharacterStateMachineScript
-			(new DemonGuardAIInputScript(transform
-			,_objectManagerScript.PlayerCharcterScript.MyCollisionAreaData.MyTransform
-			,_myWeapon.MyCollisionAreaData.HalfAreaSize.z * 2)
-			, this, _myAnimator);
+			(input, this, _myAnimator);
 	}
 }

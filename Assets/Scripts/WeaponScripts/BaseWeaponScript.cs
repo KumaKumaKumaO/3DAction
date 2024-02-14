@@ -16,6 +16,7 @@ public class BaseWeaponScript : BaseObjectScript
 	{
 		base.Init();
 	}
+
 	public override void ObjectUpdate()
 	{
 		if (isAttack)

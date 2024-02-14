@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BaseAttackMoveData
   m_EditorClassIdentifier: 
   _attackMoveDistanceDatas:
-  - {x: 0, y: 0, z: 1}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}

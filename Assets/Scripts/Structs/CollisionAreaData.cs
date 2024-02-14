@@ -24,4 +24,8 @@ public struct CollisionAreaData
 	{
 		this._myTransform = myTransform;
 	}
+	public void Delete()
+	{
+		_myTransform = null;
+	}
 }

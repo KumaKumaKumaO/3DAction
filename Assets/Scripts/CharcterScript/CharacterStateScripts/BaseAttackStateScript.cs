@@ -8,11 +8,6 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 	private int _attackTriggerHash = default;
 	private int _nowAnimationHash = default;
 	protected AttackState _nowState = default;
-	protected int _attackCount = default;
-
-	protected AttackDistanceScriptableScript _attackDistanceData = default;
-	private Vector3 _attackMoveVectorTemp = default;
-	private Vector3 _attackMoveVectorClac = default;
 	/// <summary>
 	/// UŒ‚‚Ìó‘Ô‘JˆÚ
 	/// </summary>
@@ -40,7 +35,6 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		, IInputCharcterAction input) : base(myOwner, ownerAnimator, input)
 	{
 		_myOwnerWeapon = myOwner.MyWeapon;
-		_attackDistanceData = Resources.Load<AttackDistanceScriptableScript>("Scriptable/BaseAttackMoveData");
 	}
 	public override void Enter()
 	{
@@ -65,10 +59,9 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		{
 			//‘Ò‚¿ó‘Ô‚É‘JˆÚ
 			_nowState = AttackState.Wait;
+			//Debug.LogWarning("w");
 			//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒnƒbƒVƒ…’l‚ğƒŠƒZƒbƒg
 			_nowAnimationHash = default;
-			//UŒ‚‰ñ”‚ğ‰Šú‰»‚·‚é
-			_attackCount = 0;
 		}
 
 		//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚©‚ç•ÏX‚³‚ê‚½‚ç
@@ -80,16 +73,16 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 			//Œ»İ‚ª‘Ò‚¿ó‘Ô‚È‚ç
 			if (_nowState == AttackState.Wait)
 			{
+				//Debug.LogWarning("a");
 				//UŒ‚’†‚É‘JˆÚ
 				_nowState = AttackState.Attacking;
 				//•Ší‚Ì“–‚½‚è”»’è‚ğƒIƒ“‚É‚·‚é
 				_myOwnerWeapon.IsAttack = true;
-				//UŒ‚‰ñ”‚ğ‰ÁZ‚·‚é
-				AttackCountUp();
 			}
 			//UŒ‚’†‚¾‚Á‚½‚ç
 			else if(_nowState == AttackState.Attacking)
 			{
+				//Debug.LogWarning("e");
 				//I—¹ó‘Ô‚É‘JˆÚ
 				_nowState = AttackState.End;
 				//•Ší‚Ì“–‚½‚è”»’è‚ğƒIƒt‚É‚·‚é
@@ -100,6 +93,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 			//Ÿ‚ÌUŒ‚‚É”h¶‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚½‚ç
 			else if (_nowState == AttackState.NextAttack)
 			{
+				//Debug.LogWarning("a");
 				//UŒ‚’†‚É‘JˆÚ‚·‚é
 				_nowState = AttackState.Attacking;
 				//•Ší‚Ì“–‚½‚è”»’è‚ğƒIƒ“‚É‚·‚é
@@ -107,38 +101,13 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 			}
 		}
 		//Ÿ‚ÌUŒ‚‚É”h¶‚³‚¹‚½‚©‚Á‚½‚ç‚©‚ÂUŒ‚’†‚È‚ç
-		else if(_input.IsAttack && _nowState == AttackState.Attacking && _attackCount < 2)
+		else if(_input.IsAttack && _nowState == AttackState.Attacking)
 		{
 			//Ÿ‚ÌUŒ‚‚É”h¶‘Ò‚¿ó‘Ô‚É‚·‚é
 			_nowState = AttackState.NextAttack;
-			//UŒ‚‰ñ”‚ğ‰ÁZ‚·‚é
-			AttackCountUp();
+			//Debug.LogWarning("na");
 			//UŒ‚ƒgƒŠƒK[‚ğƒIƒ“‚É‚·‚é
 			_ownerAnimator.SetTrigger(_attackTriggerHash);
-		}
-		AttackMove();
-	}
-	protected virtual void AttackCountUp()
-	{
-		_attackMoveVectorTemp = _attackDistanceData[_attackCount];
-		_attackCount += 1;
-	}
-	/// <summary>
-	/// UŒ‚’†‚ÌˆÚ“®
-	/// </summary>
-	public virtual void AttackMove()
-	{
-		switch (_nowState)
-		{
-			case AttackState.Attacking:
-				{
-					_attackMoveVectorClac = (_myOwner.MyTransform.forward * _attackMoveVectorTemp.z
-						+ _myOwner.MyTransform.right * _attackMoveVectorTemp.x
-						+ _myOwner.MyTransform.up * _attackMoveVectorTemp.y)
-						* Time.deltaTime;
-					_myOwner.ObjectMove(_attackMoveVectorClac);
-					break;
-				}
 		}
 	}
 	public override void Exit()
@@ -146,6 +115,5 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		base.Exit();
 		//ƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
 		_myOwnerWeapon = null;
-		_attackDistanceData = null;
 	}
 }

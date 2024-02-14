@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-public interface IInputCharcterAction
+public interface IInputCharcterAction:IDeletable
 {
-
 	/// <summary>
 	/// 移動
 	/// </summary>
@@ -43,7 +42,7 @@ public interface IInputCharcterAction
 	/// <returns>どのアイテムを使うか</returns>
 	int UseItem();
 }
-public interface IInputPlayerAction
+public interface IInputPlayerAction:IDeletable
 {
 	/// <summary>
 	/// ポーズを開く
@@ -57,12 +56,13 @@ public interface IInputPlayerAction
 	/// <returns>インベントリーボタンが押されているか</returns>
 	bool IsOpenInventory { get; }
 }
-public interface IInputCameraControl
+public interface IInputCameraControl:IDeletable
 {
 	Vector2 CameraMoveInput { get; }
 }
-public interface IInputUIContorl
+public interface IInputUIContorl:IDeletable
 {
 	Vector2 MoveInput { get; }
 	bool IsSubmit { get; }
 }
+

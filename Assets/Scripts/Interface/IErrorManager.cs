@@ -1,4 +1,4 @@
-public interface IErrorManager
+public interface IErrorManager:IDeletable
 {
 	/// <summary>
 	/// 自身のインスタンスを生成

@@ -1,4 +1,5 @@
-public interface ICharacterStateMachine{
+public interface ICharacterStateMachine:IDeletable
+{
 	/// <summary>
 	/// キャラクターのステートを更新する
 	/// </summary>

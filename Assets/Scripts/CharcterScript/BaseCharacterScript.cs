@@ -7,7 +7,8 @@ using UnityEngine;
 /// </summary>
 public class BaseCharacterScript : BaseObjectScript
 {
-
+	[SerializeField]
+	protected bool isDeath = default;
 	protected ICharacterStateMachine _myStateMachine = default;
 	protected IInputCharcterAction _myInput = default;
 	protected Vector3 _beforePos = default;
@@ -21,14 +22,20 @@ public class BaseCharacterScript : BaseObjectScript
 	protected float _staggerRecastTime = default;
 	protected float _staggerRecastTimeTemp = default;
 	[SerializeField]
-	protected bool isDeath = default;
+	protected bool isInputTowards = default;
+
+	[SerializeField,Tooltip("デバッグ用")]
+	protected bool isDebugInputPlayer = default;
+	
 
 	public BaseWeaponScript MyWeapon { get { return _myWeapon; } }
 	public bool IsGravity { get { return isGravity; } set { isGravity = value; } }
 	public Animator MyAnimator { get { return _myAnimator; } }
 	public CharcterStatus MyCharcterStatus { get { return _myCharcterStatus; } }
 	public bool IsDeath { get { return isDeath; } }
-
+	public bool IsDebugInputPlayer { get { return isDebugInputPlayer; } }
+	public bool IsInputTowards { get { return isInputTowards; } }
+	public ObjectManagerScript ObjectManagerScript { get { return _objectManagerScript; } }
 	public override void Init()
 	{
 		base.Init();
@@ -54,12 +61,12 @@ public class BaseCharacterScript : BaseObjectScript
 		_beforePos = _myTransform.position;
 	}
 
-	protected void ClampPos()
+	public void ClampPos()
 	{
 		SearchHitObjects();
 
 		_myCollisionAreaData.MyTransform.position
-			= GetClampPos(_myCollisionAreaData.MyTransform.position - _beforePos);
+			= GetClampVector(_myCollisionAreaData.MyTransform.position - _beforePos);
 	}
 	public override void ObjectMove(Vector3 vector)
 	{
@@ -111,17 +118,19 @@ public class BaseCharacterScript : BaseObjectScript
 		}
 		_staggerRecastTimeTemp = _staggerRecastTime;
 	}
-	public override Vector3 GetClampPos(Vector3 moveVector)
+	
+	public override Vector3 GetClampVector(Vector3 moveVector)
 	{
-		Vector3 returnValue = base.GetClampPos(moveVector);
-		//正面に何か当たっているか
+		Vector3 returnValue = base.GetClampVector(moveVector);
+		//正面に何か当たっていない場合
 		if (_forwardCollisionAreaDataIndex < 0)
 		{
 			return returnValue;
 		}
 		//斜め入力
-		if (moveVector.x != 0 && moveVector.z != 0)
+		else if (moveVector.x != 0 && moveVector.z != 0)
 		{
+			//Debug.LogWarning("斜め");
 			if (_objectManagerScript.IsCollisionCharcter(
 				_myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData as BaseCharacterScript))
 			{
@@ -173,7 +182,6 @@ public class BaseCharacterScript : BaseObjectScript
 					+ _myCollisionAreaData.AreaWidth);
 			}
 		}
-
 		else if (moveVector.z > 0)
 		{
 			//Debug.LogWarning("前");
@@ -190,12 +198,16 @@ public class BaseCharacterScript : BaseObjectScript
 		}
 		return returnValue;
 	}
-	/// <summary>
-	/// 倒す演出などが終わったあとの処理
-	/// </summary>
-	public void Delete()
+
+	public override void Delete()
 	{
-		Destroy(this);
+		base.Delete();
+		_myStateMachine = null;
+		_myStateMachine.Delete();
+		_myInput = null;
+		_myInput.Delete();
+		_myWeapon = null;
+		_myAnimator = null;
 	}
 	protected override void OnDrawGizmos()
 	{

@@ -51,4 +51,8 @@ public class NullErrorManagerScript : IErrorManager
 	{
 		NullObjectMsg();
 	}
+	public void Delete()
+	{
+
+	}
 }

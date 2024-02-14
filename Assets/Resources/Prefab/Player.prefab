@@ -503,6 +503,7 @@ MonoBehaviour:
   isGround: 0
   isDebugColliderVisible: 1
   isHit: 0
+  isAttack: 0
   _myStatus:
     _attack: 0
     _weight: 0
@@ -1866,7 +1867,7 @@ Animator:
   m_Controller: {fileID: 22100000, guid: acc9d2a2201c3f64d8d147ce74509872, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1912,6 +1913,8 @@ MonoBehaviour:
     _defaultStamina: 5
     _staggerThreshold: 10
     _staggerMaxThreshold: 10
+  _staggerRecastTime: 0
+  isDeath: 0
 --- !u!1 &8632767246620876828
 GameObject:
   m_ObjectHideFlags: 0

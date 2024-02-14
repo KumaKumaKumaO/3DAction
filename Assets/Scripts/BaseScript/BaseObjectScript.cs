@@ -30,10 +30,9 @@ public abstract class BaseObjectScript : MonoBehaviour
 	protected Transform _myTransform = default;
 	protected int _forwardCollisionCount = 0;
 
-	[Header("デバッグ用")]
 
 
-	[SerializeField]
+	[SerializeField,Tooltip("デバッグ用")]
 	protected bool isDebugColliderVisible = false;
 	public CollisionAreaData MyCollisionAreaData { get { return _myCollisionAreaData; } }
 	public Transform MyTransform { get { return _myTransform; } }
@@ -125,6 +124,21 @@ public abstract class BaseObjectScript : MonoBehaviour
 			}
 		}
 	}
+
+	/// <summary>
+	/// 倒す演出などが終わったあとの処理
+	/// </summary>
+	public virtual void Delete()
+	{
+		_myCollisionObjects.Clear();
+		_myCollisionObjects = null;
+		_objectManagerScript.SubtractObject(this);
+		_objectManagerScript = null;
+		_myTransform = null;
+		_myCollisionAreaData.Delete();
+
+		Destroy(gameObject);
+	}
 	protected virtual void Reset()
 	{
 		gameObject.tag = "Object";
@@ -150,7 +164,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		SearchHitObjects();
 
 		_myCollisionAreaData.MyTransform.position
-			= GetClampPos(_myCollisionAreaData.MyTransform.position - beforPos);
+			= GetClampVector(_myCollisionAreaData.MyTransform.position - beforPos);
 	}
 	protected virtual void SearchHitObjects()
 	{
@@ -173,7 +187,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	/// </summary>
 	/// <param name="moveVector">移動したベクトル</param>
 	/// <returns>修正後のポジション</returns>
-	public virtual Vector3 GetClampPos(Vector3 moveVector)
+	public virtual Vector3 GetClampVector(Vector3 moveVector)
 	{
 		//移動後の位置を代入
 		Vector3 returnValue = _myCollisionAreaData.MyTransform.position;

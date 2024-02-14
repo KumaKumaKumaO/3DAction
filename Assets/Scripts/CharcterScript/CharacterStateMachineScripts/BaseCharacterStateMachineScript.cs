@@ -75,4 +75,12 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		_nowState = nextState;
 		_nowState.Enter();
 	}
+	public virtual void Delete()
+	{
+		_input = null;
+		_myOwner = null;
+		_myOwnerAnimator = null;
+		_nowState.Exit();
+		_nowState = null;
+	}
 }

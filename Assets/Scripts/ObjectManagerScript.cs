@@ -19,28 +19,36 @@ public class ObjectManagerScript : MonoBehaviour
 	private CollisionSystem _collisionSystem = new CollisionSystem();
 	private CollisionResultData collisionResultDataTemp = default;
 	private CameraScript _cameraScript = default;
-	private PlayerCharacterScript _playerCharcterScript = default;
+	private BaseCharacterScript _playerCharcterScript = default;
 
 	public float CameraSpeed { get { return _cameraSpeed; } }
 	public CameraScript CameraScript { get { return _cameraScript; } }
 	public float GravityPower { get { return _grivityPower; } }
-	public PlayerCharacterScript PlayerCharcterScript
+	public BaseCharacterScript PlayerCharcterScript
 	{
 		get
 		{
-			if (_playerCharcterScript != null)
+			if (_playerCharcterScript == null)
 			{
-				return _playerCharcterScript;
-			}
-			foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
-			{
-				if (item.TryGetComponent<PlayerCharacterScript>(out PlayerCharacterScript playerCharcterScript))
+				foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
 				{
-					this._playerCharcterScript = playerCharcterScript;
-					return playerCharcterScript;
+					if (item.TryGetComponent<PlayerCharacterScript>(out PlayerCharacterScript playerCharcterScript))
+					{
+						this._playerCharcterScript = playerCharcterScript;
+					}
+				}
+				if (_playerCharcterScript == null)
+				{
+					foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
+					{
+						if (item.TryGetComponent<BaseCharacterScript>(out BaseCharacterScript charcterScript) && charcterScript.IsDebugInputPlayer)
+						{
+							this._playerCharcterScript = charcterScript;
+						}
+					}
 				}
 			}
-			return null;
+			return _playerCharcterScript;
 		}
 	}
 
@@ -52,7 +60,7 @@ public class ObjectManagerScript : MonoBehaviour
 			baseObjectScriptTemp = item.GetComponent<BaseObjectScript>();
 			if (baseObjectScriptTemp != null)
 			{
-				AddMyObject(baseObjectScriptTemp);
+				AddObject(baseObjectScriptTemp);
 			}
 			else
 			{
@@ -188,7 +196,7 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 		return false;
 	}
-	public void AddMyObject(BaseObjectScript obj)
+	public void AddObject(BaseObjectScript obj)
 	{
 		if (obj is StageFloorScript stageFloor)
 		{
@@ -205,6 +213,29 @@ public class ObjectManagerScript : MonoBehaviour
 		else if (obj is BaseWeaponScript weaponObj)
 		{
 			_weaponObjects.Add(weaponObj);
+		}
+		else
+		{
+			ErrorManagerScript.MyInstance.CantExistObject(obj.name);
+		}
+	}
+	public void SubtractObject(BaseObjectScript obj)
+	{
+		if (obj is StageFloorScript stageFloor)
+		{
+			_stageFloors.Remove(stageFloor);
+		}
+		else if (obj is BaseStageObjectScript stageObj)
+		{
+			_stageObjects.Remove(stageObj);
+		}
+		else if (obj is BaseCharacterScript charcterObj)
+		{
+			_charcterObjects.Remove(charcterObj);
+		}
+		else if (obj is BaseWeaponScript weaponObj)
+		{
+			_weaponObjects.Remove(weaponObj);
 		}
 		else
 		{

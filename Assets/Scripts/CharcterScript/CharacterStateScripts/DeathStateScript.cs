@@ -13,7 +13,7 @@ public class DeathStateScript : BaseCharcterStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		_ownerAnimator.SetBool("IsDeath", true);
+		_ownerAnimator.SetTrigger("DeathTrigger");
 		_nowAnimationHash = _ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 	}
 

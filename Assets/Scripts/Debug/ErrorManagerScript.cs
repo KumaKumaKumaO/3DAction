@@ -67,4 +67,8 @@ public class ErrorManagerScript : IErrorManager
 	{
 		Debug.LogError(HEAD_MSG + className + "の中で" + i + "という入力が入りオーバーフローしました。");
 	}
+	public void Delete()
+	{
+		_myInstance = null;
+	}
 }

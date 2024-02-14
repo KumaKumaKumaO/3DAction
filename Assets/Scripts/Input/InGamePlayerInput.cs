@@ -41,7 +41,6 @@ public class InGamePlayerInput : IInputPlayerAction, IInputCharcterAction, IInpu
 	{
 		get
 		{
-			//return Vector2.up + Vector2.left;
 			return Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical");
 		}
 	}
@@ -68,4 +67,8 @@ public class InGamePlayerInput : IInputPlayerAction, IInputCharcterAction, IInpu
 		{
 			return Input.GetKeyDown(KeyCode.LeftControl);
 		}	}
+	public void Delete()
+	{
+
+	}
 }

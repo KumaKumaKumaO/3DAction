@@ -61,4 +61,9 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 		}
 		return _nowState;
 	}
+	public override void Delete()
+	{
+		base.Delete();
+		_cameraTransform = null;
+	}
 }

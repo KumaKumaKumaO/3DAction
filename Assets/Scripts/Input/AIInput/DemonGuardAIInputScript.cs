@@ -13,7 +13,11 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 		this._playerTransform = playerTransform;
 		this._myTransform = myTransform;
 	}
-
+	public void Delete()
+	{
+		_playerTransform = null;
+		_myTransform = null;
+	}
 
 	private Vector3 CutYValue(Vector3 vector)
 	{
@@ -24,6 +28,10 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 	{
 		get
 		{
+			if(_playerTransform == null)
+			{
+				return Vector2.zero;
+			}
 			Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
 			if (Mathf.Abs(toPlayerVector.normalized.x) < 0.05f && toPlayerVector.magnitude < _attackDistance)
 			{
@@ -42,6 +50,10 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 	{
 		get
 		{
+			if(_playerTransform == null)
+			{
+				return false;
+			}
 			Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
 			if (toPlayerVector.magnitude < _attackDistance && Mathf.Abs(Vector3.SignedAngle(_myTransform.forward, toPlayerVector, _myTransform.up)) < 0.1f)
 			{

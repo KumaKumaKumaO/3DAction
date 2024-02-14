@@ -17,7 +17,6 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		canInterruption = true;
 		_motionSpeedAnimatorHashValue = Animator.StringToHash("MoveMotionSpeed");
 		_isMoveAnimamtorHashValue = Animator.StringToHash("IsMove");
 		_nowCharcterSpeed = _myOwner.MyCharcterStatus.Speed;
@@ -28,6 +27,14 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	public override void Execute()
 	{
 		base.Execute();
+		if (_myOwner.IsGround)
+		{
+			canInterruption = true;
+		}
+		else
+		{
+			canInterruption = false;
+		}
 		_inputVector = _input.MoveInput;
 		if (_nowCharcterSpeed != _myOwner.MyCharcterStatus.Speed)
 		{
@@ -40,9 +47,9 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 		if (_inputVector != Vector2.zero)
 		{
 			_myOwner.MyCollisionAreaData.MyTransform.rotation
-				= Quaternion.Euler(0,Vector3.SignedAngle(Vector3.forward,_cameraTansform.forward 
-				- Vector3.up * _cameraTansform.forward.y ,Vector3.up)
-				+  Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg, 0);
+				= Quaternion.Euler(0
+				, _cameraTansform.eulerAngles.y + Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg
+				, 0);
 
 			_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward
 				* _myOwner.MyCharcterStatus.Speed * Time.deltaTime);
