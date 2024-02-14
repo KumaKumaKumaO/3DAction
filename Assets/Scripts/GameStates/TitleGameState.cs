@@ -10,13 +10,13 @@ public class TitleGameState : BaseGameStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		_input = new TitleInputScript();
+		_input = new MenuInputScript();
 		_canvas = GameObject.Find("Canvas");
 	}
 	public override void Execute()
 	{
 		base.Execute();
-		if (_input.IsSubmit())
+		if (_input.IsSubmit)
 		{
 			SceneManager.LoadScene("InGame");
 		}

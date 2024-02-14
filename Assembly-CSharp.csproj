@@ -66,7 +66,6 @@
     <Compile Include="Assets\Scripts\WeaponScripts\BaseWeaponScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameStateScript.cs" />
     <Compile Include="Assets\Scripts\ScriptableScripts\AttackDistanceScriptableScript.cs" />
-    <Compile Include="Assets\Scripts\Input\TitleInputScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InGameStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Debug\ErrorManagerScript.cs" />
@@ -106,7 +105,9 @@
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\BaseCharacterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Interface\ICharacterStateMachine.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\Input\MenuInputScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\JumpStateScript.cs" />
+    <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerDeathStateScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_DemonGuard\__CubemapsShaders\ASE_Standart.shader" />

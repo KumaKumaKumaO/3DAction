@@ -5,45 +5,67 @@ using UnityEngine;
 /// </summary>
 public class InGamePlayerInput : IInputPlayerAction, IInputCharcterAction, IInputCameraControl
 {
-	public Vector2 CameraMoveInput()
+	public Vector2 CameraMoveInput
 	{
-		return Vector2.right * Input.GetAxis("Mouse X") + Vector2.up * Input.GetAxis("Mouse Y");
+		get
+		{
+			return Vector2.right * Input.GetAxis("Mouse X") + Vector2.up * Input.GetAxis("Mouse Y");
+		}
 	}
-	public bool IsRun()
+	public bool IsRun
 	{
-		return Input.GetKey(KeyCode.LeftShift);
+		get
+		{
+			return Input.GetKey(KeyCode.LeftShift);
+		}
 	}
 	public int ChangeWeapon()
 	{
 		return 0;
 	}
-	public bool IsEvasion()
+	public bool IsEvasion
 	{
-		return Input.GetKeyDown(KeyCode.Space);
+		get
+		{
+			return Input.GetKeyDown(KeyCode.Space);
+		}
 	}
-	public bool IsAttack()
+	public bool IsAttack
 	{
-		return Input.GetKeyDown(KeyCode.Return);
+		get
+		{
+			return Input.GetKeyDown(KeyCode.Return);
+		}
 	}
-	public Vector2 MoveInput()
+	public Vector2 MoveInput
 	{
-		//return Vector2.up + Vector2.left;
-		return Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical");
+		get
+		{
+			//return Vector2.up + Vector2.left;
+			return Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical");
+		}
 	}
 	public int UseItem()
 	{
 		return 0;
 	}
-	public bool IsOpenInventory()
+	public bool IsOpenInventory
 	{
-		return Input.GetKeyDown(KeyCode.I);
+		get
+		{
+			return Input.GetKeyDown(KeyCode.I);
+		}
 	}
-	public bool IsOpenPose()
+	public bool IsOpenPose
 	{
-		return Input.GetKeyDown(KeyCode.Escape);
-	}
-	public bool IsJump()
+		get
+		{
+			return Input.GetKeyDown(KeyCode.Escape);
+		}	}
+	public bool IsJump
 	{
-		return Input.GetKeyDown(KeyCode.LeftControl);
-	}
+		get
+		{
+			return Input.GetKeyDown(KeyCode.LeftControl);
+		}	}
 }

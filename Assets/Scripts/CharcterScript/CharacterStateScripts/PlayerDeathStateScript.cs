@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DeathStateScript : BaseCharcterStateScript
+public class PlayerDeathStateScript : BaseCharcterStateScript
 {
 	private int _nowAnimationHash = default;
-	public DeathStateScript(BaseCharacterScript myOwner,Animator animator,IInputCharcterAction input)
+	public PlayerDeathStateScript(BaseCharacterScript myOwner,Animator animator,IInputCharcterAction input)
 		:base(myOwner,animator,input)
 	{
 	}
@@ -32,6 +32,6 @@ public class DeathStateScript : BaseCharcterStateScript
 	private async void Wait()
 	{
 		await System.Threading.Tasks.Task.Delay(5000);
-		_myOwner.Delete();
+		SceneManager.LoadScene("GameOver");
 	}
 }

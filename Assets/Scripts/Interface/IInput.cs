@@ -6,30 +6,30 @@ public interface IInputCharcterAction
 	/// 移動
 	/// </summary>
 	/// <returns>移動する方向</returns>
-	Vector2 MoveInput();
+	Vector2 MoveInput { get; }
 	/// <summary>
 	/// ジャンプ
 	/// </summary>
 	/// <returns>ジャンプボタンが押されているか</returns>
-	bool IsJump();
+	bool IsJump { get;}
 
 	/// <summary>
 	/// 攻撃
 	/// </summary>
 	/// <returns>攻撃ボタンが押されているか</returns>
-	bool IsAttack();
+	bool IsAttack { get;}
 
 	/// <summary>
 	/// 回避
 	/// </summary>
 	/// <returns>回避ボタンが押されているか</returns>
-	bool IsEvasion();
+	bool IsEvasion { get; }
 
 	/// <summary>
 	/// 走る
 	/// </summary>
 	/// <returns>走るボタンが押されているか</returns>
-	bool IsRun();
+	bool IsRun { get;}
 
 	/// <summary>
 	/// 武器切り替え
@@ -49,20 +49,20 @@ public interface IInputPlayerAction
 	/// ポーズを開く
 	/// </summary>
 	/// <returns>ポーズボタンが押されているか</returns>
-	bool IsOpenPose();
+	bool IsOpenPose { get; }
 
 	/// <summary>
 	/// インベントリーを開く
 	/// </summary>
 	/// <returns>インベントリーボタンが押されているか</returns>
-	bool IsOpenInventory();
+	bool IsOpenInventory { get; }
 }
 public interface IInputCameraControl
 {
-	Vector2 CameraMoveInput();
+	Vector2 CameraMoveInput { get; }
 }
 public interface IInputUIContorl
 {
-	Vector2 MoveInput();
-	bool IsSubmit();
+	Vector2 MoveInput { get; }
+	bool IsSubmit { get; }
 }

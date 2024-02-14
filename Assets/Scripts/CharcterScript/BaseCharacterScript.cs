@@ -10,6 +10,7 @@ public class BaseCharacterScript : BaseObjectScript
 
 	protected ICharacterStateMachine _myStateMachine = default;
 	protected IInputCharcterAction _myInput = default;
+	protected Vector3 _beforePos = default;
 	[SerializeField]
 	protected CharcterStatus _myCharcterStatus = default;
 	protected int _myJumpCount = default;
@@ -37,6 +38,7 @@ public class BaseCharacterScript : BaseObjectScript
 		{
 			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
 		}
+		_beforePos = MyTransform.position;
 	}
 	public override void ObjectUpdate()
 	{
@@ -48,6 +50,20 @@ public class BaseCharacterScript : BaseObjectScript
 		{
 			_staggerRecastTimeTemp -= Time.deltaTime;
 		}
+		ClampPos();
+		_beforePos = _myTransform.position;
+	}
+
+	protected void ClampPos()
+	{
+		SearchHitObjects();
+
+		_myCollisionAreaData.MyTransform.position
+			= GetClampPos(_myCollisionAreaData.MyTransform.position - _beforePos);
+	}
+	public override void ObjectMove(Vector3 vector)
+	{
+		_myTransform.position += vector;
 	}
 	protected override void Reset()
 	{
@@ -173,6 +189,13 @@ public class BaseCharacterScript : BaseObjectScript
 				- _myCollisionAreaData.AreaWidth);
 		}
 		return returnValue;
+	}
+	/// <summary>
+	/// ì|Ç∑ââèoÇ»Ç«Ç™èIÇÌÇ¡ÇΩÇ†Ç∆ÇÃèàóù
+	/// </summary>
+	public void Delete()
+	{
+		Destroy(this);
 	}
 	protected override void OnDrawGizmos()
 	{

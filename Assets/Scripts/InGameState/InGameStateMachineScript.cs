@@ -31,7 +31,7 @@ public class InGameStateMachineScript
 		if (_playerInput != null)
 		{
 			//インベントリーを開くボタンを押したら
-			if (_playerInput.IsOpenInventory())
+			if (_playerInput.IsOpenInventory)
 			{
 				//プレイ中だったら
 				if (_nowState is PlayStateScript)
@@ -54,7 +54,7 @@ public class InGameStateMachineScript
 				_nowState.Enter();
 			}
 			//ポーズを開くボタンを押したら
-			else if (_playerInput.IsOpenPose())
+			else if (_playerInput.IsOpenPose)
 			{
 				//プレイ中だったら
 				if (_nowState is PlayStateScript)

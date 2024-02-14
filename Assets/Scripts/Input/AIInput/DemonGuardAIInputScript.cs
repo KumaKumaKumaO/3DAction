@@ -14,42 +14,53 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 		this._myTransform = myTransform;
 	}
 
+
 	private Vector3 CutYValue(Vector3 vector)
 	{
 		return vector - (Vector3.up * vector.y);
 	}
 
-	public Vector2 MoveInput()
+	public Vector2 MoveInput
 	{
-		Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
-		if (Mathf.Abs(toPlayerVector.normalized.x) < 0.05f && toPlayerVector.magnitude < _attackDistance)
+		get
 		{
-			return Vector2.zero;
+			Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
+			if (Mathf.Abs(toPlayerVector.normalized.x) < 0.05f && toPlayerVector.magnitude < _attackDistance)
+			{
+				return Vector2.zero;
+			}
+			return Vector2.right * toPlayerVector.x + Vector2.up * toPlayerVector.z;
 		}
-		return Vector2.right * toPlayerVector.x + Vector2.up * toPlayerVector.z;
 	}
-	public bool IsJump()
+	public bool IsJump
 	{
-		return false;
-	}
-	public bool IsAttack()
-	{
-		Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
-		if (toPlayerVector.magnitude < _attackDistance 
-			&& Mathf.Abs(Vector3.SignedAngle(_myTransform.forward,toPlayerVector,_myTransform.up)) < 0.1f)
+		get
 		{
-			return true;
-		}
-		return false;
-	}
-	public bool IsEvasion()
+			return false;
+		}	}
+	public bool IsAttack
 	{
-		return false;
-	}
-	public bool IsRun()
+		get
+		{
+			Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
+			if (toPlayerVector.magnitude < _attackDistance && Mathf.Abs(Vector3.SignedAngle(_myTransform.forward, toPlayerVector, _myTransform.up)) < 0.1f)
+			{
+				return true;
+			}
+			return false;
+		}	}
+	public bool IsEvasion
 	{
-		return false;
-	}
+		get
+		{
+			return false;
+		}	}
+	public bool IsRun
+	{
+		get
+		{
+			return false;
+		}	}
 	public int ChangeWeapon()
 	{
 		return 0;

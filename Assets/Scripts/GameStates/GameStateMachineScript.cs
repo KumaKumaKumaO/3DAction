@@ -53,7 +53,6 @@ public class GameStateMachineScript
 				Debug.LogError("存在しないシーン名です。");
 				return null;
 			}
-			//デバッグ用のメッセージ
 			//新しいステートを開始させる
 			_nowState.Enter();
 			//前回のシーン名に今回のシーン名を入れる

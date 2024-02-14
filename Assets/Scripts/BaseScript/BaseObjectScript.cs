@@ -151,7 +151,6 @@ public abstract class BaseObjectScript : MonoBehaviour
 
 		_myCollisionAreaData.MyTransform.position
 			= GetClampPos(_myCollisionAreaData.MyTransform.position - beforPos);
-
 	}
 	protected virtual void SearchHitObjects()
 	{

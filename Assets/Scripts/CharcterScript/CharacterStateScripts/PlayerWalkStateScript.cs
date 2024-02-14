@@ -28,7 +28,7 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	public override void Execute()
 	{
 		base.Execute();
-		_inputVector = _input.MoveInput();
+		_inputVector = _input.MoveInput;
 		if (_nowCharcterSpeed != _myOwner.MyCharcterStatus.Speed)
 		{
 			_nowCharcterSpeed = _myOwner.MyCharcterStatus.Speed;

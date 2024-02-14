@@ -10,7 +10,7 @@ public class NullErrorManagerScript : IErrorManager
 	{
 		NullObjectMsg();
 	}
-	public void NullScriptError(string classname)
+	public void NullScriptError(string className)
 	{
 		NullObjectMsg();
 	}
@@ -22,7 +22,7 @@ public class NullErrorManagerScript : IErrorManager
 	{
 		if (!isDisplayNullMSG)
 		{
-			Debug.LogError(this + "ÇÕNullObjectÇ≈Ç∑ÅB");
+			Debug.LogWarning(this + "ÇÕNullObjectÇ≈Ç∑ÅB");
 			isDisplayNullMSG = true;
 		}
 	}

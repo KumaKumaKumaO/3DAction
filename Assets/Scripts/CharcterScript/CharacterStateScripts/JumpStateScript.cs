@@ -22,7 +22,7 @@ public class JumpStateScript : BaseCharcterStateScript
 	{
 		base.Execute();
 		Debug.LogWarning(_jumpPowerTemp);
-		_inputVector = _input.MoveInput();
+		_inputVector = _input.MoveInput;
 		if (_jumpPowerTemp > 0)
 		{
 			//_myOwner.ObjectMove((Vector3.up * _myOwner.MyCharcterStatus.JumpPower 

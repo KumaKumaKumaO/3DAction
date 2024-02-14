@@ -3,8 +3,4 @@
 /// </summary>
 public abstract class BaseGameStateScript : BaseStateScript
 {
-	public override void Enter()
-	{
-		base.Enter();
-	}
 }

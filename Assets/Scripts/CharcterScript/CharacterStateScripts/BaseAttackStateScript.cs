@@ -107,7 +107,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 			}
 		}
 		//Ÿ‚ÌUŒ‚‚É”h¶‚³‚¹‚½‚©‚Á‚½‚ç‚©‚ÂUŒ‚’†‚È‚ç
-		else if(_input.IsAttack() && _nowState == AttackState.Attacking && _attackCount < 2)
+		else if(_input.IsAttack && _nowState == AttackState.Attacking && _attackCount < 2)
 		{
 			//Ÿ‚ÌUŒ‚‚É”h¶‘Ò‚¿ó‘Ô‚É‚·‚é
 			_nowState = AttackState.NextAttack;

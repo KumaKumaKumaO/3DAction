@@ -27,14 +27,14 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 		}
 		else if (_nowState.CanInterruption)
 		{
-			if (_input.IsAttack())
+			if (_input.IsAttack)
 			{
 				if (!(_nowState is BaseAttackStateScript))
 				{
 					ChangeState(new BaseAttackStateScript(_myOwner, _myOwnerAnimator, _input));
 				}
 			}
-			else if (_input.IsEvasion())
+			else if (_input.IsEvasion)
 			{
 
 			}
@@ -46,7 +46,7 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 			{
 
 			}
-			else if (_input.IsRun())
+			else if (_input.IsRun)
 			{
 
 			}

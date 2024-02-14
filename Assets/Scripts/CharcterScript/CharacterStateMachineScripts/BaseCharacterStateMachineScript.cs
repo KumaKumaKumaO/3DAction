@@ -32,14 +32,14 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		{
 			return _nowState;
 		}
-		if (_input.IsAttack())
+		if (_input.IsAttack)
 		{
 			if (!(_nowState is BaseAttackStateScript))
 			{
 				ChangeState(new BaseAttackStateScript(_myOwner, _myOwnerAnimator, _input));
 			}
 		}
-		else if (_input.IsEvasion())
+		else if (_input.IsEvasion)
 		{
 
 		}
@@ -51,11 +51,11 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		{
 
 		}
-		else if (_input.IsJump())
+		else if (_input.IsJump)
 		{
 			//ChangeState(new JumpStateScript(_myOwner, _myOwnerAnimator, _input));
 		}
-		else if (_input.IsRun())
+		else if (_input.IsRun)
 		{
 
 		}

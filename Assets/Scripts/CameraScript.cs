@@ -40,7 +40,7 @@ public class CameraScript
 
     public void UpdateCameraControl()
     {
-        _inputVector = _input.CameraMoveInput();
+        _inputVector = _input.CameraMoveInput;
         _cameraTransform.position += _playerCharcterTransform.position - _beforePlayerPos;
         _beforePlayerPos = _playerCharcterTransform.position;
         if (_inputVector.x != 0)

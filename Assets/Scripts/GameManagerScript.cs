@@ -38,8 +38,8 @@ public class GameManagerScript : MonoBehaviour
 		_myStateMachine.UpdateState().Execute();
 	}
 
-	private void OnDisable()
-	{
-		ErrorManagerScript.MyInstance.DeleteMyInstance();
-	}
+	//private void OnDisable()
+	//{
+	//	ErrorManagerScript.MyInstance.DeleteMyInstance();
+	//}
 }
