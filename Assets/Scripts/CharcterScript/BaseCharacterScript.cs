@@ -10,7 +10,6 @@ public class BaseCharacterScript : BaseObjectScript
 	[SerializeField]
 	protected bool isDeath = default;
 	protected ICharacterStateMachine _myStateMachine = default;
-	protected IInputCharcterAction _myInput = default;
 	protected Vector3 _beforePos = default;
 	[SerializeField]
 	protected CharcterStatus _myCharcterStatus = default;
@@ -202,10 +201,11 @@ public class BaseCharacterScript : BaseObjectScript
 	public override void Delete()
 	{
 		base.Delete();
-		_myStateMachine = null;
-		_myStateMachine.Delete();
-		_myInput = null;
-		_myInput.Delete();
+		if(_myStateMachine is not null)
+		{
+			_myStateMachine.Delete();
+			_myStateMachine = null;
+		}
 		_myWeapon = null;
 		_myAnimator = null;
 	}

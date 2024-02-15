@@ -1899,7 +1899,8 @@ MonoBehaviour:
   _forwardCollisionAreaDataIndex: -1
   _backCollisionAreaDataIndex: -1
   isGround: 0
-  isDebugColliderVisible: 1
+  isDebugColliderVisible: 0
+  isDeath: 0
   _myCharcterStatus:
     _hp: 5
     _maxHp: 5
@@ -1914,7 +1915,8 @@ MonoBehaviour:
     _staggerThreshold: 10
     _staggerMaxThreshold: 10
   _staggerRecastTime: 0
-  isDeath: 0
+  isInputTowards: 1
+  isDebugInputPlayer: 0
 --- !u!1 &8632767246620876828
 GameObject:
   m_ObjectHideFlags: 0

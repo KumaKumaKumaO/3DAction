@@ -14,7 +14,7 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 		}
 		else
 		{
-			input = new DemonGuardAIInputScript(_myTransform,_objectManagerScript.PlayerCharcterScript.MyTransform,
+			input = new DemonGuardAIInputScript(_myTransform,_objectManagerScript.PlayerCharcterScript,
 				_myWeapon.MyCollisionAreaData.HalfAreaSize.z);
 		}
 

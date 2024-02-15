@@ -9,9 +9,8 @@ public class CameraScript
 {
 	private Transform _cameraTransform = default;
 	private ObjectManagerScript _objectManagerScript = default;
-	private Transform _playerCharcterTransform = default;
+	private BaseCharacterScript _playerCharcterScript = default;
 	private IInputCameraControl _input = default;
-	private Vector2 _inputVector = default;
 	private Vector3 _beforePlayerPos = default;
 	private Vector3 _initPos = new Vector3(0, 2, -3);
 	private Quaternion _initRotaion = Quaternion.Euler(10, 0, 0);
@@ -34,38 +33,63 @@ public class CameraScript
 		{
 			ErrorManagerScript.MyInstance.NullCompornentError("ObjectManagerScript");
 		}
-		_playerCharcterTransform = _objectManagerScript.PlayerCharcterScript.transform;
-		_beforePlayerPos = _playerCharcterTransform.position;
+		_playerCharcterScript = _objectManagerScript.PlayerCharcterScript;
+		_beforePlayerPos = _playerCharcterScript.transform.position;
 		_initPos
 			= Vector3.up
 			* (_objectManagerScript.PlayerCharcterScript.MyCollisionAreaData.HalfAreaSize.y * 2.5f)
 			+ Vector3.forward
 			* (_objectManagerScript.PlayerCharcterScript.MyCollisionAreaData.HalfAreaSize.y * -3);
 
-		_cameraTransform.position = _playerCharcterTransform.position
-			+ _playerCharcterTransform.right * _initPos.x
-			+ _playerCharcterTransform.up * _initPos.y
-			+ _playerCharcterTransform.forward * _initPos.z;
+		_cameraTransform.position = _playerCharcterScript.transform.position
+			+ _playerCharcterScript.transform.right * _initPos.x
+			+ _playerCharcterScript.transform.up * _initPos.y
+			+ _playerCharcterScript.transform.forward * _initPos.z;
 
-		_cameraTransform.rotation = _playerCharcterTransform.rotation * _initRotaion;
+		_cameraTransform.rotation = _playerCharcterScript.transform.rotation * _initRotaion;
 	}
 
+	public void Delete()
+	{
+		_cameraTransform = null;
+		_objectManagerScript = null;
+		_playerCharcterScript = null;
+		_input = null;
+	}
 
-
+	/// <summary>
+	/// カメラを制御する
+	/// </summary>
 	public void UpdateCameraControl()
 	{
-		_inputVector = _input.CameraMoveInput;
-		_cameraTransform.position += _playerCharcterTransform.position - _beforePlayerPos;
-		_beforePlayerPos = _playerCharcterTransform.position;
-		if (_inputVector.x != 0)
+		if (_playerCharcterScript.IsDestroyObject) { return; }
+		UpdateCameraPos();
+		UpdateCameraRotation(_input.CameraMoveInput);
+	}
+
+	/// <summary>
+	/// カメラの場所を更新する
+	/// </summary>
+	private void UpdateCameraPos()
+	{
+		_cameraTransform.position += _playerCharcterScript.MyTransform.position - _beforePlayerPos;
+		_beforePlayerPos = _playerCharcterScript.MyTransform.position;
+	}
+	/// <summary>
+	/// カメラの角度を更新する
+	/// </summary>
+	/// <param name="inputVector"></param>
+	private void UpdateCameraRotation(Vector2 inputVector)
+	{
+		if (inputVector.x != 0)
 		{
-			_cameraTransform.RotateAround(_playerCharcterTransform.position
-				, Vector3.up, _inputVector.x * _objectManagerScript.CameraSpeed * Time.deltaTime);
+			_cameraTransform.RotateAround(_playerCharcterScript.MyTransform.position
+				, Vector3.up, inputVector.x * _objectManagerScript.CameraSpeed * Time.deltaTime);
 		}
-		if (_inputVector.y != 0)
+		if (inputVector.y != 0)
 		{
-			_cameraTransform.RotateAround(_playerCharcterTransform.position
-				, _cameraTransform.right, -_inputVector.y * _objectManagerScript.CameraSpeed * Time.deltaTime);
+			_cameraTransform.RotateAround(_playerCharcterScript.MyTransform.position
+				, _cameraTransform.right, inputVector.y * _objectManagerScript.CameraSpeed * Time.deltaTime);
 		}
 	}
 }

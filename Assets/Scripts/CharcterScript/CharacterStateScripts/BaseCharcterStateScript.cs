@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class BaseCharcterStateScript : BaseStateScript
 {
 	protected BaseCharacterScript _myOwner = default;
-	protected Animator _ownerAnimator = default;
+	protected Animator _myOwnerAnimator = default;
 	protected IInputCharcterAction _input = default;
 	protected bool canInterruption = false;
 	public bool CanInterruption { get { return canInterruption; } }
@@ -13,7 +13,7 @@ public abstract class BaseCharcterStateScript : BaseStateScript
 	public BaseCharcterStateScript(BaseCharacterScript myOwner, Animator ownerAnimator, IInputCharcterAction input)
 	{
 		this._input = input;
-		this._ownerAnimator = ownerAnimator;
+		this._myOwnerAnimator = ownerAnimator;
 		this._myOwner = myOwner;
 	}
 	public override void Enter()
@@ -24,7 +24,7 @@ public abstract class BaseCharcterStateScript : BaseStateScript
 	{
 		base.Exit();
 		_myOwner = null;
-		_ownerAnimator = null;
+		_myOwnerAnimator = null;
 		_input = null;
 	}
 }

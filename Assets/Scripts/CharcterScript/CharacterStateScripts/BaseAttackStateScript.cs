@@ -44,9 +44,9 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		//武器の当たり判定をオンにする
 		_myOwnerWeapon.IsAttack = true;
 		//現在のアニメーションのハッシュ値を取得する
-		_nowAnimationHash = _ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+		_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 		//攻撃トリガーをオンにする
-		_ownerAnimator.SetTrigger(_attackTriggerHash);
+		_myOwnerAnimator.SetTrigger(_attackTriggerHash);
 		//待ち状態に遷移する
 		_nowState = AttackState.Wait;
 	}
@@ -65,10 +65,10 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		}
 
 		//現在のアニメーションから変更されたら
-		if (_ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash != _nowAnimationHash)
+		if (_myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash != _nowAnimationHash)
 		{
 			//変更後のアニメーションのハッシュ値を現在の値として保持
-			_nowAnimationHash = _ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+			_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 			
 			//現在が待ち状態なら
 			if (_nowState == AttackState.Wait)
@@ -107,7 +107,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 			_nowState = AttackState.NextAttack;
 			//Debug.LogWarning("na");
 			//攻撃トリガーをオンにする
-			_ownerAnimator.SetTrigger(_attackTriggerHash);
+			_myOwnerAnimator.SetTrigger(_attackTriggerHash);
 		}
 	}
 	public override void Exit()

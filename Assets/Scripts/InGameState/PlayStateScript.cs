@@ -33,5 +33,7 @@ public class PlayStateScript : BaseInGameStateScript
 	public override void Exit()
 	{
 		base.Exit();
+		_objectManagerScript.Delete();
+		_objectManagerScript = null;
 	}
 }

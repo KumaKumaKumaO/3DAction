@@ -17,7 +17,6 @@ public class ObjectManagerScript : MonoBehaviour
 	private List<BaseCharacterScript> _charcterObjects = new List<BaseCharacterScript>();
 	private List<BaseWeaponScript> _weaponObjects = new List<BaseWeaponScript>();
 	private CollisionSystem _collisionSystem = new CollisionSystem();
-	private CollisionResultData collisionResultDataTemp = default;
 	private CameraScript _cameraScript = default;
 	private BaseCharacterScript _playerCharcterScript = default;
 
@@ -52,6 +51,31 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
+	public void Delete()
+	{
+		DeleteListData(_stageFloors);
+		DeleteListData(_stageObjects);
+		DeleteListData(_weaponObjects);
+		DeleteListData(_charcterObjects);
+		_stageFloors = null;
+		_stageObjects = null;
+		_weaponObjects = null;
+		_charcterObjects = null;
+
+		_cameraScript.Delete();
+		_cameraScript = null;
+		Destroy(this);
+	}
+	private void DeleteListData<T>(T _objectList) where T : IList
+	{
+		for (int i = 0; i < _objectList.Count; i++)
+		{
+			if (_objectList[i] is BaseObjectScript obj)
+			{
+				obj.Delete();
+			}
+		}
+	}
 	public void Init(InGamePlayerInput playerInput)
 	{
 		BaseObjectScript baseObjectScriptTemp = default;
@@ -95,6 +119,7 @@ public class ObjectManagerScript : MonoBehaviour
 			item.Init();
 		}
 	}
+
 	public void AllObjectUpdate()
 	{
 		foreach (StageFloorScript item in _stageFloors)
@@ -116,7 +141,6 @@ public class ObjectManagerScript : MonoBehaviour
 		_cameraScript.UpdateCameraControl();
 	}
 
-
 	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
 	{
 		GetCollisionFloor(charcterColAreaData, collisionObjectDatas);
@@ -128,11 +152,13 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
 		{
-			if (charcterColAreaData.MyTransform.root == item.MyCollisionAreaData.MyTransform)
+			if (charcterColAreaData.MyTransform.root == item.MyCollisionAreaData.MyTransform) { continue; }
+
+			CollisionResultData result = _collisionSystem.GetCollisionResult(charcterColAreaData, item);
+			if (result.IsOverLap)
 			{
-				continue;
+				collisionObjectDatas.Add(result);
 			}
-			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 	}
 
@@ -147,6 +173,7 @@ public class ObjectManagerScript : MonoBehaviour
 			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
 		}
 	}
+
 	public void GetCollisionStageObject(CollisionAreaData colAreaData, List<CollisionResultData> collisionObjectDatas)
 	{
 		foreach (BaseObjectScript item in _stageObjects)
@@ -160,7 +187,7 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		if (colData.MyTransform != checkObject.MyCollisionAreaData.MyTransform)
 		{
-			collisionResultDataTemp = _collisionSystem.GetCollisionResult(colData, checkObject);
+			CollisionResultData collisionResultDataTemp = _collisionSystem.GetCollisionResult(colData, checkObject);
 			if (collisionResultDataTemp.IsCollision)
 			{
 				collisionObjects.Add(collisionResultDataTemp);
@@ -196,6 +223,7 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 		return false;
 	}
+
 	public void AddObject(BaseObjectScript obj)
 	{
 		if (obj is StageFloorScript stageFloor)
@@ -219,6 +247,7 @@ public class ObjectManagerScript : MonoBehaviour
 			ErrorManagerScript.MyInstance.CantExistObject(obj.name);
 		}
 	}
+
 	public void SubtractObject(BaseObjectScript obj)
 	{
 		if (obj is StageFloorScript stageFloor)
@@ -232,6 +261,10 @@ public class ObjectManagerScript : MonoBehaviour
 		else if (obj is BaseCharacterScript charcterObj)
 		{
 			_charcterObjects.Remove(charcterObj);
+			if (charcterObj is PlayerCharacterScript)
+			{
+				_playerCharcterScript = null;
+			}
 		}
 		else if (obj is BaseWeaponScript weaponObj)
 		{

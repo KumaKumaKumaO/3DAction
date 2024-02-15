@@ -60,15 +60,16 @@ public class InGamePlayerInput : IInputPlayerAction, IInputCharcterAction, IInpu
 		get
 		{
 			return Input.GetKeyDown(KeyCode.Escape);
-		}	}
+		}
+	}
 	public bool IsJump
 	{
 		get
 		{
 			return Input.GetKeyDown(KeyCode.LeftControl);
-		}	}
+		}
+	}
 	public void Delete()
 	{
-
 	}
 }

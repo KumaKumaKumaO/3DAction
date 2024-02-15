@@ -29,6 +29,7 @@ public class InGameStateScript : BaseGameStateScript
 
 	public override void Exit()
 	{
+		_myStateMachineScript.Delete();
 		_myStateMachineScript = null;
 		base.Exit();
 	}

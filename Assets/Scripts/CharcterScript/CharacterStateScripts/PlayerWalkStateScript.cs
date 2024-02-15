@@ -21,7 +21,7 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 		_isMoveAnimamtorHashValue = Animator.StringToHash("IsMove");
 		_nowCharcterSpeed = _myOwner.MyCharcterStatus.Speed;
 
-		_ownerAnimator.SetFloat(_motionSpeedAnimatorHashValue, _nowCharcterSpeed
+		_myOwnerAnimator.SetFloat(_motionSpeedAnimatorHashValue, _nowCharcterSpeed
 			/ _myOwner.MyCharcterStatus.DefaultSpeed);
 	}
 	public override void Execute()
@@ -39,10 +39,10 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 		if (_nowCharcterSpeed != _myOwner.MyCharcterStatus.Speed)
 		{
 			_nowCharcterSpeed = _myOwner.MyCharcterStatus.Speed;
-			_ownerAnimator.SetFloat(_motionSpeedAnimatorHashValue, _nowCharcterSpeed
+			_myOwnerAnimator.SetFloat(_motionSpeedAnimatorHashValue, _nowCharcterSpeed
 				/ _myOwner.MyCharcterStatus.DefaultSpeed);
 		}
-		_ownerAnimator.SetBool(_isMoveAnimamtorHashValue, _inputVector != Vector2.zero);
+		_myOwnerAnimator.SetBool(_isMoveAnimamtorHashValue, _inputVector != Vector2.zero);
 
 		if (_inputVector != Vector2.zero)
 		{
@@ -56,5 +56,10 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 		}
 
 
+	}
+	public override void Exit()
+	{
+		base.Exit();
+		_cameraTansform = null;
 	}
 }

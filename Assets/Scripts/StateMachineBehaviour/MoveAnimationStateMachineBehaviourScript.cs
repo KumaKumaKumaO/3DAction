@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackStateMachineBehaviourScript : StateMachineBehaviour
+public class MoveAnimationStateMachineBehaviourScript : StateMachineBehaviour
 {
 	[SerializeField]
 	private AvatarTarget _targetPart = AvatarTarget.Root;
@@ -12,7 +12,6 @@ public class AttackStateMachineBehaviourScript : StateMachineBehaviour
 	private float _endRatio = 1f;
 	[SerializeField]
 	private Vector3 _initGoalPos = default;
-	[SerializeField]
 	private Vector3 _goalPos = default;
 	private MatchTargetWeightMask _mask = new MatchTargetWeightMask(Vector3.one, 0);
 

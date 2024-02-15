@@ -29,7 +29,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	protected bool isGround = false;
 	protected Transform _myTransform = default;
 	protected int _forwardCollisionCount = 0;
-
+	private bool isDestroyObject = false;
 
 
 	[SerializeField,Tooltip("デバッグ用")]
@@ -37,6 +37,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	public CollisionAreaData MyCollisionAreaData { get { return _myCollisionAreaData; } }
 	public Transform MyTransform { get { return _myTransform; } }
 	public bool IsGround { get { return isGround; } }
+	public bool IsDestroyObject { get { return isDestroyObject; } }
 	public virtual void Init()
 	{
 		_myTransform = this.transform;
@@ -130,13 +131,23 @@ public abstract class BaseObjectScript : MonoBehaviour
 	/// </summary>
 	public virtual void Delete()
 	{
-		_myCollisionObjects.Clear();
-		_myCollisionObjects = null;
-		_objectManagerScript.SubtractObject(this);
-		_objectManagerScript = null;
-		_myTransform = null;
-		_myCollisionAreaData.Delete();
+		if(_myCollisionObjects is not null)
+		{
+			_myCollisionObjects.Clear();
+			_myCollisionObjects = null;
+		}
+		if(_objectManagerScript is not null)
+		{
+			_objectManagerScript.SubtractObject(this);
+			_objectManagerScript = null;
+		}
+		if(_myTransform is not null)
+		{
+			_myTransform = null;
+			_myCollisionAreaData.Delete();
+		}
 
+		if(isDestroyObject) { return; }
 		Destroy(gameObject);
 	}
 	protected virtual void Reset()
@@ -230,7 +241,6 @@ public abstract class BaseObjectScript : MonoBehaviour
 		}
 	}
 
-
 	protected virtual void OnDrawGizmos()
 	{
 		if (isDebugColliderVisible)
@@ -238,5 +248,11 @@ public abstract class BaseObjectScript : MonoBehaviour
 			_matrixTemp = Gizmos.matrix;
 			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
 		}
+	}
+
+	private void OnDestroy()
+	{
+		isDestroyObject = true;
+		//Debug.LogWarning("Destroy:" + gameObject.name);
 	}
 }

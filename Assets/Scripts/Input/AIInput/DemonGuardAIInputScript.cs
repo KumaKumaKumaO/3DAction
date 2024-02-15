@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class DemonGuardAIInputScript : IInputCharcterAction
 {
-	private Transform _playerTransform = default;
+	private BaseCharacterScript _playerCharcterScript = default;
 	private Transform _myTransform = default;
 	private float _attackDistance = default;
-	public DemonGuardAIInputScript(Transform myTransform, Transform playerTransform, float attackDistance)
+	public DemonGuardAIInputScript(Transform myTransform, BaseCharacterScript playerCharcterScript, float attackDistance)
 	{
 		this._attackDistance = attackDistance;
-		this._playerTransform = playerTransform;
+		this._playerCharcterScript = playerCharcterScript;
 		this._myTransform = myTransform;
 	}
 	public void Delete()
 	{
-		_playerTransform = null;
+		_playerCharcterScript = null;
 		_myTransform = null;
 	}
 
@@ -28,11 +28,11 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 	{
 		get
 		{
-			if(_playerTransform == null)
+			if(_playerCharcterScript == null || _playerCharcterScript.IsDeath)
 			{
 				return Vector2.zero;
 			}
-			Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
+			Vector3 toPlayerVector = CutYValue(_playerCharcterScript.MyTransform.position - _myTransform.position);
 			if (Mathf.Abs(toPlayerVector.normalized.x) < 0.05f && toPlayerVector.magnitude < _attackDistance)
 			{
 				return Vector2.zero;
@@ -45,34 +45,38 @@ public class DemonGuardAIInputScript : IInputCharcterAction
 		get
 		{
 			return false;
-		}	}
+		}
+	}
 	public bool IsAttack
 	{
 		get
 		{
-			if(_playerTransform == null)
+			if(_playerCharcterScript == null || _playerCharcterScript.IsDeath)
 			{
 				return false;
 			}
-			Vector3 toPlayerVector = CutYValue(_playerTransform.position - _myTransform.position);
+			Vector3 toPlayerVector = CutYValue(_playerCharcterScript.MyTransform.position - _myTransform.position);
 			if (toPlayerVector.magnitude < _attackDistance && Mathf.Abs(Vector3.SignedAngle(_myTransform.forward, toPlayerVector, _myTransform.up)) < 0.1f)
 			{
 				return true;
 			}
 			return false;
-		}	}
+		}
+	}
 	public bool IsEvasion
 	{
 		get
 		{
 			return false;
-		}	}
+		}
+	}
 	public bool IsRun
 	{
 		get
 		{
 			return false;
-		}	}
+		}
+	}
 	public int ChangeWeapon()
 	{
 		return 0;

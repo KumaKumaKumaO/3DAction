@@ -17,6 +17,8 @@ public class CollisionSystem
 		Vector3 targetToMeVector = (myAreaData.MyTransform.position + myAreaData.Offset)
 			- (targetData.MyCollisionAreaData.MyTransform.position + targetData.MyCollisionAreaData.Offset);
 
+		bool isOverlap = IsCollision(targetToMeVector, hitDistanceVector);
+
 		bool isTopTemp = IsCollision(targetToMeVector 
 			+ myAreaData.MyTransform.up * (myAreaData.AreaWidth + myAreaData.Offset.y)
 			, hitDistanceVector );
@@ -41,7 +43,7 @@ public class CollisionSystem
 			+ -myAreaData.MyTransform.forward * (myAreaData.AreaWidth + myAreaData.Offset.z)
 			, hitDistanceVector);
 
-		return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp, targetData);
+		return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp,isOverlap, targetData);
 	}
 	private bool IsCollision(Vector3 myColDistance, Vector3 targetColDistance)
 	{

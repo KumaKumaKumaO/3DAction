@@ -41,7 +41,10 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		}
 		else if (_input.IsEvasion)
 		{
-
+			if(!(_nowState is EvasionStateScript))
+			{
+				ChangeState(new EvasionStateScript(_myOwner, _myOwnerAnimator, _input));
+			}
 		}
 		else if (_input.ChangeWeapon() != 0)
 		{

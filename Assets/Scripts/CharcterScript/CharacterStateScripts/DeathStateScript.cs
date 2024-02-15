@@ -13,18 +13,18 @@ public class DeathStateScript : BaseCharcterStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		_ownerAnimator.SetTrigger("DeathTrigger");
-		_nowAnimationHash = _ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+		_myOwnerAnimator.SetTrigger("DeathTrigger");
+		_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 	}
 
 	public override void Execute()
 	{
 		//アニメーションが変わったら
-		if(_nowAnimationHash != _ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash)
+		if(_nowAnimationHash != _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash)
 		{
 			Wait();
 			//現在のアニメーションのハッシュを保持する
-			_nowAnimationHash = _ownerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+			_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 		}
 		base.Execute();
 	}
@@ -32,6 +32,7 @@ public class DeathStateScript : BaseCharcterStateScript
 	private async void Wait()
 	{
 		await System.Threading.Tasks.Task.Delay(5000);
+		if(_myOwner is null) { return; }
 		_myOwner.Delete();
 	}
 }

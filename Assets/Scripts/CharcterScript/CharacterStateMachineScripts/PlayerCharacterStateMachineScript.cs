@@ -17,13 +17,13 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 	}
 	public override BaseCharcterStateScript UpdateState()
 	{
-		if (_nowState is DeathStateScript)
+		if (_nowState is PlayerDeathStateScript)
 		{
 			return _nowState;
 		}
 		else if (_myOwner.IsDeath)
 		{
-			ChangeState(new DeathStateScript(_myOwner, _myOwnerAnimator, _input));
+			ChangeState(new PlayerDeathStateScript(_myOwner, _myOwnerAnimator, _input));
 		}
 		else if (_nowState.CanInterruption)
 		{
@@ -36,7 +36,10 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 			}
 			else if (_input.IsEvasion)
 			{
-
+				if (!(_nowState is EvasionStateScript))
+				{
+					ChangeState(new EvasionStateScript(_myOwner, _myOwnerAnimator, _input));
+				}
 			}
 			else if (_input.ChangeWeapon() != 0)
 			{

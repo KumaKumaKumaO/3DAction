@@ -28,7 +28,7 @@ public class InGameStateMachineScript
 	public BaseInGameStateScript UpdateState()
 	{
 		//入力が存在する場合
-		if (_playerInput != null)
+		if (_playerInput is not null)
 		{
 			//インベントリーを開くボタンを押したら
 			if (_playerInput.IsOpenInventory)
@@ -80,5 +80,17 @@ public class InGameStateMachineScript
 		}
 		//現在のステートを返す
 		return _nowState;
+	}
+	public void Delete()
+	{
+		if(_beforeState is not null)
+		{
+			_beforeState.Exit();
+			_beforeState = null;
+		}
+		_nowState.Exit();
+		_nowState = null;
+		_playerInput.Delete();
+		_playerInput = null;
 	}
 }

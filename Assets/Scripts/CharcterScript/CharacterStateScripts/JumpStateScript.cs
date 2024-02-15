@@ -35,7 +35,7 @@ public class JumpStateScript : BaseCharcterStateScript
 			if (!_myOwner.IsGravity)
 			{
 				_myOwner.IsGravity = true;
-				_ownerAnimator.SetBool(_isJumpAnimamtorHashValue, false);
+				_myOwnerAnimator.SetBool(_isJumpAnimamtorHashValue, false);
 			}
 			if (_myOwner.IsGround)
 			{
@@ -46,7 +46,7 @@ public class JumpStateScript : BaseCharcterStateScript
 	}
 	private void JumpInit()
 	{
-		_ownerAnimator.SetBool(_isJumpAnimamtorHashValue,true);
+		_myOwnerAnimator.SetBool(_isJumpAnimamtorHashValue,true);
 		//_jumpPowerTemp = _myOwner.MyCharcterStatus.JumpPower;
 		_myOwner.IsGravity = false;
 		canInterruption = false;
