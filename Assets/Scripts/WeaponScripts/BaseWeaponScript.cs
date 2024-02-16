@@ -41,7 +41,6 @@ public class BaseWeaponScript : BaseObjectScript
 		CollisionIndexInit();
 		_objectManagerScript.GetCollisionCharcter(_myCollisionAreaData, _myCollisionObjects);
 	}
-
 	protected override void OnDrawGizmos()
 	{
 		base.OnDrawGizmos();

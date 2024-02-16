@@ -152,7 +152,8 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
 		{
-			if (charcterColAreaData.MyTransform.root == item.MyCollisionAreaData.MyTransform) { continue; }
+			if (charcterColAreaData.MyTransform.root == item.MyCollisionAreaData.MyTransform
+			|| (item is BaseCharacterScript charcterScript && !charcterScript.CanCollision)) { continue; }
 
 			CollisionResultData result = _collisionSystem.GetCollisionResult(charcterColAreaData, item);
 			if (result.IsOverLap)

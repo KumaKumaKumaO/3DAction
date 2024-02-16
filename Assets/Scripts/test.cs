@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    Animator myAnimator = default;
-    // Start is called before the first frame update
-    void Start()
-    {
-        myAnimator = GetComponent<Animator>();
-    }
+	private Animator _myAnimator = default;
+	private IInputCharcterAction _input = default;
+	// Start is called before the first frame update
+	private void Start()
+	{
+		_myAnimator = GetComponent<Animator>();
+		_input = new InGamePlayerInput();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.Return))
+	// Update is called once per frame
+	private void Update()
+	{
+		if (_input.IsAttack)
 		{
-            myAnimator.SetTrigger("IsAttack");
+			_myAnimator.SetTrigger("Test");
 		}
-    }
+	}
 }

@@ -35,11 +35,19 @@ public class EvasionStateScript : BaseCharcterStateScript
 			if (isMove)
 			{
 				canInterruption = true;
+				_myOwner.CanCollision = true;
 			}
 			else
 			{
 				isMove = true;
+				_myOwner.CanCollision = false;
 			}
 		}
+	}
+
+	public override void Exit()
+	{
+		_myOwner.CanCollision = true;
+		base.Exit();
 	}
 }

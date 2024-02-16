@@ -23,9 +23,11 @@ public class BaseCharacterScript : BaseObjectScript
 	[SerializeField]
 	protected bool isInputTowards = default;
 
-	[SerializeField,Tooltip("デバッグ用")]
+	[SerializeField, Tooltip("デバッグ用")]
 	protected bool isDebugInputPlayer = default;
-	
+	[SerializeField]
+	protected bool canCollision = true;
+
 
 	public BaseWeaponScript MyWeapon { get { return _myWeapon; } }
 	public bool IsGravity { get { return isGravity; } set { isGravity = value; } }
@@ -34,6 +36,7 @@ public class BaseCharacterScript : BaseObjectScript
 	public bool IsDeath { get { return isDeath; } }
 	public bool IsDebugInputPlayer { get { return isDebugInputPlayer; } }
 	public bool IsInputTowards { get { return isInputTowards; } }
+	public bool CanCollision { get { return canCollision; } set { canCollision = value; } }
 	public ObjectManagerScript ObjectManagerScript { get { return _objectManagerScript; } }
 	public override void Init()
 	{
@@ -52,7 +55,7 @@ public class BaseCharacterScript : BaseObjectScript
 
 		_myAnimator.SetBool(_isGroundHashValue, isGround);
 		_myStateMachine.UpdateState().Execute();
-		if(_staggerRecastTimeTemp > 0)
+		if (_staggerRecastTimeTemp > 0)
 		{
 			_staggerRecastTimeTemp -= Time.deltaTime;
 		}
@@ -94,9 +97,9 @@ public class BaseCharacterScript : BaseObjectScript
 		_myCharcterStatus.Hp += healValue;
 	}
 
-	public virtual void ReceiveDamage(float damage,float staggerThreshold)
+	public virtual void ReceiveDamage(float damage, float staggerThreshold)
 	{
-		if(_myCharcterStatus.Hp < damage)
+		if (_myCharcterStatus.Hp < damage)
 		{
 			_myCharcterStatus.Hp = 0;
 			isDeath = true;
@@ -107,7 +110,7 @@ public class BaseCharacterScript : BaseObjectScript
 			_myCharcterStatus.Hp -= damage;
 		}
 
-		if(_myCharcterStatus.StaggerThreshold < staggerThreshold)
+		if (_myCharcterStatus.StaggerThreshold < staggerThreshold)
 		{
 			_myCharcterStatus.StaggerThreshold = 0;
 		}
@@ -117,7 +120,7 @@ public class BaseCharacterScript : BaseObjectScript
 		}
 		_staggerRecastTimeTemp = _staggerRecastTime;
 	}
-	
+
 	public override Vector3 GetClampVector(Vector3 moveVector)
 	{
 		Vector3 returnValue = base.GetClampVector(moveVector);
@@ -143,24 +146,28 @@ public class BaseCharacterScript : BaseObjectScript
 				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 				.ObjectData.MyCollisionAreaData.RightXPos - _myCollisionAreaData.LeftXPos
 				+ _myCollisionAreaData.AreaWidth);
+				//Debug.LogWarning("右"　+ _forwardCollisionAreaDataIndex);
 			}
 			else if (resultData.IsCollisionLeft)
 			{
 				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 				.ObjectData.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos
 				+ _myCollisionAreaData.AreaWidth);
+				Debug.LogWarning("左" + _forwardCollisionAreaDataIndex);
 			}
 			else if (resultData.IsCollisionForward)
 			{
 				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 				.ObjectData.MyCollisionAreaData.ForwardZPos - _myCollisionAreaData.BackZPos
 				- _myCollisionAreaData.AreaWidth);
+				Debug.LogWarning("前");
 			}
 			else
 			{
 				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 				.ObjectData.MyCollisionAreaData.BackZPos - _myCollisionAreaData.ForwardZPos
 				- _myCollisionAreaData.AreaWidth);
+				//Debug.LogWarning("後ろ");
 			}
 		}
 		else if (moveVector.x != 0)
@@ -201,7 +208,7 @@ public class BaseCharacterScript : BaseObjectScript
 	public override void Delete()
 	{
 		base.Delete();
-		if(_myStateMachine is not null)
+		if (_myStateMachine is not null)
 		{
 			_myStateMachine.Delete();
 			_myStateMachine = null;

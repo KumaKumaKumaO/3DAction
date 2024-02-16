@@ -3665,6 +3665,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5019494627403709670, guid: 70db1674aeb98174f9f578c8dda25fa5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.15
+      objectReference: {fileID: 0}
     - target: {fileID: 6186133016885668786, guid: 70db1674aeb98174f9f578c8dda25fa5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
