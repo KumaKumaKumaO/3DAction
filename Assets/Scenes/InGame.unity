@@ -2509,6 +2509,7 @@ MonoBehaviour:
   _staggerRecastTime: 0
   isInputTowards: 1
   isDebugInputPlayer: 0
+  canCollision: 1
 --- !u!4 &2528255922588159190
 Transform:
   m_ObjectHideFlags: 0

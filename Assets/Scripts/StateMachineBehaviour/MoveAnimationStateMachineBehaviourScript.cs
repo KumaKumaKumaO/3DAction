@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class MoveAnimationStateMachineBehaviourScript : StateMachineBehaviour
 {
-	[SerializeField]
+	[SerializeField,Tooltip("デバッグ用")]
 	private AnimationSettingData _nowLoadSettingData = default;
 	[SerializeField]
 	private Vector3 _goalPos = default;
-	[SerializeField]
-	private float _startRatio = default;
 	[SerializeField]
 	private AnimationSettingData[] _settingDatas = default;
 

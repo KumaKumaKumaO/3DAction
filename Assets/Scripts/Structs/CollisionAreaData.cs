@@ -28,4 +28,11 @@ public struct CollisionAreaData
 	{
 		_myTransform = null;
 	}
+	public CollisionAreaData(Vector3 halfAreaSize,Vector3 offset, Transform myTransform,float areaWidth)
+	{
+		_halfAreaSize = halfAreaSize;
+		_offset = offset;
+		_myTransform = myTransform;
+		_areaWidth = areaWidth;
+	}
 }

@@ -10,7 +10,7 @@ public class PlayerCharacterScript : BaseCharacterScript
 	public void SetPlayerInput(IInputCharcterAction input)
 	{
 		Animator myAnimator = GetComponent<Animator>();
-		if (myAnimator == null)
+		if (myAnimator is null)
 		{
 			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
 		}

@@ -184,15 +184,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData, _myCollisionObjects);
 		SelectColObjectResult();
 	}
-	[ContextMenu("test")]
-	public void MsgOut()
-	{
-		if (_forwardCollisionAreaDataIndex >= 0)
-		{
-			Debug.Log
-			(_myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData.MyTransform.name);
-		}
-	}
+
 	/// <summary>
 	/// ‚·‚è”²‚¯‚ªC³‚·‚é
 	/// </summary>

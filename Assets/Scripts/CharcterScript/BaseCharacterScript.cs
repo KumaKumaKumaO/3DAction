@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 /// <summary>
 /// キャラクター共通の動き
 /// </summary>
@@ -124,85 +125,91 @@ public class BaseCharacterScript : BaseObjectScript
 	public override Vector3 GetClampVector(Vector3 moveVector)
 	{
 		Vector3 returnValue = base.GetClampVector(moveVector);
-		//正面に何か当たっていない場合
-		if (_forwardCollisionAreaDataIndex < 0)
+		if (isInputTowards)
 		{
-			return returnValue;
-		}
-		//斜め入力
-		else if (moveVector.x != 0 && moveVector.z != 0)
-		{
-			//Debug.LogWarning("斜め");
-			if (_objectManagerScript.IsCollisionCharcter(
-				_myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData as BaseCharacterScript))
+			//正面に何か当たっていない場合
+			if (_forwardCollisionAreaDataIndex < 0)
 			{
-				return returnValue - moveVector;
+				return returnValue;
 			}
-
-			CollisionResultData resultData = _objectManagerScript.CollisionObject(
-			   _myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData, this);
-			if (resultData.IsCollisionRight)
+			//斜め入力
+			else if (moveVector.x != 0 && moveVector.z != 0)
 			{
-				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
-				.ObjectData.MyCollisionAreaData.RightXPos - _myCollisionAreaData.LeftXPos
-				+ _myCollisionAreaData.AreaWidth);
-				//Debug.LogWarning("右"　+ _forwardCollisionAreaDataIndex);
+				Debug.LogError("斜め");
+				//キャラクターにぶつかっている場合は移動できなくする
+				if (_objectManagerScript.IsCollisionCharcter(
+					_myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData as BaseCharacterScript))
+				{
+					return returnValue - moveVector;
+				}
+				//当たったオブジェクトのどこが当たっているかを確認する
+				CollisionResultData resultData = _objectManagerScript.CollisionObject(
+				   _myCollisionObjects[_forwardCollisionAreaDataIndex].ObjectData.MyCollisionAreaData,this
+				   );
+				if (resultData.IsCollisionRight)
+				{
+					returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.RightXPos - _myCollisionAreaData.LeftXPos
+					+ _myCollisionAreaData.AreaWidth);
+					Debug.LogWarning("右：斜め");
+				}
+				else if (resultData.IsCollisionLeft)
+				{
+					returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos
+					+ _myCollisionAreaData.AreaWidth);
+					Debug.LogWarning("左：斜め");
+				}
+				else if (resultData.IsCollisionForward)
+				{
+					returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.ForwardZPos - _myCollisionAreaData.BackZPos
+					- _myCollisionAreaData.AreaWidth);
+					Debug.LogWarning("前：斜め");
+				}
+				else
+				{
+					returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.BackZPos - _myCollisionAreaData.ForwardZPos
+					- _myCollisionAreaData.AreaWidth);
+					Debug.LogWarning("後ろ：斜め");
+				}
 			}
-			else if (resultData.IsCollisionLeft)
-			{
-				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
-				.ObjectData.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos
-				+ _myCollisionAreaData.AreaWidth);
-				Debug.LogWarning("左" + _forwardCollisionAreaDataIndex);
-			}
-			else if (resultData.IsCollisionForward)
-			{
-				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
-				.ObjectData.MyCollisionAreaData.ForwardZPos - _myCollisionAreaData.BackZPos
-				- _myCollisionAreaData.AreaWidth);
-				Debug.LogWarning("前");
-			}
-			else
-			{
-				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
-				.ObjectData.MyCollisionAreaData.BackZPos - _myCollisionAreaData.ForwardZPos
-				- _myCollisionAreaData.AreaWidth);
-				//Debug.LogWarning("後ろ");
-			}
-		}
-		else if (moveVector.x != 0)
-		{
 			//動いた方向が右
-			if (moveVector.x > 0)
+			else if (moveVector.x > 0)
 			{
-				//Debug.LogWarning("右");
+				Debug.LogWarning("右");
 				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.ObjectData.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos
 					+ _myCollisionAreaData.AreaWidth);
 			}
-			else
+			//動いた方向が左
+			else if(moveVector.x < 0)
 			{
-				//Debug.LogWarning("左");
+				Debug.LogWarning("左");
 				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.ObjectData.MyCollisionAreaData.RightXPos - _myCollisionAreaData.LeftXPos
 					+ _myCollisionAreaData.AreaWidth);
 			}
-		}
-		else if (moveVector.z > 0)
-		{
-			//Debug.LogWarning("前");
-			returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
-				.ObjectData.MyCollisionAreaData.BackZPos - _myCollisionAreaData.ForwardZPos
-				- _myCollisionAreaData.AreaWidth);
-		}
-		else if (moveVector.z < 0)
-		{
-			//Debug.LogWarning("後ろ");
-			returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
-				.ObjectData.MyCollisionAreaData.ForwardZPos - _myCollisionAreaData.BackZPos
-				- _myCollisionAreaData.AreaWidth);
+			//動いた方向が前
+			else if (moveVector.z > 0)
+			{
+				Debug.LogWarning("前");
+				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.BackZPos - _myCollisionAreaData.ForwardZPos
+					- _myCollisionAreaData.AreaWidth);
+			}
+			//動いた方向が後ろ
+			else if (moveVector.z < 0)
+			{
+				Debug.LogWarning("後ろ");
+				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
+					.ObjectData.MyCollisionAreaData.ForwardZPos - _myCollisionAreaData.BackZPos
+					- _myCollisionAreaData.AreaWidth);
+			}
 		}
 		return returnValue;
+
 	}
 
 	public override void Delete()

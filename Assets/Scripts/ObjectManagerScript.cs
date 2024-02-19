@@ -196,9 +196,13 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
-	public CollisionResultData CollisionObject(CollisionAreaData myData, BaseObjectScript targetObject)
+	public CollisionResultData CollisionObject(CollisionAreaData myData, BaseObjectScript targetObject
+		//,Vector3 moveVector
+		)
 	{
-		return _collisionSystem.GetCollisionResult(myData, targetObject);
+		return _collisionSystem.GetCollisionResult(myData, targetObject
+			//,moveVector
+			);
 	}
 
 	public BaseWeaponScript GetMyWeapon(BaseCharacterScript myData)

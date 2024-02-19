@@ -45,6 +45,14 @@ public class CollisionSystem
 
 		return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp,isOverlap, targetData);
 	}
+
+	public CollisionResultData GetCollisionResult(CollisionAreaData myAreaData, BaseObjectScript
+		targetData,Vector3 moveVector)
+	{
+		return GetCollisionResult(new CollisionAreaData(myAreaData.HalfAreaSize + moveVector / 2,myAreaData.Offset + moveVector / 2,myAreaData.MyTransform,myAreaData.AreaWidth), targetData);
+	}
+
+
 	private bool IsCollision(Vector3 myColDistance, Vector3 targetColDistance)
 	{
 		return Mathf.Abs(myColDistance.x) < targetColDistance.x
