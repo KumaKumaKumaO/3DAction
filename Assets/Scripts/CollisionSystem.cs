@@ -5,53 +5,63 @@ using UnityEngine;
 /// </summary>
 public class CollisionSystem
 {
-	/// <summary>
-	/// どこの部分が衝突しているかどうか
-	/// </summary>
-	/// <param name="myAreaData">自信の当たり判定データ</param>
-	/// <param name="targetData">対象のオブジェクトデータ</param>
-	/// <returns></returns>
-	public CollisionResultData GetCollisionResult(CollisionAreaData myAreaData, BaseObjectScript targetData)
+	public bool IsCollision(CollisionAreaData myAreaData, CollisionAreaData targetData, MoveDirection moveDirection)
 	{
-		Vector3 hitDistanceVector = myAreaData.HalfAreaSize + targetData.MyCollisionAreaData.HalfAreaSize;
+		Vector3 hitDistanceVector = myAreaData.HalfAreaSize + targetData.HalfAreaSize;
 		Vector3 targetToMeVector = (myAreaData.MyTransform.position + myAreaData.Offset)
-			- (targetData.MyCollisionAreaData.MyTransform.position + targetData.MyCollisionAreaData.Offset);
+			- (targetData.MyTransform.position + targetData.Offset);
 
-		bool isOverlap = IsCollision(targetToMeVector, hitDistanceVector);
-
-		bool isTopTemp = IsCollision(targetToMeVector 
-			+ myAreaData.MyTransform.up * (myAreaData.AreaWidth + myAreaData.Offset.y)
-			, hitDistanceVector );
-
-		bool isBottomTemp = IsCollision(targetToMeVector 
-			+ -myAreaData.MyTransform.up * (myAreaData.AreaWidth + myAreaData.Offset.y)
-			, hitDistanceVector );
-
-		bool isRightTemp = IsCollision(targetToMeVector 
-			+ myAreaData.MyTransform.right * (myAreaData.AreaWidth + myAreaData.Offset.x)
-			, hitDistanceVector);
-
-		bool isLeftTemp = IsCollision(targetToMeVector
-			+ -myAreaData.MyTransform.right * (myAreaData.AreaWidth + myAreaData.Offset.x)
-			, hitDistanceVector );
-
-		bool isForwardTemp = IsCollision(targetToMeVector 
+		if (moveDirection == MoveDirection.Forward)
+		{
+			return IsCollision(targetToMeVector
 			+ myAreaData.MyTransform.forward * (myAreaData.AreaWidth + myAreaData.Offset.z)
 			, hitDistanceVector);
-
-		bool isBackTemp = IsCollision(targetToMeVector 
+		}
+		else if (moveDirection == MoveDirection.Back)
+		{
+			return IsCollision(targetToMeVector
 			+ -myAreaData.MyTransform.forward * (myAreaData.AreaWidth + myAreaData.Offset.z)
 			, hitDistanceVector);
-
-		return new CollisionResultData(isRightTemp, isLeftTemp, isTopTemp, isBottomTemp, isForwardTemp, isBackTemp,isOverlap, targetData);
+		}
+		else if (moveDirection == MoveDirection.Up)
+		{
+			return IsCollision(targetToMeVector
+			+ myAreaData.MyTransform.up * (myAreaData.AreaWidth + myAreaData.Offset.y)
+			, hitDistanceVector);
+		}
+		else if (moveDirection == MoveDirection.Down)
+		{
+			return IsCollision(targetToMeVector
+			+ -myAreaData.MyTransform.up * (myAreaData.AreaWidth + myAreaData.Offset.y)
+			, hitDistanceVector);
+		}
+		else if (moveDirection == MoveDirection.Right)
+		{
+			return IsCollision(targetToMeVector
+			+ myAreaData.MyTransform.right * (myAreaData.AreaWidth + myAreaData.Offset.x)
+			, hitDistanceVector);
+		}
+		//左
+		else
+		{
+			return IsCollision(targetToMeVector
+			+ -myAreaData.MyTransform.right * (myAreaData.AreaWidth + myAreaData.Offset.x)
+			, hitDistanceVector);
+		}
 	}
-
-	public CollisionResultData GetCollisionResult(CollisionAreaData myAreaData, BaseObjectScript
-		targetData,Vector3 moveVector)
+	/// <summary>
+	/// 重なっているか
+	/// </summary>
+	/// <param name="myAreaData"></param>
+	/// <param name="targetData"></param>
+	/// <returns></returns>
+	public bool IsCollision(CollisionAreaData myAreaData, CollisionAreaData targetData)
 	{
-		return GetCollisionResult(new CollisionAreaData(myAreaData.HalfAreaSize + moveVector / 2,myAreaData.Offset + moveVector / 2,myAreaData.MyTransform,myAreaData.AreaWidth), targetData);
+		Vector3 hitDistanceVector = myAreaData.HalfAreaSize + targetData.HalfAreaSize;
+		Vector3 targetToMeVector = (myAreaData.MyTransform.position + myAreaData.Offset)
+			- (targetData.MyTransform.position + targetData.Offset);
+		return IsCollision(targetToMeVector, hitDistanceVector);
 	}
-
 
 	private bool IsCollision(Vector3 myColDistance, Vector3 targetColDistance)
 	{

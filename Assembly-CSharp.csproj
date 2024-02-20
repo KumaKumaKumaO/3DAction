@@ -72,13 +72,13 @@
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\EvasionStateScript.cs" />
     <Compile Include="Assets\Scripts\Debug\ErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\DemonGuardAIInputScript.cs" />
+    <Compile Include="Assets\Scripts\Enum\MoveDirection.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\DemonGuardCharacterScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\TitleGameState.cs" />
     <Compile Include="Assets\Scripts\InGameState\PlayStateScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\WalkStateScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseObjectScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\BaseCharacterScript.cs" />
-    <Compile Include="Assets\Scripts\StateMachineBehaviour\MoveAnimationStateMachineBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseBar.cs" />
     <Compile Include="Assets\Scripts\ObjectManagerScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\PlayerCharacterStateMachineScript.cs" />
@@ -810,6 +810,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="UniTask.Addressables.csproj">
+      <Project>{FC3083CA-2B9E-C542-1D5F-63BC248D1D6A}</Project>
+      <Name>UniTask.Addressables</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.Linq.csproj">
+      <Project>{BE0524EC-9FFB-4C4B-F2F2-45387C949EFD}</Project>
+      <Name>UniTask.Linq</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.csproj">
+      <Project>{82FDEA44-9137-B658-794D-06958FBB1B76}</Project>
+      <Name>UniTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.TextMeshPro.csproj">
+      <Project>{EE5C37E6-1674-66B3-AB83-C5DA956D364D}</Project>
+      <Name>UniTask.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.DOTween.csproj">
+      <Project>{35C96A83-A3C4-7572-15EE-41535C801A6A}</Project>
+      <Name>UniTask.DOTween</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

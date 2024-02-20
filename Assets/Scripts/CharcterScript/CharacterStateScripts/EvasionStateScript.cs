@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class EvasionStateScript : BaseCharcterStateScript
@@ -43,6 +44,10 @@ public class EvasionStateScript : BaseCharcterStateScript
 				_myOwner.CanCollision = false;
 			}
 		}
+	}
+	private async UniTaskVoid NoDamageTimer(float time)
+	{
+		//await UniTask.Delay(time);
 	}
 
 	public override void Exit()

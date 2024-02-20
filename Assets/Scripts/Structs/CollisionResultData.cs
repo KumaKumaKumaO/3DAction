@@ -17,7 +17,7 @@ public struct CollisionResultData
 	[SerializeField]
 	private bool isCollisionBack;
 	private bool isOverLap;
-	private BaseObjectScript _objectData;
+	//private BaseObjectScript _objectData;
 	public bool IsCollision { 
 		get
 		{
@@ -34,8 +34,8 @@ public struct CollisionResultData
 	public bool IsCollisionForward { get { return isCollisionForward; } }
 	public bool IsCollisionBack { get { return isCollisionBack; } }
 	public bool IsOverLap { get { return isOverLap; } }
-	public BaseObjectScript ObjectData { get { return _objectData; } }
-	public CollisionResultData(bool right,bool left , bool top, bool bottom , bool forward , bool back,bool overlap,BaseObjectScript collisionObjectData )
+	//public BaseObjectScript ObjectData { get { return _objectData; } }
+	public CollisionResultData(bool right,bool left , bool top, bool bottom , bool forward , bool back,bool overlap)
 	{
 		isCollisionTop = top;
 		isCollisionBottom = bottom;
@@ -44,6 +44,6 @@ public struct CollisionResultData
 		isCollisionForward = forward;
 		isCollisionBack = back;
 		isOverLap = overlap;
-		this._objectData = collisionObjectData;
+		//this._objectData = collisionObjectData;
 	}
 }

@@ -28,9 +28,9 @@ public class BaseWeaponScript : BaseObjectScript
 				isAttack = false;
 				isHit = false;
 			}
-			foreach (CollisionResultData resultData in _myCollisionObjects)
+			foreach (BaseObjectScript resultData in _myCollisionObjects)
 			{
-				(resultData.ObjectData as BaseCharacterScript)
+				(resultData as BaseCharacterScript)
 					.ReceiveDamage(_myStatus.Attack,_myStatus.StaggerValue);
 			}
 		}

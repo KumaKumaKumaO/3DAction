@@ -1863,7 +1863,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8553130376786099965}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5736af7d61e347c49de65683918070b6, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 4838ccfd02b84a7b81c0fac73ac43c66, type: 3}
   m_Controller: {fileID: 22100000, guid: acc9d2a2201c3f64d8d147ce74509872, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1917,6 +1917,7 @@ MonoBehaviour:
   _staggerRecastTime: 0
   isInputTowards: 1
   isDebugInputPlayer: 0
+  canCollision: 1
 --- !u!1 &8632767246620876828
 GameObject:
   m_ObjectHideFlags: 0

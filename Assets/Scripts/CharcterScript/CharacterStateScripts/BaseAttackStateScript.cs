@@ -49,6 +49,8 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		_myOwnerAnimator.SetTrigger(_attackTriggerHash);
 		//‘Ò‚¿ó‘Ô‚É‘JˆÚ‚·‚é
 		_nowState = AttackState.Wait;
+		Debug.LogError("adada");
+
 	}
 
 	public override void Execute()

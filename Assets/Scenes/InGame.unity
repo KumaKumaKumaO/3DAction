@@ -698,13 +698,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493481901}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.18240716, z: -0, w: 0.9832231}
   m_LocalPosition: {x: 0, y: 5, z: 15.4}
   m_LocalScale: {x: 100, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 294023547}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -21.02, z: 0}
 --- !u!114 &493481903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1990,7 +1990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1116084967968741689
 Transform:
   m_ObjectHideFlags: 0
@@ -2597,6 +2597,10 @@ PrefabInstance:
     - target: {fileID: 7492468349993454234, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: _myCharcterStatus._hp
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492468349993454234, guid: dab69392156713544847fffb4629aebf, type: 3}
+      propertyPath: _myCollisionAreaData._areaWidth
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8553130376786099965, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_Name
@@ -3716,7 +3720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7056322128602257078, guid: 70db1674aeb98174f9f578c8dda25fa5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4757,7 +4761,7 @@ MonoBehaviour:
   _forwardCollisionAreaDataIndex: -1
   _backCollisionAreaDataIndex: -1
   isGround: 0
-  isDebugColliderVisible: 0
+  isDebugColliderVisible: 1
   isHit: 0
   isAttack: 0
   _myStatus:

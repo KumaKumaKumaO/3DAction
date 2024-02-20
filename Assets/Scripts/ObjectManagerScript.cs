@@ -141,68 +141,62 @@ public class ObjectManagerScript : MonoBehaviour
 		_cameraScript.UpdateCameraControl();
 	}
 
-	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas
+		, MoveDirection moveDirection)
 	{
-		GetCollisionFloor(charcterColAreaData, collisionObjectDatas);
-		GetCollisionStageObject(charcterColAreaData, collisionObjectDatas);
+		GetCollisionFloor(charcterColAreaData, collisionObjectDatas,moveDirection);
+		GetCollisionStageObject(charcterColAreaData, collisionObjectDatas,moveDirection);
 		GetCollisionCharcter(charcterColAreaData, collisionObjectDatas);
 	}
 
-	public void GetCollisionCharcter(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+	public void GetCollisionCharcter(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas)
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
 		{
 			if (charcterColAreaData.MyTransform.root == item.MyCollisionAreaData.MyTransform
 			|| (item is BaseCharacterScript charcterScript && !charcterScript.CanCollision)) { continue; }
 
-			CollisionResultData result = _collisionSystem.GetCollisionResult(charcterColAreaData, item);
-			if (result.IsOverLap)
+			if (_collisionSystem.IsCollision(charcterColAreaData,item.MyCollisionAreaData))
 			{
-				collisionObjectDatas.Add(result);
+				collisionObjectDatas.Add(item);
 			}
 		}
 	}
 
-	public void GetCollisionFloor(CollisionAreaData charcterColAreaData, List<CollisionResultData> collisionObjectDatas)
+	public void GetCollisionFloor(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas
+		,MoveDirection moveDirection)
 	{
 		foreach (BaseObjectScript item in _stageFloors)
 		{
-			if (charcterColAreaData.MyTransform == item.MyCollisionAreaData.MyTransform)
-			{
-				continue;
-			}
-			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas);
+			if (charcterColAreaData.MyTransform == item.MyCollisionAreaData.MyTransform) { continue; }
+
+			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas,moveDirection);
 		}
 	}
 
-	public void GetCollisionStageObject(CollisionAreaData colAreaData, List<CollisionResultData> collisionObjectDatas)
+	public void GetCollisionStageObject(CollisionAreaData colAreaData, List<BaseObjectScript> collisionObjectDatas
+		,MoveDirection moveDirection)
 	{
 		foreach (BaseObjectScript item in _stageObjects)
 		{
-			AddCollisionObject(colAreaData, item, collisionObjectDatas);
+			AddCollisionObject(colAreaData, item, collisionObjectDatas,moveDirection);
 		}
 	}
 
-	private void AddCollisionObject(CollisionAreaData colData, BaseObjectScript checkObject
-		, List<CollisionResultData> collisionObjects)
+	private void AddCollisionObject(CollisionAreaData colData, BaseObjectScript targetObject
+		, List<BaseObjectScript> collisionObjects,MoveDirection moveDirection)
 	{
-		if (colData.MyTransform != checkObject.MyCollisionAreaData.MyTransform)
+		if (_collisionSystem.IsCollision(colData,targetObject.MyCollisionAreaData,moveDirection))
 		{
-			CollisionResultData collisionResultDataTemp = _collisionSystem.GetCollisionResult(colData, checkObject);
-			if (collisionResultDataTemp.IsCollision)
-			{
-				collisionObjects.Add(collisionResultDataTemp);
-			}
+			//Debug.Log(moveDirection + ":" + targetObject.name);
+			collisionObjects.Add(targetObject);
 		}
 	}
 
-	public CollisionResultData CollisionObject(CollisionAreaData myData, BaseObjectScript targetObject
-		//,Vector3 moveVector
-		)
+	public bool IsCollisionObject(CollisionAreaData myData, BaseObjectScript targetObject
+		,MoveDirection moveDirection)
 	{
-		return _collisionSystem.GetCollisionResult(myData, targetObject
-			//,moveVector
-			);
+		return _collisionSystem.IsCollision(myData, targetObject.MyCollisionAreaData,moveDirection);
 	}
 
 	public BaseWeaponScript GetMyWeapon(BaseCharacterScript myData)
