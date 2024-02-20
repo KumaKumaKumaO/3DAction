@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// カメラを制御するクラス
+/// 繧ｫ繝｡繝ｩ繧貞宛蠕｡縺吶ｋ繧ｯ繝ｩ繧ｹ
 /// </summary>
 public class CameraScript
 {
@@ -58,7 +58,7 @@ public class CameraScript
 	}
 
 	/// <summary>
-	/// カメラを制御する
+	/// 繧ｫ繝｡繝ｩ繧貞宛蠕｡縺吶ｋ
 	/// </summary>
 	public void UpdateCameraControl()
 	{
@@ -68,7 +68,7 @@ public class CameraScript
 	}
 
 	/// <summary>
-	/// カメラの場所を更新する
+	/// 繧ｫ繝｡繝ｩ縺ｮ蝣ｴ謇繧呈峩譁ｰ縺吶ｋ
 	/// </summary>
 	private void UpdateCameraPos()
 	{
@@ -76,7 +76,7 @@ public class CameraScript
 		_beforePlayerPos = _playerCharcterScript.MyTransform.position;
 	}
 	/// <summary>
-	/// カメラの角度を更新する
+	/// 繧ｫ繝｡繝ｩ縺ｮ隗貞ｺｦ繧呈峩譁ｰ縺吶ｋ
 	/// </summary>
 	/// <param name="inputVector"></param>
 	private void UpdateCameraRotation(Vector2 inputVector)

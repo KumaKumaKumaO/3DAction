@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// ‘S‚Ä‚ÌƒIƒuƒWƒFƒNƒg‚ÌŒ³‚ÌƒNƒ‰ƒX
+/// å…¨ã¦ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å…ƒã®ã‚¯ãƒ©ã‚¹
 /// </summary>
 public abstract class BaseObjectScript : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	private bool isDestroyObject = false;
 
 
-	[SerializeField,Tooltip("ƒfƒoƒbƒO—p")]
+	[SerializeField,Tooltip("ãƒ‡ãƒãƒƒã‚°ç”¨")]
 	protected bool isDebugColliderVisible = false;
 	public CollisionAreaData MyCollisionAreaData { get { return _myCollisionAreaData; } }
 	public Transform MyTransform { get { return _myTransform; } }
@@ -44,7 +44,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		GameObject objectManagerObject = GameObject.FindWithTag("ObjectManager");
 		if (objectManagerObject == null)
 		{
-			ErrorManagerScript.MyInstance.NullGameObjectError("ObjectManager‚Ìƒ^ƒO‚ª‚Â‚¢‚½ƒIƒuƒWƒFƒNƒg");
+			ErrorManagerScript.MyInstance.NullGameObjectError("ObjectManagerã®ã‚¿ã‚°ãŒã¤ã„ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ");
 		}
 		else if (!objectManagerObject.TryGetComponent<ObjectManagerScript>(out _objectManagerScript))
 		{
@@ -62,7 +62,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 
 	}
 
-	//¡‚ÌŒü‚«‚É‘Î‚µ‚Ä
+	//ä»Šã®å‘ãã«å¯¾ã—ã¦
 	protected void GetColObjects(MoveDirection moveDirection)
 	{
 		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData,_myCollisionObjects,moveDirection);
@@ -126,7 +126,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// “|‚·‰‰o‚È‚Ç‚ªI‚í‚Á‚½‚ ‚Æ‚Ìˆ—
+	/// å€’ã™æ¼”å‡ºãªã©ãŒçµ‚ã‚ã£ãŸã‚ã¨ã®å‡¦ç†
 	/// </summary>
 	public virtual void Delete()
 	{
@@ -164,9 +164,9 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_forwardCollisionCount = 0;
 	}
 	/// <summary>
-	/// ƒIƒuƒWƒFƒNƒg‚ğˆÚ“®‚·‚é
+	/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç§»å‹•ã™ã‚‹
 	/// </summary>
-	/// <param name="vector">¢ŠE²‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
+	/// <param name="vector">ä¸–ç•Œè»¸ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
 	public virtual void ObjectMove(Vector3 vector)
 	{
 		Vector3 beforPos = _myCollisionAreaData.MyTransform.position;
@@ -183,16 +183,16 @@ public abstract class BaseObjectScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ‚·‚è”²‚¯‚ªC³‚·‚é
+	/// ã™ã‚ŠæŠœã‘ãŒä¿®æ­£ã™ã‚‹
 	/// </summary>
-	/// <param name="moveVector">ˆÚ“®‚µ‚½ƒxƒNƒgƒ‹</param>
-	/// <returns>C³Œã‚Ìƒ|ƒWƒVƒ‡ƒ“</returns>
+	/// <param name="moveVector">ç§»å‹•ã—ãŸãƒ™ã‚¯ãƒˆãƒ«</param>
+	/// <returns>ä¿®æ­£å¾Œã®ãƒã‚¸ã‚·ãƒ§ãƒ³</returns>
 	public virtual Vector3 GetClampVector(Vector3 moveVector)
 	{
-		//ˆÚ“®Œã‚ÌˆÊ’u‚ğ‘ã“ü
+		//ç§»å‹•å¾Œã®ä½ç½®ã‚’ä»£å…¥
 		Vector3 returnValue = _myTransform.position;
 
-		//‰º‚ÉˆÚ“®‚µ‚Ä‚¢‚éê‡
+		//ä¸‹ã«ç§»å‹•ã—ã¦ã„ã‚‹å ´åˆ
 		if (moveVector.y < 0)
 		{
 			GetColObjects(MoveDirection.Down);
@@ -204,7 +204,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 					+ _myCollisionAreaData.AreaWidth);
 			}
 		}
-		//ã‚ÉˆÚ“®‚µ‚Ä‚¢‚éê‡
+		//ä¸Šã«ç§»å‹•ã—ã¦ã„ã‚‹å ´åˆ
 		else if (moveVector.y > 0)
 		{
 			GetColObjects(MoveDirection.Up);

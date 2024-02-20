@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// プレイヤーにアタッチするクラス
+/// 繝励Ξ繧､繝､繝ｼ縺ｫ繧｢繧ｿ繝�繝√☆繧九け繝ｩ繧ｹ
 /// </summary>
 public class PlayerCharacterScript : BaseCharacterScript
 {

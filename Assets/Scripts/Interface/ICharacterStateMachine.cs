@@ -1,8 +1,8 @@
 public interface ICharacterStateMachine:IDeletable
 {
 	/// <summary>
-	/// ƒLƒƒƒ‰ƒNƒ^[‚ÌƒXƒe[ƒg‚ğXV‚·‚é
+	/// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’æ›´æ–°ã™ã‚‹
 	/// </summary>
-	/// <returns>Ÿ‚ÌƒXƒe[ƒg</returns>
+	/// <returns>æ¬¡ã®ã‚¹ãƒ†ãƒ¼ãƒˆ</returns>
 	public BaseCharcterStateScript UpdateState();
 }

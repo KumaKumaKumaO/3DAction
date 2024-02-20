@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ErrorManagerÇÃNullObject
+/// ErrorManager„ÅÆNullObject
 /// </summary>
 public class NullErrorManagerScript : IErrorManager
 {
@@ -22,7 +22,7 @@ public class NullErrorManagerScript : IErrorManager
 	{
 		if (!isDisplayNullMSG)
 		{
-			Debug.LogWarning(this + "ÇÕNullObjectÇ≈Ç∑ÅB");
+			Debug.LogWarning(this + "„ÅØNullObject„Åß„Åô„ÄÇ");
 			isDisplayNullMSG = true;
 		}
 	}

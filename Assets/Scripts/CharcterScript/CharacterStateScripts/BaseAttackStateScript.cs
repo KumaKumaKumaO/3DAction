@@ -9,24 +9,24 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 	private int _nowAnimationHash = default;
 	protected AttackState _nowState = default;
 	/// <summary>
-	/// UŒ‚‚Ìó‘Ô‘JˆÚ
+	/// æ”»æ’ƒã®çŠ¶æ…‹é·ç§»
 	/// </summary>
 	protected enum AttackState
 	{
 		/// <summary>
-		/// ‘Ò‚¿’†
+		/// å¾…ã¡ä¸­
 		/// </summary>
 		Wait,
 		/// <summary>
-		/// UŒ‚’†
+		/// æ”»æ’ƒä¸­
 		/// </summary>
 		Attacking,
 		/// <summary>
-		/// Ÿ‚ÌUŒ‚‚Ö‚Ì”h¶‘Ò‹@’†
+		/// æ¬¡ã®æ”»æ’ƒã¸ã®æ´¾ç”Ÿå¾…æ©Ÿä¸­
 		/// </summary>
 		NextAttack,
 		/// <summary>
-		/// UŒ‚I—¹‘Ò‚¿’†
+		/// æ”»æ’ƒçµ‚äº†å¾…ã¡ä¸­
 		/// </summary>
 		End
 	}
@@ -39,15 +39,15 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 	public override void Enter()
 	{
 		base.Enter();
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒnƒbƒVƒ…’l‚ğæ“¾‚·‚é
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’å–å¾—ã™ã‚‹
 		_attackTriggerHash = Animator.StringToHash("AttackTrigger");
-		//•Ší‚Ì“–‚½‚è”»’è‚ğƒIƒ“‚É‚·‚é
+		//æ­¦å™¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã‚ªãƒ³ã«ã™ã‚‹
 		_myOwnerWeapon.IsAttack = true;
-		//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒnƒbƒVƒ…’l‚ğæ“¾‚·‚é
+		//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’å–å¾—ã™ã‚‹
 		_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
-		//UŒ‚ƒgƒŠƒK[‚ğƒIƒ“‚É‚·‚é
+		//æ”»æ’ƒãƒˆãƒªã‚¬ãƒ¼ã‚’ã‚ªãƒ³ã«ã™ã‚‹
 		_myOwnerAnimator.SetTrigger(_attackTriggerHash);
-		//‘Ò‚¿ó‘Ô‚É‘JˆÚ‚·‚é
+		//å¾…ã¡çŠ¶æ…‹ã«é·ç§»ã™ã‚‹
 		_nowState = AttackState.Wait;
 		Debug.LogError("adada");
 
@@ -56,66 +56,66 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 	public override void Execute()
 	{
 		base.Execute();
-		//I—¹ó‘Ô‚¾‚Á‚½‚ç
+		//çµ‚äº†çŠ¶æ…‹ã ã£ãŸã‚‰
 		if (_nowState == AttackState.End)
 		{
-			//‘Ò‚¿ó‘Ô‚É‘JˆÚ
+			//å¾…ã¡çŠ¶æ…‹ã«é·ç§»
 			_nowState = AttackState.Wait;
 			//Debug.LogWarning("w");
-			//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒnƒbƒVƒ…’l‚ğƒŠƒZƒbƒg
+			//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’ãƒªã‚»ãƒƒãƒˆ
 			_nowAnimationHash = default;
 		}
 
-		//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚©‚ç•ÏX‚³‚ê‚½‚ç
+		//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‹ã‚‰å¤‰æ›´ã•ã‚ŒãŸã‚‰
 		if (_myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash != _nowAnimationHash)
 		{
-			//•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒnƒbƒVƒ…’l‚ğŒ»İ‚Ì’l‚Æ‚µ‚Ä•Û
+			//å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’ç¾åœ¨ã®å€¤ã¨ã—ã¦ä¿æŒ
 			_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 			
-			//Œ»İ‚ª‘Ò‚¿ó‘Ô‚È‚ç
+			//ç¾åœ¨ãŒå¾…ã¡çŠ¶æ…‹ãªã‚‰
 			if (_nowState == AttackState.Wait)
 			{
 				//Debug.LogWarning("a");
-				//UŒ‚’†‚É‘JˆÚ
+				//æ”»æ’ƒä¸­ã«é·ç§»
 				_nowState = AttackState.Attacking;
-				//•Ší‚Ì“–‚½‚è”»’è‚ğƒIƒ“‚É‚·‚é
+				//æ­¦å™¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã‚ªãƒ³ã«ã™ã‚‹
 				_myOwnerWeapon.IsAttack = true;
 			}
-			//UŒ‚’†‚¾‚Á‚½‚ç
+			//æ”»æ’ƒä¸­ã ã£ãŸã‚‰
 			else if(_nowState == AttackState.Attacking)
 			{
 				//Debug.LogWarning("e");
-				//I—¹ó‘Ô‚É‘JˆÚ
+				//çµ‚äº†çŠ¶æ…‹ã«é·ç§»
 				_nowState = AttackState.End;
-				//•Ší‚Ì“–‚½‚è”»’è‚ğƒIƒt‚É‚·‚é
+				//æ­¦å™¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã‚ªãƒ•ã«ã™ã‚‹
 				_myOwnerWeapon.IsAttack = false;
-				//“®ì‚ÌŠ„‚è‚İ‚ğ‹–‰Â‚·‚é
+				//å‹•ä½œã®å‰²ã‚Šè¾¼ã¿ã‚’è¨±å¯ã™ã‚‹
 				canInterruption = true;
 			}
-			//Ÿ‚ÌUŒ‚‚É”h¶‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚½‚ç
+			//æ¬¡ã®æ”»æ’ƒã«æ´¾ç”Ÿã—ã‚ˆã†ã¨ã—ã¦ã„ãŸã‚‰
 			else if (_nowState == AttackState.NextAttack)
 			{
 				//Debug.LogWarning("a");
-				//UŒ‚’†‚É‘JˆÚ‚·‚é
+				//æ”»æ’ƒä¸­ã«é·ç§»ã™ã‚‹
 				_nowState = AttackState.Attacking;
-				//•Ší‚Ì“–‚½‚è”»’è‚ğƒIƒ“‚É‚·‚é
+				//æ­¦å™¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã‚ªãƒ³ã«ã™ã‚‹
 				_myOwnerWeapon.IsAttack = true;
 			}
 		}
-		//Ÿ‚ÌUŒ‚‚É”h¶‚³‚¹‚½‚©‚Á‚½‚ç‚©‚ÂUŒ‚’†‚È‚ç
+		//æ¬¡ã®æ”»æ’ƒã«æ´¾ç”Ÿã•ã›ãŸã‹ã£ãŸã‚‰ã‹ã¤æ”»æ’ƒä¸­ãªã‚‰
 		else if(_input.IsAttack && _nowState == AttackState.Attacking)
 		{
-			//Ÿ‚ÌUŒ‚‚É”h¶‘Ò‚¿ó‘Ô‚É‚·‚é
+			//æ¬¡ã®æ”»æ’ƒã«æ´¾ç”Ÿå¾…ã¡çŠ¶æ…‹ã«ã™ã‚‹
 			_nowState = AttackState.NextAttack;
 			//Debug.LogWarning("na");
-			//UŒ‚ƒgƒŠƒK[‚ğƒIƒ“‚É‚·‚é
+			//æ”»æ’ƒãƒˆãƒªã‚¬ãƒ¼ã‚’ã‚ªãƒ³ã«ã™ã‚‹
 			_myOwnerAnimator.SetTrigger(_attackTriggerHash);
 		}
 	}
 	public override void Exit()
 	{
 		base.Exit();
-		//ƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
+		//ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç ´æ£„ã™ã‚‹
 		_myOwnerWeapon = null;
 	}
 }

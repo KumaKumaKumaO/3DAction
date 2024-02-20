@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒgƒ}ƒVƒ“
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³
 /// </summary>
 
 public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
@@ -53,7 +53,7 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 			{
 
 			}
-			//•à‚­
+			//æ­©ã
 			else
 			{
 				if (!(_nowState is PlayerWalkStateScript))

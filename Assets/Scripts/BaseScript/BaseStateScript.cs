@@ -1,20 +1,20 @@
 using UnityEngine;
 /// <summary>
-/// ƒXƒe[ƒg‚ÌŠî’êƒNƒ‰ƒX
+/// ã‚¹ãƒ†ãƒ¼ãƒˆã®åŸºåº•ã‚¯ãƒ©ã‚¹
 /// </summary>
 public abstract class BaseStateScript
 {
 
 	/// <summary>
-	/// ƒXƒe[ƒg‚É“ü‚Á‚½‚Æ‚«‚É1“x‚¾‚¯ŽÀs‚³‚ê‚é
+	/// ã‚¹ãƒ†ãƒ¼ãƒˆã«å…¥ã£ãŸã¨ãã«1åº¦ã ã‘å®Ÿè¡Œã•ã‚Œã‚‹
 	/// </summary>
 	public virtual void Enter()
 	{
-		Debug.Log(this + "ƒXƒe[ƒg‚É‘JˆÚ");
+		Debug.Log(this + "ã‚¹ãƒ†ãƒ¼ãƒˆã«é·ç§»");
 	}
 
 	/// <summary>
-	/// –ˆƒtƒŒ[ƒ€ŽÀs‚³‚ê‚é
+	/// æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ å®Ÿè¡Œã•ã‚Œã‚‹
 	/// </summary>
 	public virtual void Execute()
 	{
@@ -22,7 +22,7 @@ public abstract class BaseStateScript
 	}
 
 	/// <summary>
-	/// ƒXƒe[ƒg‚©‚ço‚é‚Æ‚«‚É1“x‚¾‚¯ŽÀs‚³‚ê‚é
+	/// ã‚¹ãƒ†ãƒ¼ãƒˆã‹ã‚‰å‡ºã‚‹ã¨ãã«1åº¦ã ã‘å®Ÿè¡Œã•ã‚Œã‚‹
 	/// </summary>
 	public virtual void Exit()
 	{

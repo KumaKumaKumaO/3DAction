@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒCƒ“ƒxƒ“ƒgƒŠ[‚ðŠJ‚¢‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
+/// ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªãƒ¼ã‚’é–‹ã„ã¦ã„ã‚‹ã¨ãã®å‡¦ç†
 /// </summary>
 public class InventoryStateScript : BaseInGameStateScript
 {

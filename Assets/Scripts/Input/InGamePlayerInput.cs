@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// “ü—Í‚ğ—pˆÓ‚·‚é
+/// å…¥åŠ›ã‚’ç”¨æ„ã™ã‚‹
 /// </summary>
 public class InGamePlayerInput : IInputPlayerAction, IInputCharcterAction, IInputCameraControl
 {

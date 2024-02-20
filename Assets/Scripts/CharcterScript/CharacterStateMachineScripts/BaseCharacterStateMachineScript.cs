@@ -1,6 +1,6 @@
 using UnityEngine;
 /// <summary>
-/// ƒLƒƒƒ‰ƒNƒ^[—p‚ÌƒXƒe[ƒgƒ}ƒVƒ“‚Ìƒx[ƒX
+/// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ç”¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³ã®ãƒ™ãƒ¼ã‚¹
 /// </summary>
 public class BaseCharacterStateMachineScript : ICharacterStateMachine
 {
@@ -62,7 +62,7 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		{
 
 		}
-		//•à‚­
+		//æ­©ã
 		else
 		{
 			if (!(_nowState is WalkStateScript))

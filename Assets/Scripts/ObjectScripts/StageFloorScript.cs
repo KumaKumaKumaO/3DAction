@@ -1,6 +1,6 @@
 using UnityEngine;
 /// <summary>
-/// °‚ÌŠî–{‚ÌƒNƒ‰ƒX
+/// åºŠã®åŸºæœ¬ã®ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class StageFloorScript : BaseObjectScript
 {

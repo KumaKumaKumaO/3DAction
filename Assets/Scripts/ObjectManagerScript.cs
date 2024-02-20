@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// インスタンスされているオブジェクトを管理するクラス
+/// 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ縺輔ｌ縺ｦ縺�繧九が繝悶ず繧ｧ繧ｯ繝医ｒ邂｡逅�縺吶ｋ繧ｯ繝ｩ繧ｹ
 /// </summary>
 public class ObjectManagerScript : MonoBehaviour
 {

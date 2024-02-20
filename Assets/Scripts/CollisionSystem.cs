@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// “–‚½‚è”»’è‚ÌƒƒWƒbƒN
+/// å½“ãŸã‚Šåˆ¤å®šã®ãƒ­ã‚¸ãƒƒã‚¯
 /// </summary>
 public class CollisionSystem
 {
@@ -41,7 +41,7 @@ public class CollisionSystem
 			+ myAreaData.MyTransform.right * (myAreaData.AreaWidth + myAreaData.Offset.x)
 			, hitDistanceVector);
 		}
-		//¶
+		//å·¦
 		else
 		{
 			return IsCollision(targetToMeVector
@@ -50,7 +50,7 @@ public class CollisionSystem
 		}
 	}
 	/// <summary>
-	/// d‚È‚Á‚Ä‚¢‚é‚©
+	/// é‡ãªã£ã¦ã„ã‚‹ã‹
 	/// </summary>
 	/// <param name="myAreaData"></param>
 	/// <param name="targetData"></param>

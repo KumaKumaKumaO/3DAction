@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public struct CollisionResultData
 {
-	//‚Ô‚Â‚©‚Á‚Ä‚¢‚é‚Æ‚±‚ë‚É‘Î‚µ‚ÄƒLƒƒƒ‰ƒNƒ^[‚ª¶‰E‚Ìƒqƒbƒg”»’è‚ğæ‚éH
+	//ã¶ã¤ã‹ã£ã¦ã„ã‚‹ã¨ã“ã‚ã«å¯¾ã—ã¦ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒå·¦å³ã®ãƒ’ãƒƒãƒˆåˆ¤å®šã‚’å–ã‚‹ï¼Ÿ
 	[SerializeField]
 	private bool isCollisionTop;
 	[SerializeField]

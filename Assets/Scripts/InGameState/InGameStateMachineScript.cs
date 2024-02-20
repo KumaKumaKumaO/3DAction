@@ -1,19 +1,19 @@
 /// <summary>
-/// InGame‚ÌƒXƒe[ƒg‚ğ‘JˆÚ‚³‚¹‚é
+/// InGameã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’é·ç§»ã•ã›ã‚‹
 /// </summary>
 public class InGameStateMachineScript
 {
-	//‘O‰ñ‚ÌƒXƒe[ƒg
+	//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	private BaseInGameStateScript _beforeState = default;
-	//Œ»İ‚ÌƒXƒe[ƒg
+	//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	private BaseInGameStateScript _nowState = default;
-	//ƒvƒŒƒCƒ„[‚Ì“ü—Í
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å…¥åŠ›
 	private InGamePlayerInput _playerInput = default;
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
-	/// <param name="initState">‰Šú‚ÌƒXƒe[ƒg</param>
+	/// <param name="initState">åˆæœŸã®ã‚¹ãƒ†ãƒ¼ãƒˆ</param>
 	public InGameStateMachineScript(BaseInGameStateScript initState,InGamePlayerInput input)
 	{
 		_playerInput = input;
@@ -22,63 +22,63 @@ public class InGameStateMachineScript
 	}
 
 	/// <summary>
-	/// ƒXƒe[ƒg‚ğXV‚·‚é
+	/// ã‚¹ãƒ†ãƒ¼ãƒˆã‚’æ›´æ–°ã™ã‚‹
 	/// </summary>
-	/// <returns>Œ»İ‚ÌƒXƒe[ƒg</returns>
+	/// <returns>ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆ</returns>
 	public BaseInGameStateScript UpdateState()
 	{
-		//“ü—Í‚ª‘¶İ‚·‚éê‡
+		//å…¥åŠ›ãŒå­˜åœ¨ã™ã‚‹å ´åˆ
 		if (_playerInput is not null)
 		{
-			//ƒCƒ“ƒxƒ“ƒgƒŠ[‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
+			//ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªãƒ¼ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰
 			if (_playerInput.IsOpenInventory)
 			{
-				//ƒvƒŒƒC’†‚¾‚Á‚½‚ç
+				//ãƒ—ãƒ¬ã‚¤ä¸­ã ã£ãŸã‚‰
 				if (_nowState is PlayStateScript)
 				{
-					//Œ»İ‚ÌƒXƒe[ƒg‚ğ•Û‚·‚é
+					//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¿æŒã™ã‚‹
 					_beforeState = _nowState;
-					//Œ»İ‚ÌƒXƒe[ƒg‚ğƒCƒ“ƒxƒ“ƒgƒŠ[‚É‚·‚é
+					//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªãƒ¼ã«ã™ã‚‹
 					_nowState = new InventoryStateScript(_playerInput);
 					
 				}
-				//ƒCƒ“ƒxƒ“ƒgƒŠ[‚ğŠJ‚¢‚Ä‚¢‚½‚ç
+				//ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªãƒ¼ã‚’é–‹ã„ã¦ã„ãŸã‚‰
 				else if (_nowState is InventoryStateScript)
 				{
 					_nowState.Exit();
-					//‘O‰ñ‚ÌƒXƒe[ƒg‚É–ß‚·
+					//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«æˆ»ã™
 					_nowState = _beforeState;
-					//‘O‰ñ‚ÌƒXƒe[ƒg‚ÌƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
+					//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç ´æ£„ã™ã‚‹
 					_beforeState = null;
 				}
 				_nowState.Enter();
 			}
-			//ƒ|[ƒY‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
+			//ãƒãƒ¼ã‚ºã‚’é–‹ããƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰
 			else if (_playerInput.IsOpenPose)
 			{
-				//ƒvƒŒƒC’†‚¾‚Á‚½‚ç
+				//ãƒ—ãƒ¬ã‚¤ä¸­ã ã£ãŸã‚‰
 				if (_nowState is PlayStateScript)
 				{
-					//Œ»İ‚ÌƒXƒe[ƒg‚ğ•Û‚·‚é
+					//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¿æŒã™ã‚‹
 					_beforeState = _nowState;
-					//Œ»İ‚ÌƒXƒe[ƒg‚ğƒ|[ƒYƒXƒe[ƒg‚É‚·‚é
+					//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ãƒãƒ¼ã‚ºã‚¹ãƒ†ãƒ¼ãƒˆã«ã™ã‚‹
 					_nowState = new PoseStateScript(_playerInput);
 					
 				}
-				//ƒ|[ƒY‚ğŠJ‚¢‚Ä‚¢‚½‚ç
+				//ãƒãƒ¼ã‚ºã‚’é–‹ã„ã¦ã„ãŸã‚‰
 				else if (_nowState is PoseStateScript)
 				{
 					_nowState.Exit();
-					//‘O‰ñ‚ÌƒXƒe[ƒg‚É–ß‚·
+					//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«æˆ»ã™
 					_nowState = _beforeState;
-					//‘O‰ñ‚ÌƒXƒe[ƒg‚ÌƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
+					//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç ´æ£„ã™ã‚‹
 					_beforeState = null;
 				}
 				_nowState.Enter();
 			}
 
 		}
-		//Œ»İ‚ÌƒXƒe[ƒg‚ğ•Ô‚·
+		//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’è¿”ã™
 		return _nowState;
 	}
 	public void Delete()

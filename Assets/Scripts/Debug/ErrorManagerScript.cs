@@ -1,13 +1,13 @@
 using UnityEngine;
 
 /// <summary>
-/// ƒGƒ‰[ƒƒbƒZ[ƒW‚ğ•\¦‚·‚é
+/// ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
 /// </summary>
 public class ErrorManagerScript : IErrorManager
 {
 	private static IErrorManager _myInstance = default;
 
-	private const string HEAD_MSG = "ƒGƒ‰[F";
+	private const string HEAD_MSG = "ã‚¨ãƒ©ãƒ¼ï¼š";
 
 	public static IErrorManager MyInstance
 	{
@@ -34,21 +34,21 @@ public class ErrorManagerScript : IErrorManager
 	}
 	public void NullCompornentError(string compornentName)
 	{
-		Debug.LogError(HEAD_MSG + compornentName + "‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B");
+		Debug.LogError(HEAD_MSG + compornentName + "ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚");
 	}
 	public void SingleTonError(string className)
 	{
-		Debug.LogError(HEAD_MSG + className + "‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ª‰ßè‚Å‚·B");
+		Debug.LogError(HEAD_MSG + className + "ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒéå‰°ã§ã™ã€‚");
 	}
 
 	public void NullScriptError(string className)
 	{
-		Debug.LogError(HEAD_MSG + className + "‚ª‘¶İ‚µ‚Ü‚¹‚ñB");
+		Debug.LogError(HEAD_MSG + className + "ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
 	}
 
 	public void NullGameObjectError(string gameObjectName)
 	{
-		Debug.LogError(HEAD_MSG + gameObjectName + "‚ª‘¶İ‚µ‚Ü‚¹‚ñB");
+		Debug.LogError(HEAD_MSG + gameObjectName + "ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
 	}
 
 	public void DeleteMyInstance()
@@ -57,15 +57,15 @@ public class ErrorManagerScript : IErrorManager
 	}
 	public void NullSceneNameError(string sceneName)
 	{
-		Debug.LogError(HEAD_MSG + sceneName + "‚Æ‚¢‚¤–¼‘O‚ÌƒV[ƒ“‚Í‘¶İ‚µ‚Ü‚¹‚ñB");
+		Debug.LogError(HEAD_MSG + sceneName + "ã¨ã„ã†åå‰ã®ã‚·ãƒ¼ãƒ³ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
 	}
 	public void CantExistObject(string objName)
 	{
-		Debug.LogError(HEAD_MSG + objName + "‚Í‘¶İ‚·‚é‚Í‚¸‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
+		Debug.LogError(HEAD_MSG + objName + "ã¯å­˜åœ¨ã™ã‚‹ã¯ãšã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚");
 	}
 	public void OverFlow(string className, int i)
 	{
-		Debug.LogError(HEAD_MSG + className + "‚Ì’†‚Å" + i + "‚Æ‚¢‚¤“ü—Í‚ª“ü‚èƒI[ƒo[ƒtƒ[‚µ‚Ü‚µ‚½B");
+		Debug.LogError(HEAD_MSG + className + "ã®ä¸­ã§" + i + "ã¨ã„ã†å…¥åŠ›ãŒå…¥ã‚Šã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ­ãƒ¼ã—ã¾ã—ãŸã€‚");
 	}
 	public void Delete()
 	{

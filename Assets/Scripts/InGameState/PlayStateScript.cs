@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒC‚µ‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
+/// ãƒ—ãƒ¬ã‚¤ã—ã¦ã„ã‚‹ã¨ãã®å‡¦ç†
 /// </summary>
 public class PlayStateScript : BaseInGameStateScript
 {

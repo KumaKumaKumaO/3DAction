@@ -1,5 +1,5 @@
 /// <summary>
-/// ゲームステートの基底クラス
+/// 繧ｲ繝ｼ繝繧ｹ繝�繝ｼ繝医�ｮ蝓ｺ蠎輔け繝ｩ繧ｹ
 /// </summary>
 public abstract class BaseGameStateScript : BaseStateScript
 {

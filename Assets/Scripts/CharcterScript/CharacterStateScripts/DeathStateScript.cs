@@ -19,11 +19,11 @@ public class DeathStateScript : BaseCharcterStateScript
 
 	public override void Execute()
 	{
-		//アニメーションが変わったら
+		//繧｢繝九Γ繝ｼ繧ｷ繝ｧ繝ｳ縺悟､峨ｏ縺｣縺溘ｉ
 		if(_nowAnimationHash != _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash)
 		{
 			Wait();
-			//現在のアニメーションのハッシュを保持する
+			//迴ｾ蝨ｨ縺ｮ繧｢繝九Γ繝ｼ繧ｷ繝ｧ繝ｳ縺ｮ繝上ャ繧ｷ繝･繧剃ｿ晄戟縺吶ｋ
 			_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 		}
 		base.Execute();

@@ -18,7 +18,7 @@ public abstract class BaseCharcterStateScript : BaseStateScript
 	}
 	public override void Enter()
 	{
-		Debug.Log(_myOwner.name + "‚ª" + this + "‚É‘JˆÚ");
+		Debug.Log(_myOwner.name + "ãŒ" + this + "ã«é·ç§»");
 	}
 	public override void Exit()
 	{

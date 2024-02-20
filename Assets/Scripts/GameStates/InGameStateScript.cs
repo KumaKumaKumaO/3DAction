@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 /// <summary>
-/// InGameƒXƒe[ƒg‚Å‚ÌƒƒCƒ“ˆ—
+/// InGameã‚¹ãƒ†ãƒ¼ãƒˆã§ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†
 /// </summary>
 public class InGameStateScript : BaseGameStateScript
 {
-	//©•ª‚ÌƒXƒe[ƒgƒ}ƒVƒ“
+	//è‡ªåˆ†ã®ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³
 	private InGameStateMachineScript _myStateMachineScript = default;
 
 	public override void Enter()
@@ -23,7 +23,7 @@ public class InGameStateScript : BaseGameStateScript
 			SceneManager.LoadScene("Title");
 		}
 		base.Execute();
-		//ƒXƒe[ƒgXV‚µ‚ÄÀs‚·‚é
+		//ã‚¹ãƒ†ãƒ¼ãƒˆæ›´æ–°ã—ã¦å®Ÿè¡Œã™ã‚‹
 		_myStateMachineScript.UpdateState().Execute();
 	}
 

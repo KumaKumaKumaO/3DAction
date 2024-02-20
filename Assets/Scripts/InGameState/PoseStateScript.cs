@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒ|[ƒYó‘Ô‚Ìˆ—
+/// ãƒãƒ¼ã‚ºçŠ¶æ…‹ã®å‡¦ç†
 /// </summary>
 public class PoseStateScript : BaseInGameStateScript
 {

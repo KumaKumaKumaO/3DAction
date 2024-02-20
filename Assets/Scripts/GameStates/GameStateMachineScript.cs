@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒQ[ƒ€‘S‘Ì‚ÌƒXƒe[ƒg‚ğ‘JˆÚ‚³‚¹‚é
+/// ã‚²ãƒ¼ãƒ å…¨ä½“ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’é·ç§»ã•ã›ã‚‹
 /// </summary>
 public class GameStateMachineScript
 {
@@ -13,11 +13,11 @@ public class GameStateMachineScript
 		_nowState = SelectState();
 		_nowState.Enter();
 	}
-	//‘O‰ñ‚ÌƒV[ƒ“‚Ì–¼‘O
+	//å‰å›ã®ã‚·ãƒ¼ãƒ³ã®åå‰
 	private string _beforeSceneName = default;
-	//Œ»İ‚ÌƒV[ƒ“‚Ì–¼‘O
+	//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã®åå‰
 	private string _nowSceneName = default;
-	//Œ»İ‚ÌƒXƒe[ƒg
+	//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	private BaseGameStateScript _nowState = default;
 
 	public void Delete()
@@ -26,52 +26,52 @@ public class GameStateMachineScript
 		_nowState = null;
 	}
 	/// <summary>
-	/// ƒXƒe[ƒg‚ª•ÏX‚Å‚«‚éê‡‚Í•ÏX‚·‚é
+	/// ã‚¹ãƒ†ãƒ¼ãƒˆãŒå¤‰æ›´ã§ãã‚‹å ´åˆã¯å¤‰æ›´ã™ã‚‹
 	/// </summary>
-	/// <returns>Œ»İ‚ÌƒXƒe[ƒg</returns>
+	/// <returns>ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆ</returns>
 	public BaseGameStateScript UpdateState()
 	{
-		//Œ»İ‚ÌƒV[ƒ“‚Ì–¼‘O
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã®åå‰
 		_nowSceneName = SceneManager.GetActiveScene().name;
-		//Œ»İ‚ÌƒV[ƒ“‚Ì–¼‘O‚Æ‘O‰ñ‚ÌƒV[ƒ“‚Ì–¼‘O‚ªˆá‚¤‚©‚ÌŠm”F
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã®åå‰ã¨å‰å›ã®ã‚·ãƒ¼ãƒ³ã®åå‰ãŒé•ã†ã‹ã®ç¢ºèª
 		if (_nowSceneName != _beforeSceneName)
 		{
-			//Œ»İ‚ÌƒXƒe[ƒg‚ğI—¹‚³‚¹‚é
+			//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’çµ‚äº†ã•ã›ã‚‹
 			_nowState.Exit();
-			//•ÏXæƒXƒe[ƒg‚ğæ“¾‚·‚é
+			//å¤‰æ›´å…ˆã‚¹ãƒ†ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹
 			_nowState = SelectState();
-			//V‚µ‚¢ƒXƒe[ƒg‚ğŠJn‚³‚¹‚é
+			//æ–°ã—ã„ã‚¹ãƒ†ãƒ¼ãƒˆã‚’é–‹å§‹ã•ã›ã‚‹
 			_nowState.Enter();
-			//‘O‰ñ‚ÌƒV[ƒ“–¼‚É¡‰ñ‚ÌƒV[ƒ“–¼‚ğ“ü‚ê‚é
+			//å‰å›ã®ã‚·ãƒ¼ãƒ³åã«ä»Šå›ã®ã‚·ãƒ¼ãƒ³åã‚’å…¥ã‚Œã‚‹
 			_beforeSceneName = _nowSceneName;
 		}
 		return _nowState;
 	}
 	private BaseGameStateScript SelectState()
 	{
-		//Œ»İ‚ÌƒV[ƒ“–¼‚ªTitle‚Ìê‡
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³åãŒTitleã®å ´åˆ
 		if (_nowSceneName == "Title")
 		{
-			//V‚µ‚¢ƒXƒe[ƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‚·‚é
+			//æ–°ã—ã„ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã™ã‚‹
 			return new TitleGameState();
 		}
-		//Œ»İ‚ÌƒV[ƒ“–¼‚ªInGame‚Ìê‡
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³åãŒInGameã®å ´åˆ
 		else if (_nowSceneName == "InGame")
 		{
-			//V‚µ‚¢ƒXƒe[ƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‚·‚é
+			//æ–°ã—ã„ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã™ã‚‹
 			return new InGameStateScript();
 		}
-		//Œ»İ‚ÌƒV[ƒ“–¼‚ªGameOver‚Ìê‡
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³åãŒGameOverã®å ´åˆ
 		else if (_nowSceneName == "GameOver")
 		{
-			//V‚µ‚¢ƒXƒe[ƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‚·‚é
+			//æ–°ã—ã„ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã™ã‚‹
 			return new GameOverStateScript();
 		}
-		//Œ»İ‚ÌƒV[ƒ“–¼‚ª“Á’è‚Å‚«‚È‚¢ê‡
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³åãŒç‰¹å®šã§ããªã„å ´åˆ
 		else
 		{
-			//ƒGƒ‰[ƒƒbƒZ[ƒW‚ğo—Í
-			Debug.LogError("‘¶İ‚µ‚È‚¢ƒV[ƒ“–¼‚Å‚·B");
+			//ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡ºåŠ›
+			Debug.LogError("å­˜åœ¨ã—ãªã„ã‚·ãƒ¼ãƒ³åã§ã™ã€‚");
 			return null;
 		}
 	}

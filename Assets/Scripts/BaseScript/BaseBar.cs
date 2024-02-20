@@ -1,12 +1,12 @@
 /// <summary>
-/// UIで使うデータを制御する
+/// UI縺ｧ菴ｿ縺�繝�繝ｼ繧ｿ繧貞宛蠕｡縺吶ｋ
 /// </summary>
 public class BaseBar
 {
 	private float _barValue = default;
 	private float _barMaxValue = default;
 	/// <summary>
-	/// 値を変更する
+	/// 蛟､繧貞､画峩縺吶ｋ
 	/// </summary>
 	/// <param name="value"></param>
 	public virtual void ChangeBarValue(float value)
@@ -14,7 +14,7 @@ public class BaseBar
 
 	}
 	/// <summary>
-	/// 最大値を変更する
+	/// 譛螟ｧ蛟､繧貞､画峩縺吶ｋ
 	/// </summary>
 	/// <param name="value"></param>
 	public virtual void ChangeBarMaxValue(float value)

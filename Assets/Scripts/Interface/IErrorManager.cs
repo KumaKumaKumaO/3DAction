@@ -1,46 +1,46 @@
 public interface IErrorManager:IDeletable
 {
 	/// <summary>
-	/// Ž©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ð¶¬
+	/// è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 	/// </summary>
 	public void InstantiationMyInstance();
 	/// <summary>
-	/// Ž©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ðíœ
+	/// è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å‰Šé™¤
 	/// </summary>
 	public void DeleteMyInstance();
 	/// <summary>
-	/// ƒVƒ“ƒOƒ‹ƒgƒ“‚È‚Ì‚É“ñ‚Â–Ú‚ðƒCƒ“ƒXƒ^ƒ“ƒX‚µ‚Ä‚¢‚½‚çƒGƒ‰[
+	/// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ãªã®ã«äºŒã¤ç›®ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã—ã¦ã„ãŸã‚‰ã‚¨ãƒ©ãƒ¼
 	/// </summary>
-	/// <param name="className">ƒNƒ‰ƒX‚Ì–¼‘O</param>
+	/// <param name="className">ã‚¯ãƒ©ã‚¹ã®åå‰</param>
 	public void SingleTonError(string className);
 	/// <summary>
-	/// ƒXƒNƒŠƒvƒg‚ª‘¶Ý‚µ‚È‚©‚Á‚½Žž‚ÌƒGƒ‰[
+	/// ã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒå­˜åœ¨ã—ãªã‹ã£ãŸæ™‚ã®ã‚¨ãƒ©ãƒ¼
 	/// </summary>
-	/// <param name="className">‘¶Ý‚µ‚È‚©‚Á‚½ƒNƒ‰ƒX‚Ì–¼‘O</param>
+	/// <param name="className">å­˜åœ¨ã—ãªã‹ã£ãŸã‚¯ãƒ©ã‚¹ã®åå‰</param>
 	public void NullScriptError(string className);
 	/// <summary>
-	/// ƒIƒuƒWƒFƒNƒg‚ªŽæ“¾‚Å‚«‚È‚©‚Á‚½ê‡‚ÌƒGƒ‰[
+	/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå–å¾—ã§ããªã‹ã£ãŸå ´åˆã®ã‚¨ãƒ©ãƒ¼
 	/// </summary>
-	/// <param name="objectName">‘¶Ý‚µ‚È‚©‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O</param>
+	/// <param name="objectName">å­˜åœ¨ã—ãªã‹ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰</param>
 	public void NullGameObjectError(string objectName);
 	/// <summary>
-	/// ƒV[ƒ“–¼‚ª‘¶Ý‚µ‚È‚©‚Á‚½Žž‚ÌƒGƒ‰[
+	/// ã‚·ãƒ¼ãƒ³åãŒå­˜åœ¨ã—ãªã‹ã£ãŸæ™‚ã®ã‚¨ãƒ©ãƒ¼
 	/// </summary>
-	/// <param name="sceneName">‘¶Ý‚µ‚È‚©‚Á‚½ƒV[ƒ“–¼</param>
+	/// <param name="sceneName">å­˜åœ¨ã—ãªã‹ã£ãŸã‚·ãƒ¼ãƒ³å</param>
 	public void NullSceneNameError(string sceneName);
 	/// <summary>
-	/// ‘¶Ý‚µ‚È‚¢‚Í‚¸‚ÌƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚Á‚½ê‡‚ÌƒGƒ‰[
+	/// å­˜åœ¨ã—ãªã„ã¯ãšã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã£ãŸå ´åˆã®ã‚¨ãƒ©ãƒ¼
 	/// </summary>
-	/// <param name="objName">‘¶Ý‚µ‚È‚¢‚Í‚¸‚ÌƒIƒuƒWƒFƒNƒg–¼</param>
+	/// <param name="objName">å­˜åœ¨ã—ãªã„ã¯ãšã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå</param>
 	public void CantExistObject(string objName);
 	/// <summary>
-	/// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŽæ“¾‚Å‚«‚È‚©‚Á‚½ê‡‚ÌƒGƒ‰[
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒå–å¾—ã§ããªã‹ã£ãŸå ´åˆã®ã‚¨ãƒ©ãƒ¼
 	/// </summary>
-	/// <param name="compornentName">Žæ“¾‚Å‚«‚È‚©‚Á‚½ƒRƒ“ƒ|[ƒlƒ“ƒg–¼</param>
+	/// <param name="compornentName">å–å¾—ã§ããªã‹ã£ãŸã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå</param>
 	public void NullCompornentError(string compornentName);
 	/// <summary>
-	/// ƒI[ƒo[ƒtƒ[‚µ‚½ê‡‚ÌƒGƒ‰[
+	/// ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ­ãƒ¼ã—ãŸå ´åˆã®ã‚¨ãƒ©ãƒ¼
 	/// </summary>
-	/// <param name="className">ƒI[ƒo[ƒtƒ[‚ª‹N‚«‚½ƒNƒ‰ƒX</param>
+	/// <param name="className">ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ­ãƒ¼ãŒèµ·ããŸã‚¯ãƒ©ã‚¹</param>
 	public void OverFlow(string className,int i);
 }

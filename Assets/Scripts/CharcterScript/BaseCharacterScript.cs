@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 /// <summary>
-/// ƒLƒƒƒ‰ƒNƒ^[‹¤’Ê‚Ì“®‚«
+/// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼å…±é€šã®å‹•ã
 /// </summary>
 public class BaseCharacterScript : BaseObjectScript
 {
@@ -24,7 +24,7 @@ public class BaseCharacterScript : BaseObjectScript
 	[SerializeField]
 	protected bool isInputTowards = default;
 
-	[SerializeField, Tooltip("ƒfƒoƒbƒO—p")]
+	[SerializeField, Tooltip("ãƒ‡ãƒãƒƒã‚°ç”¨")]
 	protected bool isDebugInputPlayer = default;
 	[SerializeField]
 	protected bool canCollision = true;
@@ -134,24 +134,24 @@ public class BaseCharacterScript : BaseObjectScript
 		if (isInputTowards)
 		{
 			GetColObjects(MoveDirection.Forward);
-			//³–Ê‚É‰½‚©“–‚½‚Á‚Ä‚¢‚È‚¢ê‡
+			//æ­£é¢ã«ä½•ã‹å½“ãŸã£ã¦ã„ãªã„å ´åˆ
 			if (_forwardCollisionAreaDataIndex < 0)
 			{
 				//Debug.Log(returnValue);
 				return returnValue;
 			}
-			//Î‚ß“ü—Í
+			//æ–œã‚å…¥åŠ›
 			else if (moveVector.x != 0 && moveVector.z != 0)
 			{
-				//Debug.LogError("Î‚ß");
-				//ƒLƒƒƒ‰ƒNƒ^[‚É‚Ô‚Â‚©‚Á‚Ä‚¢‚éê‡‚ÍˆÚ“®‚Å‚«‚È‚­‚·‚é
+				//Debug.LogError("æ–œã‚");
+				//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã«ã¶ã¤ã‹ã£ã¦ã„ã‚‹å ´åˆã¯ç§»å‹•ã§ããªãã™ã‚‹
 				if (_objectManagerScript.IsCollisionCharcter(
 					_myCollisionObjects[_forwardCollisionAreaDataIndex] as BaseCharacterScript))
 				{
 					return returnValue - moveVector;
 				}
 
-				//“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ì‚Ç‚±‚ª“–‚½‚Á‚Ä‚¢‚é‚©‚ğŠm”F‚·‚é
+				//å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã©ã“ãŒå½“ãŸã£ã¦ã„ã‚‹ã‹ã‚’ç¢ºèªã™ã‚‹
 				if (_objectManagerScript.IsCollisionObject(
 					_myCollisionObjects[_forwardCollisionAreaDataIndex].MyCollisionAreaData
 					, this, MoveDirection.Right))
@@ -159,7 +159,7 @@ public class BaseCharacterScript : BaseObjectScript
 					returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.RightXPos - _myCollisionAreaData.LeftXPos
 					+ _myCollisionAreaData.AreaWidth);
-					Debug.LogWarning("‰EFÎ‚ß" + _myCollisionObjects[_forwardCollisionAreaDataIndex]);
+					Debug.LogWarning("å³ï¼šæ–œã‚" + _myCollisionObjects[_forwardCollisionAreaDataIndex]);
 				}
 				else if (_objectManagerScript.IsCollisionObject(
 					_myCollisionObjects[_forwardCollisionAreaDataIndex].MyCollisionAreaData
@@ -168,7 +168,7 @@ public class BaseCharacterScript : BaseObjectScript
 					returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos
 					+ _myCollisionAreaData.AreaWidth);
-					Debug.LogWarning("¶FÎ‚ß");
+					Debug.LogWarning("å·¦ï¼šæ–œã‚");
 				}
 				else if (_objectManagerScript.IsCollisionObject(
 					_myCollisionObjects[_forwardCollisionAreaDataIndex].MyCollisionAreaData
@@ -177,7 +177,7 @@ public class BaseCharacterScript : BaseObjectScript
 					returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.ForwardZPos - _myCollisionAreaData.BackZPos
 					- _myCollisionAreaData.AreaWidth);
-					Debug.LogWarning("‘OFÎ‚ß");
+					Debug.LogWarning("å‰ï¼šæ–œã‚");
 				}
 				else if (_objectManagerScript.IsCollisionObject(
 					_myCollisionObjects[_forwardCollisionAreaDataIndex].MyCollisionAreaData
@@ -186,37 +186,37 @@ public class BaseCharacterScript : BaseObjectScript
 					returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.BackZPos - _myCollisionAreaData.ForwardZPos
 					- _myCollisionAreaData.AreaWidth);
-					Debug.LogWarning("Œã‚ëFÎ‚ß");
+					Debug.LogWarning("å¾Œã‚ï¼šæ–œã‚");
 				}
 			}
-			//“®‚¢‚½•ûŒü‚ª‰E
+			//å‹•ã„ãŸæ–¹å‘ãŒå³
 			else if (moveVector.x > 0)
 			{
-				//Debug.LogWarning("‰E");
+				//Debug.LogWarning("å³");
 				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.LeftXPos - _myCollisionAreaData.RightXPos
 					+ _myCollisionAreaData.AreaWidth);
 			}
-			//“®‚¢‚½•ûŒü‚ª¶
+			//å‹•ã„ãŸæ–¹å‘ãŒå·¦
 			else if (moveVector.x < 0)
 			{
-				Debug.LogWarning("¶F" + _myCollisionObjects[_forwardCollisionAreaDataIndex]);
+				Debug.LogWarning("å·¦ï¼š" + _myCollisionObjects[_forwardCollisionAreaDataIndex]);
 				returnValue += Vector3.right * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.RightXPos - _myCollisionAreaData.LeftXPos
 					+ _myCollisionAreaData.AreaWidth);
 			}
-			//“®‚¢‚½•ûŒü‚ª‘O
+			//å‹•ã„ãŸæ–¹å‘ãŒå‰
 			else if (moveVector.z > 0)
 			{
-				Debug.LogWarning("‘O");
+				Debug.LogWarning("å‰");
 				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.BackZPos - _myCollisionAreaData.ForwardZPos
 					- _myCollisionAreaData.AreaWidth);
 			}
-			//“®‚¢‚½•ûŒü‚ªŒã‚ë
+			//å‹•ã„ãŸæ–¹å‘ãŒå¾Œã‚
 			else if (moveVector.z < 0)
 			{
-				//Debug.LogWarning("Œã‚ë");
+				//Debug.LogWarning("å¾Œã‚");
 				returnValue += Vector3.forward * (_myCollisionObjects[_forwardCollisionAreaDataIndex]
 					.MyCollisionAreaData.ForwardZPos - _myCollisionAreaData.BackZPos
 					- _myCollisionAreaData.AreaWidth);
@@ -226,7 +226,7 @@ public class BaseCharacterScript : BaseObjectScript
 		if((returnValue - _beforePos).magnitude > 3)
 		{
 			returnValue = _beforePos;
-			Debug.LogError("•â³");
+			Debug.LogError("è£œæ­£");
 		}
 		return returnValue;
 
@@ -248,38 +248,38 @@ public class BaseCharacterScript : BaseObjectScript
 		base.OnDrawGizmos();
 		if (isDebugColliderVisible)
 		{
-			//©•ª‚Ì“–‚½‚è”»’è
-			//ã
+			//è‡ªåˆ†ã®å½“ãŸã‚Šåˆ¤å®š
+			//ä¸Š
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset
 				+ Vector3.up * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
 				, Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
 				+ Vector3.up * _myCollisionAreaData.AreaWidth
 				+ Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
-			//‰º
+			//ä¸‹
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset
 				+ Vector3.down * (_myCollisionAreaData.HalfAreaSize.y + _myCollisionAreaData.HalfAreaWidth)
 				, Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
 				+ Vector3.up * _myCollisionAreaData.AreaWidth
 				+ Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
-			//‰E
+			//å³
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset
 				+ Vector3.right * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
 				, Vector3.right * _myCollisionAreaData.AreaWidth
 				+ Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
 				+ Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
-			//¶
+			//å·¦
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset
 				 + Vector3.left * (_myCollisionAreaData.HalfAreaSize.x + _myCollisionAreaData.HalfAreaWidth)
 				, Vector3.right * _myCollisionAreaData.AreaWidth
 				+ Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
 				+ Vector3.forward * _myCollisionAreaData.HalfAreaSize.z * 2);
-			//‘O
+			//å‰
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset
 				+ Vector3.forward * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
 				, Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
 				+ Vector3.up * _myCollisionAreaData.HalfAreaSize.y * 2
 				+ Vector3.forward * _myCollisionAreaData.AreaWidth);
-			//Œã
+			//å¾Œ
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset
 				+ Vector3.back * (_myCollisionAreaData.HalfAreaSize.z + _myCollisionAreaData.HalfAreaWidth)
 				, Vector3.right * _myCollisionAreaData.HalfAreaSize.x * 2
