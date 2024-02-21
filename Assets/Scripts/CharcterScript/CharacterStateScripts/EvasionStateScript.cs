@@ -8,6 +8,8 @@ public class EvasionStateScript : BaseCharcterStateScript
 	private int _evationAnimationHash = default;
 	private int _nowAnimationHash = default;
 	private bool isMove = default;
+	private bool isTimerOn = default;
+	private float timerValue = default;
 	public EvasionStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
 		, IInputCharcterAction input) : base(myOwner, ownerAnimator, input)
 	{
@@ -24,6 +26,16 @@ public class EvasionStateScript : BaseCharcterStateScript
 	public override void Execute()
 	{
 		base.Execute();
+		if (isTimerOn)
+		{
+			timerValue -= Time.deltaTime;
+			if(timerValue <= 0)
+			{
+				_myOwner.CanCollision = true;
+				isTimerOn = false;
+				//Debug.Log("TimerOff");
+			}
+		}
 		if (canInterruption && isMove)
 		{
 			canInterruption = false;
@@ -36,18 +48,16 @@ public class EvasionStateScript : BaseCharcterStateScript
 			if (isMove)
 			{
 				canInterruption = true;
-				_myOwner.CanCollision = true;
 			}
 			else
 			{
+				//Debug.Log("TimerOn");
 				isMove = true;
 				_myOwner.CanCollision = false;
+				timerValue = _myOwner.EvasionNoDamageTime;
+				isTimerOn = true;
 			}
 		}
-	}
-	private async UniTaskVoid NoDamageTimer(float time)
-	{
-		//await UniTask.Delay(time);
 	}
 
 	public override void Exit()

@@ -1,11 +1,12 @@
 using UnityEngine;
+using UniRx;
 [System.Serializable]
 public struct CharcterStatus
 {
 	[SerializeField]
-	private float _hp;
+	private ReactiveProperty<float> _hp;
 	[SerializeField]
-	private float _maxHp;
+	private ReactiveProperty<float> _maxHp;
 	[SerializeField]
 	private float _defense;
 	[SerializeField]
@@ -27,8 +28,8 @@ public struct CharcterStatus
 	[SerializeField]
 	private float _staggerMaxThreshold;
 
-	public float MaxHP { get { return _maxHp; }set { _maxHp = value; } }
-	public float Hp { get { return _hp; } set { _hp = value; } }
+	public ReactiveProperty<float> MaxHP { get { return _maxHp; }set { _maxHp = value; } }
+	public ReactiveProperty<float> Hp { get { return _hp; } set { _hp = value; } }
 	public float DefaultDefence { get { return _defaultDefence; } set { _defaultDefence = value; } }
 	public float Defense { get { return _defense; } set { _defense = value; } }
 	public float MaxAttack { get { return _defaultAttack; } set { _defaultAttack = value; } }

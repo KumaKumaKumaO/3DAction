@@ -17,6 +17,7 @@ public class BaseCharacterScript : BaseObjectScript
 	protected int _myJumpCount = default;
 	protected Animator _myAnimator = default;
 	protected int _isGroundHashValue = default;
+	[SerializeField,Header("デバッグ用")]
 	protected BaseWeaponScript _myWeapon = default;
 	[SerializeField]
 	protected float _staggerRecastTime = default;
@@ -101,20 +102,20 @@ public class BaseCharacterScript : BaseObjectScript
 
 	public virtual void HealHP(float healValue)
 	{
-		_myCharcterStatus.Hp += healValue;
+		_myCharcterStatus.Hp.Value += healValue;
 	}
 
 	public virtual void ReceiveDamage(float damage, float staggerThreshold)
 	{
-		if (_myCharcterStatus.Hp <= damage)
+		if (_myCharcterStatus.Hp.Value <= damage)
 		{
-			_myCharcterStatus.Hp = 0;
+			_myCharcterStatus.Hp.Value = 0;
 			isDeath = true;
 			return;
 		}
 		else
 		{
-			_myCharcterStatus.Hp -= damage;
+			_myCharcterStatus.Hp.Value -= damage;
 		}
 
 		if (_myCharcterStatus.StaggerThreshold < staggerThreshold)

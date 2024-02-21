@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 public class PlayerDeathStateScript : BaseCharcterStateScript
 {
@@ -22,16 +23,16 @@ public class PlayerDeathStateScript : BaseCharcterStateScript
 		//アニメーションが変わったら
 		if(_nowAnimationHash != _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash)
 		{
-			Wait();
+			Wait().Forget();
 			//現在のアニメーションのハッシュを保持する
 			_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 		}
 		base.Execute();
 	}
 	
-	private async void Wait()
+	private async UniTaskVoid Wait()
 	{
-		await System.Threading.Tasks.Task.Delay(5000);
+		await UniTask.Delay(System.TimeSpan.FromSeconds(5f));
 		SceneManager.LoadScene("GameOver");
 	}
 }

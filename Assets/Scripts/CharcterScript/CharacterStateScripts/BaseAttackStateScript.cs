@@ -49,8 +49,6 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		_myOwnerAnimator.SetTrigger(_attackTriggerHash);
 		//待ち状態に遷移する
 		_nowState = AttackState.Wait;
-		Debug.LogError("adada");
-
 	}
 
 	public override void Execute()
