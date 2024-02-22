@@ -1,7 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class HpBarViewScript : BaseViewScript
+public class PlayerHpBarViewScript : BaseViewScript
 {
 	[SerializeField]
 	private Image _hpBar = default;

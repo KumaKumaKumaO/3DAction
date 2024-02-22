@@ -5,10 +5,11 @@ using UniRx;
 
 public class UIManagerScript:MonoBehaviour
 {
-	public void PlayerUIInit(BaseCharacterScript script)
+	[SerializeField]
+	private PlayerHpBarPresenterScript _playerHpBarPresenterScript = default;
+
+	public void PlayerUIInit(CharcterStatus status)
 	{
-		HpBarViewScript viewScript = GetComponent<HpBarViewScript>();
-		//Œã‚ÅŠ„‚é
-		script.MyCharcterStatus.Hp.Subscribe(value => viewScript.Display(value));
+		_playerHpBarPresenterScript.HpBarInit(status);
 	}
 }

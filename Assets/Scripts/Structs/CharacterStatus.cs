@@ -6,7 +6,7 @@ public struct CharcterStatus
 	[SerializeField]
 	private ReactiveProperty<float> _hp;
 	[SerializeField]
-	private ReactiveProperty<float> _maxHp;
+	private float _maxHp;
 	[SerializeField]
 	private float _defense;
 	[SerializeField]
@@ -28,7 +28,7 @@ public struct CharcterStatus
 	[SerializeField]
 	private float _staggerMaxThreshold;
 
-	public ReactiveProperty<float> MaxHP { get { return _maxHp; }set { _maxHp = value; } }
+	public float MaxHP { get { return _maxHp; }set { _maxHp = value; } }
 	public ReactiveProperty<float> Hp { get { return _hp; } set { _hp = value; } }
 	public float DefaultDefence { get { return _defaultDefence; } set { _defaultDefence = value; } }
 	public float Defense { get { return _defense; } set { _defense = value; } }
@@ -41,4 +41,8 @@ public struct CharcterStatus
 	public float Stamina { get { return _stamina; } set { _stamina = value; } }
 	public float StaggerThreshold { get { return _staggerThreshold; } set { _staggerThreshold = value; } }
 	public float StaggerMaxThreshold { get { return _staggerMaxThreshold; } set { _staggerMaxThreshold = value; } }
+	public void Init()
+	{
+		_hp.Value = _maxHp;
+	}
 }

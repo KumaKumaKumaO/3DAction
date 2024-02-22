@@ -11,6 +11,8 @@ public class ObjectManagerScript : MonoBehaviour
 	private float _grivityPower = 9.8f;
 	[SerializeField]
 	private float _cameraSpeed = default;
+	[SerializeField]
+	private UIManagerScript _uiManagerScript = default;
 
 	private List<StageFloorScript> _stageFloors = new List<StageFloorScript>();
 	private List<BaseStageObjectScript> _stageObjects = new List<BaseStageObjectScript>();
@@ -19,7 +21,7 @@ public class ObjectManagerScript : MonoBehaviour
 	private CollisionSystem _collisionSystem = new CollisionSystem();
 	private CameraScript _cameraScript = default;
 	private BaseCharacterScript _playerCharcterScript = default;
-	private UIManagerScript _uiManagerScript = default;
+	
 
 	public float CameraSpeed { get { return _cameraSpeed; } }
 	public CameraScript CameraScript { get { return _cameraScript; } }
@@ -94,9 +96,8 @@ public class ObjectManagerScript : MonoBehaviour
 			}
 		}
 		_cameraScript = new CameraScript(playerInput);
-		_uiManagerScript = new UIManagerScript();
 		AllObjectInit(playerInput);
-		_uiManagerScript.PlayerUIInit(_playerCharcterScript);
+		_uiManagerScript.PlayerUIInit(_playerCharcterScript.MyCharcterStatus);
 
 
 	}

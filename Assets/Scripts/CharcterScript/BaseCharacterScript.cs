@@ -52,6 +52,7 @@ public class BaseCharacterScript : BaseObjectScript
 			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
 		}
 		_beforePos = MyTransform.position;
+		_myCharcterStatus.Init();
 	}
 	public override void ObjectUpdate()
 	{
