@@ -19,9 +19,7 @@ public class BaseCharacterScript : BaseObjectScript
 	protected int _isGroundHashValue = default;
 	[SerializeField,Header("デバッグ用")]
 	protected BaseWeaponScript _myWeapon = default;
-	[SerializeField]
-	protected float _staggerRecastTime = default;
-	protected float _staggerRecastTimeTemp = default;
+	
 	[SerializeField]
 	protected bool isInputTowards = default;
 
@@ -29,8 +27,7 @@ public class BaseCharacterScript : BaseObjectScript
 	protected bool isDebugInputPlayer = default;
 	[SerializeField]
 	protected bool canCollision = true;
-	[SerializeField]
-	protected float _evasionNoDamageTime = default;
+	
 
 	public BaseWeaponScript MyWeapon { get { return _myWeapon; } }
 	public bool IsGravity { get { return isGravity; } set { isGravity = value; } }
@@ -41,7 +38,7 @@ public class BaseCharacterScript : BaseObjectScript
 	public bool IsInputTowards { get { return isInputTowards; } }
 	public bool CanCollision { get { return canCollision; } set { canCollision = value; } }
 	public ObjectManagerScript ObjectManagerScript { get { return _objectManagerScript; } }
-	public float EvasionNoDamageTime { get { return _evasionNoDamageTime; } }
+
 	public override void Init()
 	{
 		base.Init();
@@ -60,10 +57,6 @@ public class BaseCharacterScript : BaseObjectScript
 
 		_myAnimator.SetBool(_isGroundHashValue, isGround);
 		_myStateMachine.UpdateState().Execute();
-		if (_staggerRecastTimeTemp > 0)
-		{
-			_staggerRecastTimeTemp -= Time.deltaTime;
-		}
 		ClampPos();
 		_beforePos = _myTransform.position;
 		//if(_forwardCollisionAreaDataIndex >= 0 && _myCollisionObjects[_forwardCollisionAreaDataIndex].name == "Floor")
@@ -106,6 +99,7 @@ public class BaseCharacterScript : BaseObjectScript
 		_myCharcterStatus.Hp.Value += healValue;
 	}
 
+
 	public virtual void ReceiveDamage(float damage, float staggerThreshold)
 	{
 		if (_myCharcterStatus.Hp.Value <= damage)
@@ -119,15 +113,7 @@ public class BaseCharacterScript : BaseObjectScript
 			_myCharcterStatus.Hp.Value -= damage;
 		}
 
-		if (_myCharcterStatus.StaggerThreshold < staggerThreshold)
-		{
-			_myCharcterStatus.StaggerThreshold = 0;
-		}
-		else
-		{
-			_myCharcterStatus.StaggerThreshold -= staggerThreshold;
-		}
-		_staggerRecastTimeTemp = _staggerRecastTime;
+		_myCharcterStatus.StaggerThreshold.Value -= staggerThreshold;
 	}
 
 	public override Vector3 GetClampVector(Vector3 moveVector)

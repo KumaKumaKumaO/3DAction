@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 public class DeathStateScript : BaseCharcterStateScript
 {
@@ -31,8 +29,8 @@ public class DeathStateScript : BaseCharcterStateScript
 	
 	private async void Wait()
 	{
-		await System.Threading.Tasks.Task.Delay(5000);
-		if(_myOwner is null) { return; }
+		await UniTask.Delay(System.TimeSpan.FromSeconds(2f));
+		if (_myOwner is null) { return; }
 		_myOwner.Delete();
 	}
 }

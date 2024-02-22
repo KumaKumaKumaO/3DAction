@@ -7,6 +7,10 @@ public class PlayerHpBarPresenterScript : MonoBehaviour
 	private PlayerHpBarViewScript _viewScript = default;
 	public void HpBarInit(CharcterStatus status)
 	{
-		status.Hp.Select(value => value = value / status.MaxHP).Where(value => !float.IsNaN(value)).Subscribe(value => _viewScript.Display(value));
+		status.Hp
+			.Select(value => value = value / status.MaxHP)
+			.Where(value => !float.IsNaN(value))
+			.Subscribe(value => _viewScript.Display(value)).AddTo(this);
 	}
+
 }

@@ -1902,7 +1902,8 @@ MonoBehaviour:
   isDebugColliderVisible: 0
   isDeath: 0
   _myCharcterStatus:
-    _hp: 5
+    _hp:
+      value: 0
     _maxHp: 5
     _defense: 5
     _defaultDefence: 5
@@ -1910,11 +1911,15 @@ MonoBehaviour:
     _defaultAttack: 5
     _speed: 3
     _defaultSpeed: 3
-    _stamina: 5
-    _defaultStamina: 5
+    _stamina:
+      value: 0
+    _maxStamina: 10
     _staggerThreshold: 10
     _staggerMaxThreshold: 10
-  _staggerRecastTime: 0
+    _evasionNoDamageTime: 2
+    _decreaseEvasionStamina: 5
+    _staggerRecastTime: 5
+  _myWeapon: {fileID: 0}
   isInputTowards: 1
   isDebugInputPlayer: 0
   canCollision: 1

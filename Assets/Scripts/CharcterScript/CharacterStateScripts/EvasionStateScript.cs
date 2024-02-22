@@ -51,10 +51,10 @@ public class EvasionStateScript : BaseCharcterStateScript
 			}
 			else
 			{
-				//Debug.Log("TimerOn");
+				_myOwner.MyCharcterStatus.Stamina.Value -= _myOwner.MyCharcterStatus.DecreaseEvasionStamina;
 				isMove = true;
 				_myOwner.CanCollision = false;
-				timerValue = _myOwner.EvasionNoDamageTime;
+				timerValue = _myOwner.MyCharcterStatus.EvasionNoDamageTime;
 				isTimerOn = true;
 			}
 		}
