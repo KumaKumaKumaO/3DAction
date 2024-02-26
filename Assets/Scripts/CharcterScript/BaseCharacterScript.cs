@@ -27,7 +27,10 @@ public class BaseCharacterScript : BaseObjectScript
 	protected bool isDebugInputPlayer = default;
 	[SerializeField]
 	protected bool canCollision = true;
-	
+	[SerializeField]
+	protected bool isActive = default;
+	[SerializeField]
+	protected bool isBoss = default;
 
 	public BaseWeaponScript MyWeapon { get { return _myWeapon; } }
 	public bool IsGravity { get { return isGravity; } set { isGravity = value; } }
@@ -38,6 +41,8 @@ public class BaseCharacterScript : BaseObjectScript
 	public bool IsInputTowards { get { return isInputTowards; } }
 	public bool CanCollision { get { return canCollision; } set { canCollision = value; } }
 	public ObjectManagerScript ObjectManagerScript { get { return _objectManagerScript; } }
+	public bool IsBoss { get { return isBoss; } }
+	public bool IsActive { get { return isActive; } }
 
 	public override void Init()
 	{

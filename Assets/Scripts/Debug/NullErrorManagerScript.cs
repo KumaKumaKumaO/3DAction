@@ -55,4 +55,9 @@ public class NullErrorManagerScript : IErrorManager
 	{
 
 	}
+
+	public void NullSettingError(string className)
+	{
+		NullObjectMsg();
+	}
 }

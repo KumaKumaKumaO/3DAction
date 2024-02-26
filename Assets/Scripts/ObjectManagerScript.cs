@@ -98,8 +98,6 @@ public class ObjectManagerScript : MonoBehaviour
 		_cameraScript = new CameraScript(playerInput);
 		AllObjectInit(playerInput);
 		_uiManagerScript.PlayerUIInit(_playerCharcterScript.MyCharcterStatus);
-
-
 	}
 
 	private void AllObjectInit(InGamePlayerInput input)
@@ -139,12 +137,27 @@ public class ObjectManagerScript : MonoBehaviour
 		foreach (BaseCharacterScript item in _charcterObjects)
 		{
 			item.ObjectUpdate();
+			UICanInitCheck(item);
+			
 		}
 		foreach (BaseWeaponScript item in _weaponObjects)
 		{
 			item.ObjectUpdate();
 		}
 		_cameraScript.UpdateCameraControl();
+	}
+
+	private void UICanInitCheck(BaseCharacterScript characterScript)
+	{
+		if (characterScript.IsActive)
+		{
+			if (characterScript.IsBoss)
+			{
+				_uiManagerScript.BossUIInit(characterScript);
+				return;
+			}
+			_uiManagerScript.EnemyUIInit(characterScript);
+		}
 	}
 
 	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas

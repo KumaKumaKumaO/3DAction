@@ -501,11 +501,11 @@ MonoBehaviour:
   _forwardCollisionAreaDataIndex: -1
   _backCollisionAreaDataIndex: -1
   isGround: 0
-  isDebugColliderVisible: 1
+  isDebugColliderVisible: 0
   isHit: 0
   isAttack: 0
   _myStatus:
-    _attack: 0
+    _attack: 1
     _weight: 0
     _staggerValue: 0
 --- !u!1 &923026631093361054
@@ -1911,14 +1911,13 @@ MonoBehaviour:
     _defaultAttack: 5
     _speed: 3
     _defaultSpeed: 3
-    _stamina:
-      value: 0
+    _healStamina: 2
     _maxStamina: 10
-    _staggerThreshold: 10
-    _staggerMaxThreshold: 10
+    _maxStaggerThreshold: 0
+    _staggerRecoveryStartTime: 0
     _evasionNoDamageTime: 2
     _decreaseEvasionStamina: 5
-    _staggerRecastTime: 5
+    _staggerRecoveryTime: 0
   _myWeapon: {fileID: 0}
   isInputTowards: 1
   isDebugInputPlayer: 0

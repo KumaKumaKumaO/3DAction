@@ -71,4 +71,9 @@ public class ErrorManagerScript : IErrorManager
 	{
 		_myInstance = null;
 	}
+
+	public void NullSettingError(string name)
+	{
+		Debug.LogError(HEAD_MSG + name + "が設定されていません。");
+	}
 }

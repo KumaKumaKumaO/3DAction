@@ -43,4 +43,10 @@ public interface IErrorManager:IDeletable
 	/// </summary>
 	/// <param name="className">オーバーフローが起きたクラス</param>
 	public void OverFlow(string className,int i);
+
+	/// <summary>
+	/// 値が設定されていない場合のエラー
+	/// </summary>
+	/// <param name="className">発生したクラス名</param>
+	public void NullSettingError(string className);
 }
