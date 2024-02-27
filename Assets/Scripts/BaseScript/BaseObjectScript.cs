@@ -11,17 +11,11 @@ public abstract class BaseObjectScript : MonoBehaviour
 	[SerializeField]
 	protected CollisionAreaData _myCollisionAreaData = default;
 	protected List<BaseObjectScript> _myCollisionObjects = new List<BaseObjectScript>();
-	[SerializeField]
 	protected int _bottomCollisionIndex = -1;
-	[SerializeField]
 	protected int _topCollisionAreaDataIndex = -1;
-	[SerializeField]
 	protected int _rightCollisionAreaDataIndex = -1;
-	[SerializeField]
 	protected int _leftCollisionAreaDataIndex = -1;
-	[SerializeField]
 	protected int _forwardCollisionAreaDataIndex = -1;
-	[SerializeField]
 	protected int _backCollisionAreaDataIndex = -1;
 	protected ObjectManagerScript _objectManagerScript = default;
 	protected Matrix4x4 _matrixTemp = default;
@@ -42,14 +36,19 @@ public abstract class BaseObjectScript : MonoBehaviour
 	{
 		_myTransform = this.transform;
 		GameObject objectManagerObject = GameObject.FindWithTag("ObjectManager");
+#if UNITY_EDITOR
 		if (objectManagerObject == null)
 		{
 			ErrorManagerScript.MyInstance.NullGameObjectError("ObjectManagerのタグがついたオブジェクト");
 		}
-		else if (!objectManagerObject.TryGetComponent<ObjectManagerScript>(out _objectManagerScript))
+#endif
+		_objectManagerScript = objectManagerObject.GetComponent<ObjectManagerScript>();
+#if UNITY_EDITOR
+		if (!objectManagerObject.TryGetComponent<ObjectManagerScript>(out _objectManagerScript))
 		{
 			ErrorManagerScript.MyInstance.NullScriptError("ObjectManagerScript");
 		}
+#endif
 		_myCollisionAreaData.Init(transform);
 	}
 	public virtual void ObjectUpdate()
@@ -231,7 +230,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 			isGround = true;
 		}
 	}
-
+#if UNITY_EDITOR
 	protected virtual void OnDrawGizmos()
 	{
 		if (isDebugColliderVisible)
@@ -240,6 +239,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
 		}
 	}
+#endif
 
 	private void OnDestroy()
 	{

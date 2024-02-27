@@ -61,9 +61,14 @@ public class CharcterStatus
 	{
 		_hp.Value = _maxHp;
 		_stamina.Value = _maxStamina;
-		_staggerThreshold.Where(value => value <= 0).Subscribe(_ => OverStaggerThreshold() );
-		_stamina.Where(value => value < _maxStamina && !isRechageStamina).Subscribe(_ => RechargeStamina().Forget());
+
+		_staggerThreshold.Where(value => value <= 0)
+			.Subscribe(_ => OverStaggerThreshold() );
+
+		_stamina.Where(value => value < _maxStamina && !isRechageStamina)
+			.Subscribe(_ => RechargeStamina().Forget());
 	}
+
 	private void OverStaggerThreshold()
 	{
 		_staggerThreshold.Value = 0;

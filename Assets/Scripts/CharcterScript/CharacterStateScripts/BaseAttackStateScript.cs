@@ -42,7 +42,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		//アニメーションのハッシュ値を取得する
 		_attackTriggerHash = Animator.StringToHash("AttackTrigger");
 		//武器の当たり判定をオンにする
-		_myOwnerWeapon.IsAttack = true;
+		_myOwnerWeapon.IsAttacking = true;
 		//現在のアニメーションのハッシュ値を取得する
 		_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 		//攻撃トリガーをオンにする
@@ -77,7 +77,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 				//攻撃中に遷移
 				_nowState = AttackState.Attacking;
 				//武器の当たり判定をオンにする
-				_myOwnerWeapon.IsAttack = true;
+				_myOwnerWeapon.IsAttacking = true;
 			}
 			//攻撃中だったら
 			else if(_nowState == AttackState.Attacking)
@@ -86,18 +86,18 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 				//終了状態に遷移
 				_nowState = AttackState.End;
 				//武器の当たり判定をオフにする
-				_myOwnerWeapon.IsAttack = false;
+				_myOwnerWeapon.IsAttacking = false;
 				//動作の割り込みを許可する
 				canInterruption = true;
 			}
 			//次の攻撃に派生しようとしていたら
 			else if (_nowState == AttackState.NextAttack)
 			{
-				//Debug.LogWarning("a");
+				//Debug.LogWarning("a2");
 				//攻撃中に遷移する
 				_nowState = AttackState.Attacking;
 				//武器の当たり判定をオンにする
-				_myOwnerWeapon.IsAttack = true;
+				_myOwnerWeapon.IsAttacking = true;
 			}
 		}
 		//次の攻撃に派生させたかったらかつ攻撃中なら

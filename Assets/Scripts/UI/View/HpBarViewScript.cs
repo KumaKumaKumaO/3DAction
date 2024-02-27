@@ -7,6 +7,10 @@ public class HpBarViewScript : BaseViewScript
 	private Image _hpBar = default;
 	[SerializeField]
 	private Image _backgroundHPBar = default;
+	public void Init()
+	{
+		gameObject.SetActive(true);
+	}
 	public override void Display(float value)
 	{
 		_hpBar.fillAmount = value;

@@ -494,12 +494,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 0.1, y: 0.01, z: 0.9}
     _offset: {x: 0, y: 0, z: -0.6}
     _areaWidth: 0.01
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
   isHit: 0
@@ -1892,18 +1886,10 @@ MonoBehaviour:
     _halfAreaSize: {x: 0.4, y: 0.95, z: 0.4}
     _offset: {x: 0, y: 0.95, z: 0}
     _areaWidth: 0.1
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
   isDeath: 0
   _myCharcterStatus:
-    _hp:
-      value: 0
     _maxHp: 5
     _defense: 5
     _defaultDefence: 5
@@ -1922,6 +1908,10 @@ MonoBehaviour:
   isInputTowards: 1
   isDebugInputPlayer: 0
   canCollision: 1
+  isActive: 0
+  isBoss: 0
+  _lockDistance: 20
+  _lockTarget: {fileID: 0}
 --- !u!1 &8632767246620876828
 GameObject:
   m_ObjectHideFlags: 0

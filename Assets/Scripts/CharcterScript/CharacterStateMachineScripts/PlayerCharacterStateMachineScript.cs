@@ -34,7 +34,8 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 					ChangeState(new BaseAttackStateScript(_myOwner, _myOwnerAnimator, _input));
 				}
 			}
-			else if (_input.IsEvasion)
+			else if (_input.IsEvasion 
+				&& _myOwner.MyCharcterStatus.Stamina.Value >= _myOwner.MyCharcterStatus.DecreaseEvasionStamina)
 			{
 				if (!(_nowState is EvasionStateScript))
 				{

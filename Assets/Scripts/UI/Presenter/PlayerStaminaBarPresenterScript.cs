@@ -5,11 +5,11 @@ public class PlayerStaminaBarPresenterScript : MonoBehaviour
 {
 	[SerializeField]
 	private PlayerStaminaBarViewScript _viewScript = default;
-	public void StaminaBarInit(CharcterStatus status)
+	public void StaminaBarInit(BaseCharacterScript script)
 	{
-		status.Stamina
-			.Select(value => value = value / status.MaxStamina)
+		script.MyCharcterStatus.Stamina
+			.Select(value => value = value / script.MyCharcterStatus.MaxStamina)
 			.Where(value => !float.IsNaN(value))
-			.Subscribe(value => _viewScript.Display(value)).AddTo(this);
+			.Subscribe(value => _viewScript.Display(value)).AddTo(script);
 	}
 }

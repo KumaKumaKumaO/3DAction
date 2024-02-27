@@ -9,38 +9,46 @@ using UnityEngine;
 public class BaseCharacterScript : BaseObjectScript
 {
 	[SerializeField]
-	protected bool isDeath = default;
-	protected ICharacterStateMachine _myStateMachine = default;
-	protected Vector3 _beforePos = default;
-	[SerializeField]
 	protected CharcterStatus _myCharcterStatus = default;
-	protected int _myJumpCount = default;
-	protected Animator _myAnimator = default;
-	protected int _isGroundHashValue = default;
-	[SerializeField,Header("デバッグ用")]
+	[SerializeField, Header("デバッグ用")]
 	protected BaseWeaponScript _myWeapon = default;
-	
-	[SerializeField]
-	protected bool isInputTowards = default;
+	protected ICharacterStateMachine _myStateMachine = default;
+	protected Animator _myAnimator = default;
+	protected BaseCharacterScript _lockTarget = default;
 
-	[SerializeField, Tooltip("デバッグ用")]
-	protected bool isDebugInputPlayer = default;
 	[SerializeField]
 	protected bool canCollision = true;
 	[SerializeField]
 	protected bool isActive = default;
 	[SerializeField]
 	protected bool isBoss = default;
+	[SerializeField]
+	protected bool isInputTowards = default;
+	[SerializeField]
+	protected bool isDeath = default;
+#if UNITY_EDITOR
+	[SerializeField, Tooltip("デバッグ用")]
+	protected bool isDebugInputPlayer = default;
+#endif
 
+	protected float _lockDistance = default;
+	protected int _isGroundHashValue = default;
+	protected int _myJumpCount = default;
+	protected Vector3 _beforePos = default;
+
+	public BaseCharacterScript LockTarget { get { return _lockTarget; } }
 	public BaseWeaponScript MyWeapon { get { return _myWeapon; } }
 	public bool IsGravity { get { return isGravity; } set { isGravity = value; } }
 	public Animator MyAnimator { get { return _myAnimator; } }
 	public CharcterStatus MyCharcterStatus { get { return _myCharcterStatus; } }
+	public ObjectManagerScript ObjectManagerScript { get { return _objectManagerScript; } }
+
 	public bool IsDeath { get { return isDeath; } }
+#if UNITY_EDITOR
 	public bool IsDebugInputPlayer { get { return isDebugInputPlayer; } }
+#endif
 	public bool IsInputTowards { get { return isInputTowards; } }
 	public bool CanCollision { get { return canCollision; } set { canCollision = value; } }
-	public ObjectManagerScript ObjectManagerScript { get { return _objectManagerScript; } }
 	public bool IsBoss { get { return isBoss; } }
 	public bool IsActive { get { return isActive; } }
 
@@ -49,25 +57,35 @@ public class BaseCharacterScript : BaseObjectScript
 		base.Init();
 		_isGroundHashValue = Animator.StringToHash("IsGround");
 		_myWeapon = _objectManagerScript.GetMyWeapon(this);
-		if (!TryGetComponent<Animator>(out _myAnimator))
+		_myAnimator = GetComponent<Animator>();
+
+#if UNITY_EDITOR
+		if (_myAnimator is null)
 		{
 			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
 		}
+#endif
 		_beforePos = MyTransform.position;
 		_myCharcterStatus.Init();
 	}
 	public override void ObjectUpdate()
 	{
 		base.ObjectUpdate();
-
+		SettingLockTarget();
 		_myAnimator.SetBool(_isGroundHashValue, isGround);
 		_myStateMachine.UpdateState().Execute();
 		ClampPos();
 		_beforePos = _myTransform.position;
-		//if(_forwardCollisionAreaDataIndex >= 0 && _myCollisionObjects[_forwardCollisionAreaDataIndex].name == "Floor")
-		//{
-		//	Debug.LogError(_myCollisionObjects[_forwardCollisionAreaDataIndex]);
-		//}
+	}
+
+	private void SettingLockTarget()
+	{
+		BaseCharacterScript lockTargetTemp = _objectManagerScript.GetNearCharcter(_myTransform);
+		if(lockTargetTemp is null) { return; }
+		if ((_myTransform.position - lockTargetTemp.MyTransform.position).magnitude <= _lockDistance)
+		{
+			_lockTarget = lockTargetTemp;
+		}
 	}
 
 	public void ClampPos()
@@ -81,14 +99,7 @@ public class BaseCharacterScript : BaseObjectScript
 	{
 		_myTransform.position += vector;
 	}
-	protected override void Reset()
-	{
-		base.Reset();
-		if (gameObject.GetComponent<Animator>() == null)
-		{
-			gameObject.AddComponent<Animator>();
-		}
-	}
+
 	protected override void GravityFall()
 	{
 		base.GravityFall();
@@ -104,7 +115,6 @@ public class BaseCharacterScript : BaseObjectScript
 		_myCharcterStatus.Hp.Value += healValue;
 	}
 
-
 	public virtual void ReceiveDamage(float damage, float staggerThreshold)
 	{
 		if (_myCharcterStatus.Hp.Value <= damage)
@@ -117,7 +127,6 @@ public class BaseCharacterScript : BaseObjectScript
 		{
 			_myCharcterStatus.Hp.Value -= damage;
 		}
-
 		_myCharcterStatus.StaggerThreshold.Value -= staggerThreshold;
 	}
 
@@ -216,11 +225,7 @@ public class BaseCharacterScript : BaseObjectScript
 			}
 		}
 		//Debug.Log(returnValue);
-		if((returnValue - _beforePos).magnitude > 3)
-		{
-			returnValue = _beforePos;
-			Debug.LogError("補正");
-		}
+
 		return returnValue;
 
 	}
@@ -236,6 +241,8 @@ public class BaseCharacterScript : BaseObjectScript
 		_myWeapon = null;
 		_myAnimator = null;
 	}
+
+#if UNITY_EDITOR
 	protected override void OnDrawGizmos()
 	{
 		base.OnDrawGizmos();
@@ -281,6 +288,6 @@ public class BaseCharacterScript : BaseObjectScript
 			Gizmos.matrix = _matrixTemp;
 		}
 	}
-
+#endif
 
 }

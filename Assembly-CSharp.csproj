@@ -69,10 +69,11 @@
     <Compile Include="Assets\Scripts\ScriptableScripts\AttackDistanceScriptableScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InGameStateMachineScript.cs" />
+    <Compile Include="Assets\Scripts\Enum\AIDifficulty.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardNormalAIInputScript.cs" />
     <Compile Include="Assets\Scripts\Interface\IDeletable.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\EvasionStateScript.cs" />
     <Compile Include="Assets\Scripts\Debug\ErrorManagerScript.cs" />
-    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuardAIInputScript.cs" />
     <Compile Include="Assets\Scripts\Enum\MoveDirection.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\DemonGuardCharacterScript.cs" />
     <Compile Include="Assets\Scripts\UI\Presenter\EnemyHpBarPresenterScript.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\Structs\WeaponStatus.cs" />
     <Compile Include="Assets\Scripts\Interface\IErrorManager.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemoGuardEasyAIInputScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\PlayerStaminaBarViewScript.cs" />
     <Compile Include="Assets\Scripts\Structs\AnimationSettingData.cs" />
     <Compile Include="Assets\Scripts\ObjectScripts\BaseStageObjectScript.cs" />

@@ -11,26 +11,20 @@ public class UIManagerScript : MonoBehaviour
 	[SerializeField]
 	private EnemyHpBarPresenterScript _enemyHpBarPresenter = default;
 
-	private BaseCharacterScript _nowBossSetCharacter = default;
-	private BaseCharacterScript _nowEnemySetCharcter = default;
-
-	public BaseCharacterScript NowBossSetCharcterScript { get { return _nowBossSetCharacter; } }
-	public BaseCharacterScript NowEnemySetCharacterScript { get { return _nowEnemySetCharcter; } }
-	public void PlayerUIInit(CharcterStatus status)
+	public void PlayerUIInit(BaseCharacterScript script)
 	{
-		_playerHpBarPresenterScript.HpBarInit(status);
-		_playerStaminaBarPresenterScript.StaminaBarInit(status);
+		_playerHpBarPresenterScript.PlayerHPBarInit(script);
+		_playerStaminaBarPresenterScript.StaminaBarInit(script);
 	}
 
 	public void BossUIInit(BaseCharacterScript script)
 	{
-		_nowBossSetCharacter = script;
-		_bossHPBarPresenterScript.HPBarInit(script.MyCharcterStatus);
+		_bossHPBarPresenterScript.BossHPBarInit(script);
 	}
+
 
 	public void EnemyUIInit(BaseCharacterScript script)
 	{
-		_nowEnemySetCharcter = script;
 		_enemyHpBarPresenter.HPBarInit(script);
 	}
 }

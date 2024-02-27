@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,18 +7,15 @@ public class PlayerCharacterScript : BaseCharacterScript
 {
 	public void SetPlayerInput(IInputCharcterAction input)
 	{
-		Animator myAnimator = GetComponent<Animator>();
-		if (myAnimator is null)
+		 _myAnimator = GetComponent<Animator>();
+#if UNITY_EDITOR
+		if (_myAnimator is null)
 		{
 			ErrorManagerScript.MyInstance.NullCompornentError("Animator");
 		}
-		_myAnimator = myAnimator;
+#endif
+
 		_myStateMachine = new PlayerCharacterStateMachineScript(this, _myAnimator, input
 			, _objectManagerScript.CameraScript.CameraTransform);
 	}
-	public override void Init()
-	{
-		base.Init();
-	}
-	
 }

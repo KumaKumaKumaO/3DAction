@@ -21,7 +21,7 @@ public class ObjectManagerScript : MonoBehaviour
 	private CollisionSystem _collisionSystem = new CollisionSystem();
 	private CameraScript _cameraScript = default;
 	private BaseCharacterScript _playerCharcterScript = default;
-	
+
 
 	public float CameraSpeed { get { return _cameraSpeed; } }
 	public CameraScript CameraScript { get { return _cameraScript; } }
@@ -39,6 +39,7 @@ public class ObjectManagerScript : MonoBehaviour
 						this._playerCharcterScript = playerCharcterScript;
 					}
 				}
+#if UNITY_EDITOR
 				if (_playerCharcterScript == null)
 				{
 					foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
@@ -49,6 +50,7 @@ public class ObjectManagerScript : MonoBehaviour
 						}
 					}
 				}
+#endif
 			}
 			return _playerCharcterScript;
 		}
@@ -82,22 +84,22 @@ public class ObjectManagerScript : MonoBehaviour
 	}
 	public void Init(InGamePlayerInput playerInput)
 	{
-		BaseObjectScript baseObjectScriptTemp = default;
+		BaseObjectScript baseObjectScriptTemp;
 		foreach (GameObject item in GameObject.FindGameObjectsWithTag("Object"))
 		{
 			baseObjectScriptTemp = item.GetComponent<BaseObjectScript>();
-			if (baseObjectScriptTemp != null)
-			{
-				AddObject(baseObjectScriptTemp);
-			}
-			else
+#if UNITY_EDITOR
+			if (baseObjectScriptTemp is null)
 			{
 				ErrorManagerScript.MyInstance.NullScriptError("BaseObjectScript");
 			}
+#endif
+
+			AddObject(baseObjectScriptTemp);
 		}
 		_cameraScript = new CameraScript(playerInput);
 		AllObjectInit(playerInput);
-		_uiManagerScript.PlayerUIInit(_playerCharcterScript.MyCharcterStatus);
+		_uiManagerScript.PlayerUIInit(_playerCharcterScript);
 	}
 
 	private void AllObjectInit(InGamePlayerInput input)
@@ -138,7 +140,7 @@ public class ObjectManagerScript : MonoBehaviour
 		{
 			item.ObjectUpdate();
 			UICanInitCheck(item);
-			
+
 		}
 		foreach (BaseWeaponScript item in _weaponObjects)
 		{
@@ -156,15 +158,38 @@ public class ObjectManagerScript : MonoBehaviour
 				_uiManagerScript.BossUIInit(characterScript);
 				return;
 			}
-			_uiManagerScript.EnemyUIInit(characterScript);
+			if (characterScript == _playerCharcterScript.LockTarget)
+			{
+				_uiManagerScript.EnemyUIInit(characterScript);
+				return;
+			}
 		}
+	}
+
+	public BaseCharacterScript GetNearCharcter(Transform transform)
+	{
+		float distanceTemp;
+		float minDistance = float.MaxValue;
+		BaseCharacterScript characterScriptTemp = default;
+		foreach (BaseCharacterScript item in _charcterObjects)
+		{
+			if (transform == item.MyTransform) { continue; }
+
+			distanceTemp = (item.MyTransform.position - transform.position).magnitude;
+			if (minDistance > distanceTemp)
+			{
+				characterScriptTemp = item;
+				minDistance = distanceTemp;
+			}
+		}
+		return characterScriptTemp;
 	}
 
 	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas
 		, MoveDirection moveDirection)
 	{
-		GetCollisionFloor(charcterColAreaData, collisionObjectDatas,moveDirection);
-		GetCollisionStageObject(charcterColAreaData, collisionObjectDatas,moveDirection);
+		GetCollisionFloor(charcterColAreaData, collisionObjectDatas, moveDirection);
+		GetCollisionStageObject(charcterColAreaData, collisionObjectDatas, moveDirection);
 		GetCollisionCharcter(charcterColAreaData, collisionObjectDatas);
 	}
 
@@ -172,10 +197,11 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
 		{
-			if (charcterColAreaData.MyTransform.root == item.MyCollisionAreaData.MyTransform
-			|| (item is BaseCharacterScript charcterScript && !charcterScript.CanCollision)) { continue; }
+			if (item is null || charcterColAreaData.MyTransform is null
+				|| charcterColAreaData.MyTransform.root == item.MyTransform
+				|| (item is BaseCharacterScript charcterScript && !charcterScript.CanCollision)) { continue; }
 
-			if (_collisionSystem.IsCollision(charcterColAreaData,item.MyCollisionAreaData))
+			if (_collisionSystem.IsCollision(charcterColAreaData, item.MyCollisionAreaData))
 			{
 				collisionObjectDatas.Add(item);
 			}
@@ -183,39 +209,38 @@ public class ObjectManagerScript : MonoBehaviour
 	}
 
 	public void GetCollisionFloor(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas
-		,MoveDirection moveDirection)
+		, MoveDirection moveDirection)
 	{
 		foreach (BaseObjectScript item in _stageFloors)
 		{
 			if (charcterColAreaData.MyTransform == item.MyCollisionAreaData.MyTransform) { continue; }
 
-			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas,moveDirection);
+			AddCollisionObject(charcterColAreaData, item, collisionObjectDatas, moveDirection);
 		}
 	}
 
 	public void GetCollisionStageObject(CollisionAreaData colAreaData, List<BaseObjectScript> collisionObjectDatas
-		,MoveDirection moveDirection)
+		, MoveDirection moveDirection)
 	{
 		foreach (BaseObjectScript item in _stageObjects)
 		{
-			AddCollisionObject(colAreaData, item, collisionObjectDatas,moveDirection);
+			AddCollisionObject(colAreaData, item, collisionObjectDatas, moveDirection);
 		}
 	}
 
 	private void AddCollisionObject(CollisionAreaData colData, BaseObjectScript targetObject
-		, List<BaseObjectScript> collisionObjects,MoveDirection moveDirection)
+		, List<BaseObjectScript> collisionObjects, MoveDirection moveDirection)
 	{
-		if (_collisionSystem.IsCollision(colData,targetObject.MyCollisionAreaData,moveDirection))
+		if (_collisionSystem.IsCollision(colData, targetObject.MyCollisionAreaData, moveDirection))
 		{
-			//Debug.Log(moveDirection + ":" + targetObject.name);
 			collisionObjects.Add(targetObject);
 		}
 	}
 
 	public bool IsCollisionObject(CollisionAreaData myData, BaseObjectScript targetObject
-		,MoveDirection moveDirection)
+		, MoveDirection moveDirection)
 	{
-		return _collisionSystem.IsCollision(myData, targetObject.MyCollisionAreaData,moveDirection);
+		return _collisionSystem.IsCollision(myData, targetObject.MyCollisionAreaData, moveDirection);
 	}
 
 	public BaseWeaponScript GetMyWeapon(BaseCharacterScript myData)
@@ -260,10 +285,12 @@ public class ObjectManagerScript : MonoBehaviour
 		{
 			_weaponObjects.Add(weaponObj);
 		}
+#if UNITY_EDITOR
 		else
 		{
 			ErrorManagerScript.MyInstance.CantExistObject(obj.name);
 		}
+#endif
 	}
 
 	public void SubtractObject(BaseObjectScript obj)
@@ -288,9 +315,11 @@ public class ObjectManagerScript : MonoBehaviour
 		{
 			_weaponObjects.Remove(weaponObj);
 		}
+#if UNITY_EDITOR
 		else
 		{
 			ErrorManagerScript.MyInstance.CantExistObject(obj.name);
 		}
+#endif
 	}
 }

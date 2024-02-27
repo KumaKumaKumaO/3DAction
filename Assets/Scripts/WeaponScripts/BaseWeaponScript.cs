@@ -11,7 +11,7 @@ public class BaseWeaponScript : BaseObjectScript
 	[SerializeField]
 	protected WeaponStatus _myStatus = default;
 
-	public bool IsAttack { get { return isAttack; } set { isAttack = value; } }
+	public bool IsAttacking { get { return isAttack; } set { isAttack = value; } }
 	public override void Init()
 	{
 		base.Init();

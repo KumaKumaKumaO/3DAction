@@ -6,6 +6,12 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameStateMachineScript
 {
+	//前回のシーンの名前
+	private string _beforeSceneName = default;
+	//現在のシーンの名前
+	private string _nowSceneName = default;
+	//現在のステート
+	private BaseGameStateScript _nowState = default;
 	public GameStateMachineScript()
 	{
 		_nowSceneName = SceneManager.GetActiveScene().name;
@@ -13,12 +19,7 @@ public class GameStateMachineScript
 		_nowState = SelectState();
 		_nowState.Enter();
 	}
-	//前回のシーンの名前
-	private string _beforeSceneName = default;
-	//現在のシーンの名前
-	private string _nowSceneName = default;
-	//現在のステート
-	private BaseGameStateScript _nowState = default;
+	
 
 	public void Delete()
 	{
@@ -67,6 +68,7 @@ public class GameStateMachineScript
 			//新しいステートをインスタンスする
 			return new GameOverStateScript();
 		}
+#if UNITY_EDITOR
 		//現在のシーン名が特定できない場合
 		else
 		{
@@ -74,5 +76,6 @@ public class GameStateMachineScript
 			Debug.LogError("存在しないシーン名です。");
 			return null;
 		}
+#endif
 	}
 }

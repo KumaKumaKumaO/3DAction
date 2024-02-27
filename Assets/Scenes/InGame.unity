@@ -174,12 +174,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 50, y: 5, z: 0.05}
     _offset: {x: 0, y: 0, z: 0}
     _areaWidth: 0.1
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
 --- !u!23 &27291456
@@ -507,12 +501,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 0.05, y: 5, z: 50}
     _offset: {x: 0, y: 0, z: 0}
     _areaWidth: 0.1
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
 --- !u!23 &325751899
@@ -762,7 +750,7 @@ MonoBehaviour:
   _playerHpBarPresenterScript: {fileID: 967320567}
   _playerStaminaBarPresenterScript: {fileID: 310587557}
   _bossHPBarPresenterScript: {fileID: 574842773}
-  _enemyHpBarPresenter: {fileID: 0}
+  _enemyHpBarPresenter: {fileID: 1277190908}
 --- !u!1 &449634351
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,12 +877,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 0.05, y: 5, z: 50}
     _offset: {x: 0, y: 0, z: 0}
     _areaWidth: 0.1
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
 --- !u!23 &478035017
@@ -998,12 +980,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 50, y: 5, z: 5}
     _offset: {x: 0, y: 0, z: 0}
     _areaWidth: 0.1
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
 --- !u!23 &493481904
@@ -1075,7 +1051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &574842771
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1306,12 +1282,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 50, y: 5, z: 0.05}
     _offset: {x: 0, y: 0, z: 0}
     _areaWidth: 0.1
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
 --- !u!23 &826621614
@@ -1540,12 +1510,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 50, y: 0.05, z: 50}
     _offset: {x: 0, y: 0, z: 0}
     _areaWidth: 0
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
 --- !u!1 &963194225
@@ -1796,12 +1760,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 0.05, y: 5, z: 50}
     _offset: {x: 0, y: 0, z: 0}
     _areaWidth: 0.1
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
 --- !u!23 &1244530821
@@ -1873,7 +1831,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1277190904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1946,6 +1904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpBar: {fileID: 1277190905}
   _backgroundHPBar: {fileID: 449634353}
+  _offset: {x: 0, y: 1, z: 0}
 --- !u!114 &1277190908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3209,15 +3168,8 @@ MonoBehaviour:
     _halfAreaSize: {x: 1.4, y: 1.7, z: 1.4}
     _offset: {x: 0, y: 1.7, z: 0}
     _areaWidth: 0.05
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 0
-  isDeath: 0
   _myCharcterStatus:
     _maxHp: 1
     _defense: 5
@@ -3234,11 +3186,13 @@ MonoBehaviour:
     _decreaseEvasionStamina: 0
     _staggerRecoveryTime: 0
   _myWeapon: {fileID: 0}
-  isInputTowards: 1
-  isDebugInputPlayer: 0
   canCollision: 1
-  isActive: 0
-  isBoss: 1
+  isActive: 1
+  isBoss: 0
+  isInputTowards: 1
+  isDeath: 0
+  isDebugInputPlayer: 0
+  myDifficulty: 0
 --- !u!4 &2528255922588159190
 Transform:
   m_ObjectHideFlags: 0
@@ -5391,12 +5345,6 @@ MonoBehaviour:
     _halfAreaSize: {x: 0.1, y: 0.1, z: 3}
     _offset: {x: 0, y: 0, z: 0.1}
     _areaWidth: 0.05
-  _bottomCollisionIndex: -1
-  _topCollisionAreaDataIndex: -1
-  _rightCollisionAreaDataIndex: -1
-  _leftCollisionAreaDataIndex: -1
-  _forwardCollisionAreaDataIndex: -1
-  _backCollisionAreaDataIndex: -1
   isGround: 0
   isDebugColliderVisible: 1
   isHit: 0
