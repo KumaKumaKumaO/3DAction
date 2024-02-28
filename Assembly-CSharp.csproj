@@ -58,19 +58,22 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Input\AIInput\BaseAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Interface\IInput.cs" />
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\UI\Presenter\BossHPBarPresenterScript.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\BaseAIStateScript.cs" />
     <Compile Include="Assets\Scripts\UI\Presenter\PlayerStaminaBarPresenterScript.cs" />
     <Compile Include="Assets\Scripts\Input\InGamePlayerInput.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\BaseAttackStateScript.cs" />
     <Compile Include="Assets\Scripts\WeaponScripts\BaseWeaponScript.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\BaseAIInputScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameStateScript.cs" />
     <Compile Include="Assets\Scripts\ScriptableScripts\AttackDistanceScriptableScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardNormalAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InGameStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Enum\AIDifficulty.cs" />
-    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardNormalAIInputScript.cs" />
     <Compile Include="Assets\Scripts\Interface\IDeletable.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\EvasionStateScript.cs" />
     <Compile Include="Assets\Scripts\Debug\ErrorManagerScript.cs" />
@@ -89,7 +92,7 @@
     <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\Structs\WeaponStatus.cs" />
     <Compile Include="Assets\Scripts\Interface\IErrorManager.cs" />
-    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemoGuardEasyAIInputScript.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardHardAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\PlayerStaminaBarViewScript.cs" />
     <Compile Include="Assets\Scripts\Structs\AnimationSettingData.cs" />
     <Compile Include="Assets\Scripts\ObjectScripts\BaseStageObjectScript.cs" />
@@ -99,8 +102,10 @@
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\DemonGuardCharacterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\ObjectScripts\StageFloorScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionAreaData.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardEasyAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Debug\NullErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameStateMachineScript.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardAIInputScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\EnemyHPBarViewScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerWalkStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionResultData.cs" />
@@ -115,6 +120,7 @@
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\BaseCharacterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Interface\ICharacterStateMachine.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\Input\AIIdolStateScript.cs" />
     <Compile Include="Assets\Scripts\Input\MenuInputScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\JumpStateScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerDeathStateScript.cs" />
@@ -122,8 +128,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_DemonGuard\__CubemapsShaders\ASE_Standart.shader" />
-    <None Include="Assets\gimon.txt" />
     <None Include="Assets\ReadMe.txt" />
+    <None Include="Assets\AIMemo.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

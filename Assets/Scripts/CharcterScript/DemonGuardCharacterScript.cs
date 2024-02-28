@@ -15,18 +15,17 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 		{
 			if(myDifficulty == AIDifficulty.Easy)
 			{
-				input = new DemoGuardEasyAIInputScript(this, _objectManagerScript.PlayerCharcterScript,
-				_myWeapon.MyCollisionAreaData.HalfAreaSize.z);
+				input = new DemonGuardAIInputScript(this,null);
 			}
 			else if(myDifficulty == AIDifficulty.Normal)
 			{
-				input = new DemonGuardNormalAIInputScript(this, _objectManagerScript.PlayerCharcterScript,
-				_myWeapon.MyCollisionAreaData.HalfAreaSize.z);
+				input = new DemonGuardAIInputScript(this
+					,new DemonGuardNormalAIStateMachineScript(_objectManagerScript.PlayerCharcterScript));
 			}
+			//ÉnÅ[Éh
 			else
 			{
-				input = new DemonGuardNormalAIInputScript(this, _objectManagerScript.PlayerCharcterScript,
-				_myWeapon.MyCollisionAreaData.HalfAreaSize.z);
+				input = new DemonGuardAIInputScript(this,null);
 			}
 			
 		}

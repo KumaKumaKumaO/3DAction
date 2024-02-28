@@ -6,6 +6,7 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 {
 	protected IInputCharcterAction _input = default;
 	protected BaseCharcterStateScript _nowState = default;
+	protected BaseCharcterStateScript _beforeState = default;
 	protected BaseCharacterScript _myOwner = default;
 	protected Animator _myOwnerAnimator = default;
 
