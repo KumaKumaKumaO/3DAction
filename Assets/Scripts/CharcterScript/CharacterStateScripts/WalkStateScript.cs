@@ -9,7 +9,7 @@ public class WalkStateScript : BaseCharcterStateScript
 	private int _motionSpeedAnimatorHashValue = default;
 	private float _nowCharcterSpeed = default;
 	public WalkStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
-		, IInputCharcterAction input) : base(myOwner, ownerAnimator, input)
+		, IInputCharcterActionGetable input) : base(myOwner, ownerAnimator, input)
 	{
 	}
 	public override void Enter()

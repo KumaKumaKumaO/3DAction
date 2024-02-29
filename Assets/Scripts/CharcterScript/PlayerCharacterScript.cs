@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerCharacterScript : BaseCharacterScript
 {
-	public void SetPlayerInput(IInputCharcterAction input)
+	public void SetPlayerInput(IInputCharcterActionGetable input)
 	{
 		 _myAnimator = GetComponent<Animator>();
 #if UNITY_EDITOR

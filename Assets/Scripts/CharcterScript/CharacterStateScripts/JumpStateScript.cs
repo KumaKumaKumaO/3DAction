@@ -8,7 +8,7 @@ public class JumpStateScript : BaseCharcterStateScript
 	private Vector2 _inputVector = default;
 	private float _fallSpeed = 9.8f;
 	private int _isJumpAnimamtorHashValue = default;
-	public JumpStateScript(BaseCharacterScript myOwner, Animator myAnimator, IInputCharcterAction input) : base(myOwner, myAnimator, input)
+	public JumpStateScript(BaseCharacterScript myOwner, Animator myAnimator, IInputCharcterActionGetable input) : base(myOwner, myAnimator, input)
 	{
 
 	}

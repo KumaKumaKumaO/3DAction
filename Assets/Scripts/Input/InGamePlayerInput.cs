@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 入力を用意する
 /// </summary>
-public class InGamePlayerInput : IInputPlayerAction, IInputCharcterAction, IInputCameraControl
+public class InGamePlayerInput : IInputPlayerAction, IInputCharcterActionGetable, IInputCameraControl
 {
 	public Vector2 CameraMoveInput
 	{

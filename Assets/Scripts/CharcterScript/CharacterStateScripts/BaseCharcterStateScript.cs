@@ -4,11 +4,11 @@ public abstract class BaseCharcterStateScript : BaseStateScript
 {
 	protected BaseCharacterScript _myOwner = default;
 	protected Animator _myOwnerAnimator = default;
-	protected IInputCharcterAction _input = default;
+	protected IInputCharcterActionGetable _input = default;
 	protected bool canInterruption = false;
 	public bool CanInterruption { get { return canInterruption; } }
 
-	public BaseCharcterStateScript(BaseCharacterScript myOwner, Animator ownerAnimator, IInputCharcterAction input)
+	public BaseCharcterStateScript(BaseCharacterScript myOwner, Animator ownerAnimator, IInputCharcterActionGetable input)
 	{
 		this._input = input;
 		this._myOwnerAnimator = ownerAnimator;

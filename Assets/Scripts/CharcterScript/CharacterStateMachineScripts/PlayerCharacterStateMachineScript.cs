@@ -9,7 +9,7 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 {
 	private Transform _cameraTransform = default;
 	public PlayerCharacterStateMachineScript(PlayerCharacterScript myOwner, Animator myOwnerAnimator
-		, IInputCharcterAction playerInput, Transform cameraTransform) : base(playerInput, myOwner, myOwnerAnimator)
+		, IInputCharcterActionGetable playerInput, Transform cameraTransform) : base(playerInput, myOwner, myOwnerAnimator)
 	{
 		_nowState = new PlayerWalkStateScript(myOwner, myOwnerAnimator, playerInput, cameraTransform);
 		_nowState.Enter();

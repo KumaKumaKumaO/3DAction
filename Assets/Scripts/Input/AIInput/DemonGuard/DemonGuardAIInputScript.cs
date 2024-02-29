@@ -5,8 +5,7 @@ using UniRx.Triggers;
 public class DemonGuardAIInputScript : BaseAIInputScript
 {
 
-	public DemonGuardAIInputScript(BaseCharacterScript myCharcterScript
-		,BaseAIStateMachineScript stateMachine):base(myCharcterScript,stateMachine)
+	public DemonGuardAIInputScript(BaseCharacterScript myCharcterScript):base(myCharcterScript)
 	{
 		
 	}

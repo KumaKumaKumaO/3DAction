@@ -32,7 +32,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 	}
 
 	public BaseAttackStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
-		, IInputCharcterAction input) : base(myOwner, ownerAnimator, input)
+		, IInputCharcterActionGetable input) : base(myOwner, ownerAnimator, input)
 	{
 		_myOwnerWeapon = myOwner.MyWeapon;
 	}

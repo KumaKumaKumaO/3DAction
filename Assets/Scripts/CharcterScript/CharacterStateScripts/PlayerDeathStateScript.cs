@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 public class PlayerDeathStateScript : BaseCharcterStateScript
 {
 	private int _nowAnimationHash = default;
-	public PlayerDeathStateScript(BaseCharacterScript myOwner,Animator animator,IInputCharcterAction input)
+	public PlayerDeathStateScript(BaseCharacterScript myOwner,Animator animator,IInputCharcterActionGetable input)
 		:base(myOwner,animator,input)
 	{
 	}

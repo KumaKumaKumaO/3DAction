@@ -6,7 +6,7 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 	public override void Init()
 	{
 		base.Init();
-		IInputCharcterAction input;
+		IInputCharcterActionGetable input;
 		if (isDebugInputPlayer)
 		{
 			input = new InGamePlayerInput();
@@ -15,17 +15,19 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 		{
 			if(myDifficulty == AIDifficulty.Easy)
 			{
-				input = new DemonGuardAIInputScript(this,null);
+				input = new DemonGuardAIInputScript(this);
 			}
 			else if(myDifficulty == AIDifficulty.Normal)
 			{
-				input = new DemonGuardAIInputScript(this
-					,new DemonGuardNormalAIStateMachineScript(_objectManagerScript.PlayerCharcterScript));
+				input = new DemonGuardAIInputScript(this);
+				((BaseAIInputScript)input).MyStateMachineScript = 
+					new DemonGuardNormalAIStateMachineScript(_objectManagerScript.PlayerCharcterScript
+					,(IInputCharcterActionSetable)input);
 			}
 			//ÉnÅ[Éh
 			else
 			{
-				input = new DemonGuardAIInputScript(this,null);
+				input = new DemonGuardAIInputScript(this);
 			}
 			
 		}

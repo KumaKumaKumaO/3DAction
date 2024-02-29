@@ -5,7 +5,7 @@ using UnityEngine;
 public class test : MonoBehaviour
 {
 	private Animator _myAnimator = default;
-	private IInputCharcterAction _input = default;
+	private IInputCharcterActionGetable _input = default;
 	// Start is called before the first frame update
 	private void Start()
 	{

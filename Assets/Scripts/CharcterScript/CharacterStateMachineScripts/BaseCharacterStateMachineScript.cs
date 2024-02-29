@@ -4,13 +4,13 @@ using UnityEngine;
 /// </summary>
 public class BaseCharacterStateMachineScript : ICharacterStateMachine
 {
-	protected IInputCharcterAction _input = default;
+	protected IInputCharcterActionGetable _input = default;
 	protected BaseCharcterStateScript _nowState = default;
 	protected BaseCharcterStateScript _beforeState = default;
 	protected BaseCharacterScript _myOwner = default;
 	protected Animator _myOwnerAnimator = default;
 
-	public BaseCharacterStateMachineScript(IInputCharcterAction input
+	public BaseCharacterStateMachineScript(IInputCharcterActionGetable input
 		, BaseCharacterScript myOwner, Animator myOwnerAnimator)
 	{
 		this._input = input;

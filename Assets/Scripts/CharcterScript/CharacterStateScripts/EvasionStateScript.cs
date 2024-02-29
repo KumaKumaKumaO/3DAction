@@ -9,7 +9,7 @@ public class EvasionStateScript : BaseCharcterStateScript
 	private int _nowAnimationHash = default;
 	private bool isMove = default;
 	public EvasionStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
-		, IInputCharcterAction input) : base(myOwner, ownerAnimator, input)
+		, IInputCharcterActionGetable input) : base(myOwner, ownerAnimator, input)
 	{
 	}
 

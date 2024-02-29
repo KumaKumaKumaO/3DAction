@@ -10,7 +10,7 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	private float _nowCharcterSpeed = default;
 	private Transform _cameraTansform = default;
 	public PlayerWalkStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
-	 , IInputCharcterAction input, Transform cameraTransform) : base(myOwner, ownerAnimator, input)
+	 , IInputCharcterActionGetable input, Transform cameraTransform) : base(myOwner, ownerAnimator, input)
 	{
 		this._cameraTansform = cameraTransform;
 	}

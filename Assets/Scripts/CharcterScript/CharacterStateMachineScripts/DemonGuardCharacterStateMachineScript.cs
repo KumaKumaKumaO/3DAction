@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DemonGuardCharacterStateMachineScript : BaseCharacterStateMachineScript
 {
-	public DemonGuardCharacterStateMachineScript(IInputCharcterAction input,BaseCharacterScript myOwner
+	public DemonGuardCharacterStateMachineScript(IInputCharcterActionGetable input,BaseCharacterScript myOwner
 		, Animator myOwnerAnimator) :base(input,myOwner,myOwnerAnimator)
 	{
 

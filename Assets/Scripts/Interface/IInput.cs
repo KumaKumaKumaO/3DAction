@@ -1,5 +1,5 @@
 using UnityEngine;
-public interface IInputCharcterAction:IDeletable
+public interface IInputCharcterActionGetable:IDeletable
 {
 	/// <summary>
 	/// 移動
@@ -41,6 +41,37 @@ public interface IInputCharcterAction:IDeletable
 	/// </summary>
 	/// <returns>どのアイテムを使うか</returns>
 	int UseItem();
+}
+public interface IInputCharcterActionSetable
+{
+	/// <summary>
+	/// 移動
+	/// </summary>
+	/// <returns>移動する方向</returns>
+	Vector2 MoveInput { get; }
+	/// <summary>
+	/// ジャンプ
+	/// </summary>
+	/// <returns>ジャンプボタンが押されているか</returns>
+	bool IsJump { set; }
+
+	/// <summary>
+	/// 攻撃
+	/// </summary>
+	/// <returns>攻撃ボタンが押されているか</returns>
+	bool IsAttack { set; }
+
+	/// <summary>
+	/// 回避
+	/// </summary>
+	/// <returns>回避ボタンが押されているか</returns>
+	bool IsEvasion { set; }
+
+	/// <summary>
+	/// 走る
+	/// </summary>
+	/// <returns>走るボタンが押されているか</returns>
+	bool IsRun { set; }
 }
 public interface IInputPlayerAction:IDeletable
 {

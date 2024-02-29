@@ -7,20 +7,26 @@ public class DemonGuardNormalAIStateMachineScript : BaseAIStateMachineScript
 	private BaseCharacterScript _targetCharcter = default;
 	private BaseCharacterScript _myCharcter = default;
 
-	public DemonGuardNormalAIStateMachineScript(BaseCharacterScript targetCharacterScript)
+	public DemonGuardNormalAIStateMachineScript(BaseCharacterScript targetCharacterScript
+		,IInputCharcterActionSetable input):base(input)
 	{
 		_targetCharcter = targetCharacterScript;
-		_nowState = new AIIdolStateScript();
+		_nowState = new AIIdleStateScript(input);
 	}
 
 	public override BaseAIStateScript UpdateState()
 	{
-
-		if ((_myCharcter.MyTransform.position - _targetCharcter.MyTransform.position).magnitude > 20)
+		const float IDLE_DISTANCE = 20;
+		//”½‰ž‹——£“à‚©‚Ç‚¤‚©
+		if ((_myCharcter.MyTransform.position - _targetCharcter.MyTransform.position).magnitude < IDLE_DISTANCE)
 		{
 			
 		}
-		return null;
+		else if(_nowState is not AIIdleStateScript)
+		{
+			ChangeState(new AIIdleStateScript(_input));
+		}
+		return _nowState;
 	}
 
 }
