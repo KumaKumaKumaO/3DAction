@@ -2,7 +2,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class BaseAIInputScript : IInputCharcterActionGetable
+public class AIInputScript : IInputCharcterActionGetable,IAIInputInitializable,IInputCharcterActionControlable
 {
 	private Vector2 _moveInput = default;
 	private bool isJump = default;
@@ -10,10 +10,9 @@ public class BaseAIInputScript : IInputCharcterActionGetable
 	private bool isEvasion = default;
 	private bool isRun = default;
 	protected BaseAIStateMachineScript _myStateMachine = default;
-	public BaseAIStateMachineScript MyStateMachineScript { set { _myStateMachine = value; } }
-
-	public BaseAIInputScript(BaseCharacterScript baseCharacterScript)
+	public void Init(BaseCharacterScript baseCharacterScript,BaseAIStateMachineScript stateMachineScript)
 	{
+		_myStateMachine = stateMachineScript;
 		baseCharacterScript.UpdateAsObservable()
 			.Subscribe(_ => _myStateMachine.UpdateState().Execute())
 			.AddTo(baseCharacterScript);
@@ -33,7 +32,15 @@ public class BaseAIInputScript : IInputCharcterActionGetable
 
 	public bool IsAttack
 	{
-		get { return isAttack; }
+		get
+		{
+			if (isAttack)
+			{
+				isAttack = false;
+				return true;
+			}
+			return false;
+		}
 		set { isAttack = value; }
 	}
 

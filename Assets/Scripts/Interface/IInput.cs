@@ -42,36 +42,43 @@ public interface IInputCharcterActionGetable:IDeletable
 	/// <returns>どのアイテムを使うか</returns>
 	int UseItem();
 }
-public interface IInputCharcterActionSetable
+public interface IAIInputInitializable
+{
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Init(BaseCharacterScript baseCharacterScript, BaseAIStateMachineScript stateMachineScript);
+}
+public interface IInputCharcterActionControlable
 {
 	/// <summary>
 	/// 移動
 	/// </summary>
 	/// <returns>移動する方向</returns>
-	Vector2 MoveInput { get; }
+	Vector2 MoveInput { get; set; }
 	/// <summary>
 	/// ジャンプ
 	/// </summary>
 	/// <returns>ジャンプボタンが押されているか</returns>
-	bool IsJump { set; }
+	bool IsJump { get; set; }
 
 	/// <summary>
 	/// 攻撃
 	/// </summary>
 	/// <returns>攻撃ボタンが押されているか</returns>
-	bool IsAttack { set; }
+	bool IsAttack { get; set; }
 
 	/// <summary>
 	/// 回避
 	/// </summary>
 	/// <returns>回避ボタンが押されているか</returns>
-	bool IsEvasion { set; }
+	bool IsEvasion { get; set; }
 
 	/// <summary>
 	/// 走る
 	/// </summary>
 	/// <returns>走るボタンが押されているか</returns>
-	bool IsRun { set; }
+	bool IsRun { get; set; }
 }
 public interface IInputPlayerAction:IDeletable
 {

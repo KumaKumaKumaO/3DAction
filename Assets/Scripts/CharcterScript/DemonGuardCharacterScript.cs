@@ -13,21 +13,21 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 		}
 		else
 		{
-			if(myDifficulty == AIDifficulty.Easy)
+			input = new AIInputScript();
+			if (myDifficulty == AIDifficulty.Easy)
 			{
-				input = new DemonGuardAIInputScript(this);
 			}
 			else if(myDifficulty == AIDifficulty.Normal)
 			{
-				input = new DemonGuardAIInputScript(this);
-				((BaseAIInputScript)input).MyStateMachineScript = 
-					new DemonGuardNormalAIStateMachineScript(_objectManagerScript.PlayerCharcterScript
-					,(IInputCharcterActionSetable)input);
+				((IAIInputInitializable)input).Init(this
+					, new DemonGuardNormalAIStateMachineScript(_objectManagerScript.PlayerCharcterScript
+						,this
+						, (IInputCharcterActionControlable)input)
+					);
 			}
 			//ÉnÅ[Éh
 			else
 			{
-				input = new DemonGuardAIInputScript(this);
 			}
 			
 		}

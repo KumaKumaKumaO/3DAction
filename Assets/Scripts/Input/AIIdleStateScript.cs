@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AIIdleStateScript : BaseAIStateScript
 {
-	public AIIdleStateScript(IInputCharcterActionSetable input):base(input)
+	public AIIdleStateScript(IInputCharcterActionControlable input):base(input)
 	{
 
 	}
-	public override void Execute()
+	public override void Enter()
 	{
-		base.Execute();
+		base.Enter();
+		_input.MoveInput = Vector2.zero;
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DemonGuardEasyAIStateMachineScript : BaseAIStateMachineScript
 {
-	public DemonGuardEasyAIStateMachineScript(IInputCharcterActionSetable input):base(input)
+	public DemonGuardEasyAIStateMachineScript(IInputCharcterActionControlable input):base(input)
 	{
 
 	}

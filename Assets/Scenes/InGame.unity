@@ -3192,7 +3192,7 @@ MonoBehaviour:
   isInputTowards: 1
   isDeath: 0
   isDebugInputPlayer: 0
-  myDifficulty: 0
+  myDifficulty: 1
 --- !u!4 &2528255922588159190
 Transform:
   m_ObjectHideFlags: 0

@@ -158,6 +158,7 @@ public class ObjectManagerScript : MonoBehaviour
 				_uiManagerScript.BossUIInit(characterScript);
 				return;
 			}
+			Debug.LogWarning(_playerCharcterScript.LockTarget);
 			if (characterScript == _playerCharcterScript.LockTarget)
 			{
 				_uiManagerScript.EnemyUIInit(characterScript);

@@ -2,8 +2,8 @@ public abstract class BaseAIStateMachineScript
 {
 	protected BaseAIStateScript _nowState = default;
 	protected BaseAIStateScript _beforeState = default;
-	protected IInputCharcterActionSetable _input = default;
-	public BaseAIStateMachineScript(IInputCharcterActionSetable input)
+	protected IInputCharcterActionControlable _input = default;
+	public BaseAIStateMachineScript(IInputCharcterActionControlable input)
 	{
 		_input = input;
 	}

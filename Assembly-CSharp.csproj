@@ -58,6 +58,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Input\AITargetMoveStateScript.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\BaseAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Interface\IInput.cs" />
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
@@ -67,8 +68,6 @@
     <Compile Include="Assets\Scripts\Input\InGamePlayerInput.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\BaseAttackStateScript.cs" />
     <Compile Include="Assets\Scripts\WeaponScripts\BaseWeaponScript.cs" />
-    <Compile Include="Assets\Scripts\Input\AIInput\BaseAIInputScript.cs" />
-    <Compile Include="Assets\Scripts\Input\AIMoveStateScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameStateScript.cs" />
     <Compile Include="Assets\Scripts\ScriptableScripts\AttackDistanceScriptableScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
@@ -100,16 +99,17 @@
     <Compile Include="Assets\Scripts\BaseScript\BaseStateScript.cs" />
     <Compile Include="Assets\Scripts\UI\Presenter\PlayerHpBarPresenterScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\PlayerCharacterScript.cs" />
+    <Compile Include="Assets\Scripts\Input\AIAttackStateScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\DemonGuardCharacterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\ObjectScripts\StageFloorScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionAreaData.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardEasyAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\Debug\NullErrorManagerScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameStateMachineScript.cs" />
-    <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardAIInputScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\EnemyHPBarViewScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerWalkStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CollisionResultData.cs" />
+    <Compile Include="Assets\Scripts\Input\AIInput\AIInputScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />
     <Compile Include="Assets\Scripts\CollisionSystem.cs" />
     <Compile Include="Assets\Scripts\InGameState\PoseStateScript.cs" />
