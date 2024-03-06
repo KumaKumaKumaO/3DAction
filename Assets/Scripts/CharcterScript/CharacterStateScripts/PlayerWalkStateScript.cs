@@ -14,6 +14,7 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	{
 		this._cameraTansform = cameraTransform;
 	}
+
 	public override void Enter()
 	{
 		base.Enter();
@@ -23,7 +24,9 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 
 		_myOwnerAnimator.SetFloat(_motionSpeedAnimatorHashValue, _nowCharcterSpeed
 			/ _myOwner.MyCharcterStatus.DefaultSpeed);
+		_myOwnerAnimator.SetBool(_isMoveAnimamtorHashValue,true);
 	}
+
 	public override void Execute()
 	{
 		base.Execute();
@@ -42,7 +45,6 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 			_myOwnerAnimator.SetFloat(_motionSpeedAnimatorHashValue, _nowCharcterSpeed
 				/ _myOwner.MyCharcterStatus.DefaultSpeed);
 		}
-		_myOwnerAnimator.SetBool(_isMoveAnimamtorHashValue, _inputVector != Vector2.zero);
 
 		if (_inputVector != Vector2.zero)
 		{
@@ -59,6 +61,7 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	}
 	public override void Exit()
 	{
+		_myOwnerAnimator.SetBool(_isMoveAnimamtorHashValue, false);
 		base.Exit();
 		_cameraTansform = null;
 	}
