@@ -33,6 +33,9 @@ public class PlayerDeathStateScript : BaseCharcterStateScript
 	private async UniTaskVoid Wait()
 	{
 		await UniTask.Delay(System.TimeSpan.FromSeconds(5f));
-		SceneManager.LoadScene("GameOver");
+		if(GameManagerScript.Instance.NowState is InGameStateScript)
+		{
+			SceneManager.LoadScene("GameOver");
+		}
 	}
 }

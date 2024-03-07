@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseWeaponScript : BaseObjectScript
@@ -7,11 +5,11 @@ public class BaseWeaponScript : BaseObjectScript
 	[SerializeField]
 	protected bool isHit = default;
 	[SerializeField]
-	protected bool isAttack = default;
+	protected bool isAttacking = default;
 	[SerializeField]
 	protected WeaponStatus _myStatus = default;
 
-	public bool IsAttacking { get { return isAttack; } set { isAttack = value; } }
+	public bool IsAttacking { get { return isAttacking; } set { isAttacking = value; } }
 	public override void Init()
 	{
 		base.Init();
@@ -19,14 +17,14 @@ public class BaseWeaponScript : BaseObjectScript
 
 	public override void ObjectUpdate()
 	{
-		if (isAttack)
+		if (isAttacking && !IsDestroyObject)
 		{
 			SearchHitObjects();
 			isHit = _myCollisionObjects.Count > 0;
 			if (isHit)
 			{
-				isAttack = false;
-				isHit = false;
+				isAttacking = false;
+				Debug.LogWarning("aadaaa");
 			}
 			foreach (BaseObjectScript resultData in _myCollisionObjects)
 			{
@@ -41,6 +39,8 @@ public class BaseWeaponScript : BaseObjectScript
 		CollisionIndexInit();
 		_objectManagerScript.GetCollisionCharcter(_myCollisionAreaData, _myCollisionObjects);
 	}
+
+#if UNITY_EDITOR
 	protected override void OnDrawGizmos()
 	{
 		base.OnDrawGizmos();
@@ -86,4 +86,5 @@ public class BaseWeaponScript : BaseObjectScript
 			Gizmos.matrix = _matrixTemp;
 		}
 	}
+#endif
 }

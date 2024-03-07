@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 /// <summary>
 /// InGameステートでのメイン処理
 /// </summary>

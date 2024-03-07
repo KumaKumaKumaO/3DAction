@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// インスタンスされているオブジェクトを管理するクラス
@@ -158,7 +159,6 @@ public class ObjectManagerScript : MonoBehaviour
 				_uiManagerScript.BossUIInit(characterScript);
 				return;
 			}
-			Debug.LogWarning(_playerCharcterScript.LockTarget);
 			if (characterScript == _playerCharcterScript.LockTarget)
 			{
 				_uiManagerScript.EnemyUIInit(characterScript);
@@ -198,7 +198,7 @@ public class ObjectManagerScript : MonoBehaviour
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
 		{
-			if (item is null || charcterColAreaData.MyTransform is null
+			if (item is null  || charcterColAreaData.MyTransform is null
 				|| charcterColAreaData.MyTransform.root == item.MyTransform
 				|| (item is BaseCharacterScript charcterScript && !charcterScript.CanCollision)) { continue; }
 

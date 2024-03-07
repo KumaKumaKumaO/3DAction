@@ -1618,7 +1618,7 @@ GameObject:
   - component: {fileID: 967320567}
   - component: {fileID: 967320566}
   m_Layer: 5
-  m_Name: HpImage
+  m_Name: HPImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grivityPower: 9.8
-  _cameraSpeed: 0
+  _cameraSpeed: 100
   _uiManagerScript: {fileID: 449559084}
 --- !u!4 &1695361746
 Transform:
@@ -3171,7 +3171,7 @@ MonoBehaviour:
   isGround: 0
   isDebugColliderVisible: 0
   _myCharcterStatus:
-    _maxHp: 1
+    _maxHp: 3
     _defense: 5
     _defaultDefence: 5
     _attack: 5
@@ -3235,15 +3235,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6410031541259436265, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6410031541259436265, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6410031541259436265, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.27
       objectReference: {fileID: 0}
     - target: {fileID: 6410031541259436265, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3272,6 +3272,10 @@ PrefabInstance:
     - target: {fileID: 6410031541259436265, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492468349993454234, guid: dab69392156713544847fffb4629aebf, type: 3}
+      propertyPath: _myCharcterStatus._evasionNoDamageTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8553130376786099965, guid: dab69392156713544847fffb4629aebf, type: 3}
       propertyPath: m_Name
@@ -5348,7 +5352,7 @@ MonoBehaviour:
   isGround: 0
   isDebugColliderVisible: 1
   isHit: 0
-  isAttack: 0
+  isAttacking: 0
   _myStatus:
     _attack: 1
     _weight: 0

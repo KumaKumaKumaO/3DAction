@@ -12,6 +12,9 @@ public class GameStateMachineScript
 	private string _nowSceneName = default;
 	//現在のステート
 	private BaseGameStateScript _nowState = default;
+
+	public BaseGameStateScript NowState { get { return _nowState; } }
+
 	public GameStateMachineScript()
 	{
 		_nowSceneName = SceneManager.GetActiveScene().name;
@@ -68,14 +71,18 @@ public class GameStateMachineScript
 			//新しいステートをインスタンスする
 			return new GameOverStateScript();
 		}
-#if UNITY_EDITOR
+		else if(_nowSceneName == "GameClear")
+		{
+			return new GameClearStateScript();
+		}
 		//現在のシーン名が特定できない場合
 		else
 		{
+#if UNITY_EDITOR
 			//エラーメッセージを出力
 			Debug.LogError("存在しないシーン名です。");
+#endif
 			return null;
 		}
-#endif
 	}
 }

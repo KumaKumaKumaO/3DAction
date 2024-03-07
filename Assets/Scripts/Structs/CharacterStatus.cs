@@ -37,9 +37,7 @@ public class CharcterStatus
 	protected float _decreaseEvasionStamina = default;
 	[SerializeField]
 	protected float _staggerRecoveryTime = default;
-
 	private bool isRechageStamina = default;
-
 	public float MaxHP { get { return _maxHp; } set { _maxHp = value; } }
 	public ReactiveProperty<float> Hp { get { return _hp; } }
 	public float DefaultDefence { get { return _defaultDefence; } set { _defaultDefence = value; } }

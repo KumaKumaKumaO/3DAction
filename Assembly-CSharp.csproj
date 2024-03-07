@@ -89,8 +89,8 @@
     <Compile Include="Assets\Scripts\ObjectManagerScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateMachineScripts\PlayerCharacterStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\BaseViewScript.cs" />
-    <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\Structs\WeaponStatus.cs" />
+    <Compile Include="Assets\Scripts\StateMachineBehaviour\AttackStateMachineBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\Interface\IErrorManager.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardHardAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\PlayerStaminaBarViewScript.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\Input\AIInput\AIInputScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />
     <Compile Include="Assets\Scripts\CollisionSystem.cs" />
+    <Compile Include="Assets\Scripts\GameStates\GameClearStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\PoseStateScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InventoryStateScript.cs" />
     <Compile Include="Assets\Scripts\Structs\CharacterStatus.cs" />

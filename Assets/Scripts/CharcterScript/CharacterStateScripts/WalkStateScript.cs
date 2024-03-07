@@ -34,12 +34,14 @@ public class WalkStateScript : BaseCharcterStateScript
 		}
 		base.Execute();
 		_inputVector = _input.MoveInput;
+
 		if (_nowCharcterSpeed != _myOwner.MyCharcterStatus.Speed)
 		{
 			_nowCharcterSpeed = _myOwner.MyCharcterStatus.Speed;
 			_myOwnerAnimator.SetFloat(_motionSpeedAnimatorHashValue, _nowCharcterSpeed
 				/ _myOwner.MyCharcterStatus.DefaultSpeed);
 		}
+
 		_myOwnerAnimator.SetBool(_isMoveAnimamtorHashValue, _inputVector != Vector2.zero);
 
 		if (_inputVector != Vector2.zero)
@@ -48,8 +50,8 @@ public class WalkStateScript : BaseCharcterStateScript
 			{
 				_myOwner.MyCollisionAreaData.MyTransform.rotation
 				= Quaternion.Euler(0
-				, _myOwner.ObjectManagerScript.CameraScript.CameraTransform.eulerAngles.y
-				+ Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg
+				,
+				Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg
 				, 0);
 
 				_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward

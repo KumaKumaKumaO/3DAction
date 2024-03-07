@@ -42,7 +42,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 		//アニメーションのハッシュ値を取得する
 		_attackTriggerHash = Animator.StringToHash("AttackTrigger");
 		//武器の当たり判定をオンにする
-		_myOwnerWeapon.IsAttacking = true;
+		//_myOwnerWeapon.IsAttacking = true;
 		//現在のアニメーションのハッシュ値を取得する
 		_nowAnimationHash = _myOwnerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
 		//攻撃トリガーをオンにする

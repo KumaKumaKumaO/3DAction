@@ -9,7 +9,24 @@ public class InGamePlayerInput : IInputPlayerAction, IInputCharcterActionGetable
 	{
 		get
 		{
-			return Vector2.right * Input.GetAxis("Mouse X") + Vector2.up * Input.GetAxis("Mouse Y");
+			Vector2 returnValue = default;
+			if (Input.GetKey(KeyCode.Keypad4))
+			{
+				returnValue += Vector2.left;
+			}
+			if (Input.GetKey(KeyCode.Keypad6))
+			{
+				returnValue += Vector2.right;
+			}
+			if (Input.GetKey(KeyCode.Keypad8))
+			{
+				returnValue += Vector2.up;
+			}
+			if (Input.GetKey(KeyCode.Keypad2))
+			{
+				returnValue += Vector2.down;
+			}
+			return returnValue;
 		}
 	}
 	public bool IsRun
