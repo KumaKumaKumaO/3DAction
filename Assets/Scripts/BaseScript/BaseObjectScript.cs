@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class BaseObjectScript : MonoBehaviour
 {
-	[SerializeField]
+	[SerializeField,Header("自分に重力をつけるか")]
 	protected bool isGravity = false;
 	[SerializeField]
 	protected CollisionAreaData _myCollisionAreaData = default;
@@ -61,10 +61,14 @@ public abstract class BaseObjectScript : MonoBehaviour
 
 	}
 
-	//今の向きに対して
+	/// <summary>
+	/// ある方向の一番近いオブジェクトのインデックスを指定
+	/// </summary>
+	/// <param name="moveDirection">方向</param>
 	protected void GetColObjects(MoveDirection moveDirection)
 	{
-		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData,_myCollisionObjects,moveDirection);
+		_objectManagerScript.GetCollisionAllObject(_myCollisionAreaData,_myCollisionObjects
+			,moveDirection);
 		for (int i = 0; i < _myCollisionObjects.Count; i++)
 		{
 			if(moveDirection == MoveDirection.Down)
@@ -182,7 +186,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// すり抜けが修正する
+	/// すり抜けを修正する
 	/// </summary>
 	/// <param name="moveVector">移動したベクトル</param>
 	/// <returns>修正後のポジション</returns>

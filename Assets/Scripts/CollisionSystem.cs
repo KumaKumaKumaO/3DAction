@@ -5,7 +5,8 @@ using UnityEngine;
 /// </summary>
 public class CollisionSystem
 {
-	public bool IsCollision(CollisionAreaData myAreaData, CollisionAreaData targetData, MoveDirection moveDirection)
+	public bool IsCollision(CollisionAreaData myAreaData, CollisionAreaData targetData
+		, MoveDirection moveDirection)
 	{
 		Vector3 hitDistanceVector = myAreaData.HalfAreaSize + targetData.HalfAreaSize;
 		Vector3 targetToMeVector = (myAreaData.MyTransform.position + myAreaData.Offset)
@@ -50,11 +51,11 @@ public class CollisionSystem
 		}
 	}
 	/// <summary>
-	/// 重なっているか
+	/// 衝突しているか
 	/// </summary>
-	/// <param name="myAreaData"></param>
-	/// <param name="targetData"></param>
-	/// <returns></returns>
+	/// <param name="myAreaData">自分の当たり判定</param>
+	/// <param name="targetData">相手の当たり判定</param>
+	/// <returns>衝突の結果</returns>
 	public bool IsCollision(CollisionAreaData myAreaData, CollisionAreaData targetData)
 	{
 		Vector3 hitDistanceVector = myAreaData.HalfAreaSize + targetData.HalfAreaSize;
@@ -62,7 +63,12 @@ public class CollisionSystem
 			- (targetData.MyTransform.position + targetData.Offset);
 		return IsCollision(targetToMeVector, hitDistanceVector);
 	}
-
+	/// <summary>
+	/// 衝突しているか
+	/// </summary>
+	/// <param name="myColDistance">それぞれの当たり判定のベクトルを足したもの</param>
+	/// <param name="targetColDistance">自分から相手までの距離</param>
+	/// <returns>衝突の結果</returns>
 	private bool IsCollision(Vector3 myColDistance, Vector3 targetColDistance)
 	{
 		return Mathf.Abs(myColDistance.x) < targetColDistance.x
