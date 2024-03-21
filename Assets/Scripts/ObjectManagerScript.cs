@@ -200,7 +200,7 @@ public class ObjectManagerScript : MonoBehaviour
 		{
 			if (item is null  || charcterColAreaData.MyTransform is null
 				|| charcterColAreaData.MyTransform.root == item.MyTransform
-				|| (item is BaseCharacterScript charcterScript && !charcterScript.CanCollision)) { continue; }
+				|| (item is BaseCharacterScript charcterScript &&( !charcterScript.CanCollision || charcterScript.IsDeath))) { continue; }
 
 			if (_collisionSystem.IsCollision(charcterColAreaData, item.MyCollisionAreaData))
 			{
