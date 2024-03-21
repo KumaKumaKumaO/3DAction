@@ -39,9 +39,8 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 		_myStateMachine = new DemonGuardCharacterStateMachineScript
 			(input, this, _myAnimator);
 	}
-	public override void Delete()
-	{
-		base.Delete();
+    private void OnDestroy()
+    {
 		if (isDeath && GameManagerScript.Instance.NowState is InGameStateScript)
 		{
 			SceneManager.LoadScene("GameClear");
