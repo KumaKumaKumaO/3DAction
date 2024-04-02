@@ -13,6 +13,7 @@ public class BaseCharacterScript : BaseObjectScript
 	protected ICharacterStateMachine _myStateMachine = default;
 	protected Animator _myAnimator = default;
 	protected BaseCharacterScript _lockTarget = default;
+	protected Transform _cameraTransform = default;
 
 	[SerializeField,Tooltip("当たり判定があるか")]
 	protected bool canCollision = true;
@@ -20,7 +21,7 @@ public class BaseCharacterScript : BaseObjectScript
 	protected bool isActive = default;
 	[SerializeField,Tooltip("ボスか")]
 	protected bool isBoss = default;
-	[SerializeField,Tooltip("向いている方向に対して入力が反応するか")]
+	[SerializeField,Tooltip("移動している方向に向くか")]
 	protected bool isInputTowards = default;
 	[SerializeField,Tooltip("死んでいるか")]
 	protected bool isDeath = default;
@@ -51,6 +52,7 @@ public class BaseCharacterScript : BaseObjectScript
 		_isGroundHashValue = Animator.StringToHash("IsGround");
 		_myWeapon = _objectManagerScript.GetMyWeapon(this);
 		_myAnimator = GetComponent<Animator>();
+		_cameraTransform = _objectManagerScript.CameraScript.CameraTransform;
 
 #if UNITY_EDITOR
 		if (_myAnimator is null)

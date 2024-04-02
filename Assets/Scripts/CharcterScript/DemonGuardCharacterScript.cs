@@ -42,7 +42,7 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 #endif
 
 		_myStateMachine = new DemonGuardCharacterStateMachineScript
-			(input, this, _myAnimator);
+			(input, this, _myAnimator,_cameraTransform);
 	}
 
     private void OnDestroy()

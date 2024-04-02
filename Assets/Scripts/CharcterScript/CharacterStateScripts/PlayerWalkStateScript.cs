@@ -9,12 +9,12 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	private int _isMoveAnimamtorHashValue = default;
 	private int _motionSpeedAnimatorHashValue = default;
 	private float _nowCharcterSpeed = default;
-	private Transform _cameraTansform = default;
+	private Transform _cameraTransform = default;
 
 	public PlayerWalkStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
-	 , IInputCharcterActionGetable input, Transform cameraTransform) : base(myOwner, ownerAnimator, input)
+	 , IInputCharcterActionGetable input, UnityEngine.Transform cameraTransform) : base(myOwner, ownerAnimator, input)
 	{
-		this._cameraTansform = cameraTransform;
+		this._cameraTransform = cameraTransform;
 	}
 
 	public override void Enter()
@@ -53,7 +53,7 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 		{
 			_myOwner.MyCollisionAreaData.MyTransform.rotation
 				= Quaternion.Euler(0
-				, _cameraTansform.eulerAngles.y + Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg
+				, _cameraTransform.eulerAngles.y + Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg
 				, 0);
 
 			_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward
@@ -64,6 +64,6 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	public override void Exit()
 	{
 		base.Exit();
-		_cameraTansform = null;
+		_cameraTransform = null;
 	}
 }

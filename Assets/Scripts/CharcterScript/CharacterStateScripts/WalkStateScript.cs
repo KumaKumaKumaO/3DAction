@@ -9,10 +9,12 @@ public class WalkStateScript : BaseCharcterStateScript
 	private int _isMoveAnimamtorHashValue = default;
 	private int _motionSpeedAnimatorHashValue = default;
 	private float _nowCharcterSpeed = default;
+	private Transform _cameraTransform = default;
 
 	public WalkStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
-		, IInputCharcterActionGetable input) : base(myOwner, ownerAnimator, input)
+		, IInputCharcterActionGetable input, Transform cameraTransform) : base(myOwner, ownerAnimator, input)
 	{
+		_cameraTransform = cameraTransform;
 	}
 
 	public override void Enter()
@@ -51,14 +53,25 @@ public class WalkStateScript : BaseCharcterStateScript
 		{
 			if (_myOwner.IsInputTowards)
 			{
-				_myOwner.MyCollisionAreaData.MyTransform.rotation
-				= Quaternion.Euler(0
-				,
-				Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg
-				, 0);
+				if (_myOwner.IsDebugInputPlayer)
+				{
+					_myOwner.MyCollisionAreaData.MyTransform.rotation
+						= Quaternion.Euler(0
+						, _cameraTransform.eulerAngles.y + Mathf.Atan2(_inputVector.x, _inputVector.y) * Mathf.Rad2Deg
+						, 0);
 
-				_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward
-					* _myOwner.MyCharcterStatus.Speed * Time.deltaTime);
+					_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward
+						* _myOwner.MyCharcterStatus.Speed * Time.deltaTime);
+				}
+				else
+				{
+					_myOwner.MyCollisionAreaData.MyTransform.rotation
+						= Quaternion.Euler(0,
+						Vector3.SignedAngle(_cameraTransform.forward, _inputVector, _myOwner.MyTransform.up), 0);
+
+					_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward
+						* _myOwner.MyCharcterStatus.Speed * Time.deltaTime);
+				}
 			}
 			else
 			{

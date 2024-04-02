@@ -20,7 +20,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	protected ObjectManagerScript _objectManagerScript = default;
 	protected Matrix4x4 _matrixTemp = default;
 	protected bool isGround = false;
-	protected Transform _myTransform = default;
+	protected UnityEngine.Transform _myTransform = default;
 	protected int _forwardCollisionCount = 0;
 	private bool isDestroyObject = false;
 
@@ -30,7 +30,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 #endif
 
 	public CollisionAreaData MyCollisionAreaData { get { return _myCollisionAreaData; } }
-	public Transform MyTransform { get { return _myTransform; } }
+	public UnityEngine.Transform MyTransform { get { return _myTransform; } }
 	public bool IsGround { get { return isGround; } }
 	public bool IsDestroyObject { get { return isDestroyObject; } }
 	
@@ -160,7 +160,9 @@ public abstract class BaseObjectScript : MonoBehaviour
 		}
 
 		if(isDestroyObject) { return; }
+#if !UNITY_EDITOR
 		Destroy(gameObject);
+#endif
 	}
 
 	protected virtual void Reset()

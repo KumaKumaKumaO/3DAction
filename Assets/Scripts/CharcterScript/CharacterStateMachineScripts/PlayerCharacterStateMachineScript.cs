@@ -6,14 +6,12 @@ using UnityEngine;
 
 public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 {
-	private Transform _cameraTransform = default;
-
 	public PlayerCharacterStateMachineScript(PlayerCharacterScript myOwner, Animator myOwnerAnimator
-		, IInputCharcterActionGetable playerInput, Transform cameraTransform) : base(playerInput, myOwner, myOwnerAnimator)
+		, IInputCharcterActionGetable playerInput, UnityEngine.Transform cameraTransform) : base(playerInput, myOwner, myOwnerAnimator,cameraTransform)
 	{
+		_cameraTransform = cameraTransform;
 		_nowState = new PlayerWalkStateScript(myOwner, myOwnerAnimator, playerInput, cameraTransform);
 		_nowState.Enter();
-		_cameraTransform = cameraTransform;
 	}
 
 	public override BaseCharcterStateScript UpdateState()

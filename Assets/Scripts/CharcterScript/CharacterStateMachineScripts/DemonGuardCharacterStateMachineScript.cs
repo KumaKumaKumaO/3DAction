@@ -6,7 +6,7 @@ using UnityEngine;
 public class DemonGuardCharacterStateMachineScript : BaseCharacterStateMachineScript
 {
 	public DemonGuardCharacterStateMachineScript(IInputCharcterActionGetable input,BaseCharacterScript myOwner
-		, Animator myOwnerAnimator) :base(input,myOwner,myOwnerAnimator)
+		, Animator myOwnerAnimator, UnityEngine.Transform cameraTransform) :base(input,myOwner,myOwnerAnimator,cameraTransform)
 	{
 
 	}

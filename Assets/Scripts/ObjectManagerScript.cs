@@ -185,7 +185,7 @@ public class ObjectManagerScript : MonoBehaviour
 	/// </summary>
 	/// <param name="transform">自身のTransform</param>
 	/// <returns></returns>
-	public BaseCharacterScript GetNearCharcter(Transform transform)
+	public BaseCharacterScript GetNearCharcter(UnityEngine.Transform transform)
 	{
 		float distanceTemp;
 		float minDistance = float.MaxValue;

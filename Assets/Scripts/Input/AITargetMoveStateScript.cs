@@ -5,11 +5,11 @@ using UnityEngine;
 /// </summary>
 public class AITargetMoveStateScript : BaseAIStateScript
 {
-	private Transform _targetTransform = default;
-	private Transform _myTransform = default;
+	private UnityEngine.Transform _targetTransform = default;
+	private UnityEngine.Transform _myTransform = default;
 
 	public AITargetMoveStateScript(IInputCharcterActionControlable input
-		,Transform targetTransform,Transform myTransform):base(input)
+		, UnityEngine.Transform targetTransform, UnityEngine.Transform myTransform):base(input)
 	{
 		this._targetTransform = targetTransform;
 		this._myTransform = myTransform;

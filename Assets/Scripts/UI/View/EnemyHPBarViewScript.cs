@@ -10,8 +10,8 @@ public class EnemyHPBarViewScript : BaseViewScript
 	private Image _hpBar = default;
 	[SerializeField]
 	private Image _backgroundHPBar = default;
-	private Transform _targetTransform = default;
-	private Transform _myTransform = default;
+	private UnityEngine.Transform _targetTransform = default;
+	private UnityEngine.Transform _myTransform = default;
 	private Vector3 _objectOffset = default;
 	[SerializeField]
 	private Vector3 _offset = default;
@@ -21,7 +21,7 @@ public class EnemyHPBarViewScript : BaseViewScript
 	/// </summary>
 	/// <param name="transform">対象のTransform</param>
 	/// <param name="offsetVector">表示位置のオフセット</param>
-	public void Init(Transform transform,Vector3 offsetVector)
+	public void Init(UnityEngine.Transform transform,Vector3 offsetVector)
 	{
 		gameObject.SetActive(true);
 		_objectOffset = offsetVector;

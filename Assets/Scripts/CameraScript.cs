@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class CameraScript
 {
-	private Transform _cameraTransform = default;
+	private UnityEngine.Transform _cameraTransform = default;
 	private ObjectManagerScript _objectManagerScript = default;
 	private BaseCharacterScript _playerCharcterScript = default;
 	private IInputCameraControl _input = default;
@@ -15,7 +15,7 @@ public class CameraScript
 	private Vector3 _initPos = new Vector3(0, 2, -3);
 	private Quaternion _initRotaion = Quaternion.Euler(10, 0, 0);
 
-	public Transform CameraTransform { get { return _cameraTransform; } }
+	public UnityEngine.Transform CameraTransform { get { return _cameraTransform; } }
 
 	public CameraScript(IInputCameraControl input)
 	{

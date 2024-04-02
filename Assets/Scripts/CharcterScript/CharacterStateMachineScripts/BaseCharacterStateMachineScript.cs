@@ -11,14 +11,16 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 	protected BaseCharcterStateScript _beforeState = default;
 	protected BaseCharacterScript _myOwner = default;
 	protected Animator _myOwnerAnimator = default;
+	protected Transform _cameraTransform = default;
 
 	public BaseCharacterStateMachineScript(IInputCharcterActionGetable input
-		, BaseCharacterScript myOwner, Animator myOwnerAnimator)
+		, BaseCharacterScript myOwner, Animator myOwnerAnimator, Transform cameraTransform)
 	{
+		this._cameraTransform = cameraTransform;
 		this._input = input;
 		this._myOwner = myOwner;
 		_myOwnerAnimator = myOwnerAnimator;
-		_nowState = new WalkStateScript(myOwner,myOwnerAnimator,input);
+		_nowState = new WalkStateScript(myOwner,myOwnerAnimator,input,cameraTransform);
 		_nowState.Enter();
 	}
 
@@ -71,7 +73,7 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		{
 			if (!(_nowState is WalkStateScript))
 			{
-				ChangeState(new WalkStateScript(_myOwner, _myOwnerAnimator, _input));
+				ChangeState(new WalkStateScript(_myOwner, _myOwnerAnimator, _input,_cameraTransform));
 			}
 		}
 		return _nowState;
