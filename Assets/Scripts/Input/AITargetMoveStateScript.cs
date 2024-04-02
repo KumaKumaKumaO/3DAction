@@ -1,11 +1,13 @@
 using UnityEngine;
+
 /// <summary>
-/// 目的地まで動く
+/// AIの目的地まで動くステート
 /// </summary>
 public class AITargetMoveStateScript : BaseAIStateScript
 {
 	private Transform _targetTransform = default;
 	private Transform _myTransform = default;
+
 	public AITargetMoveStateScript(IInputCharcterActionControlable input
 		,Transform targetTransform,Transform myTransform):base(input)
 	{
@@ -20,6 +22,11 @@ public class AITargetMoveStateScript : BaseAIStateScript
 		_input.MoveInput = ZVectorToYVector(targetToVector);
 	}
 
+	/// <summary>
+	/// 奥行きを高さにする
+	/// </summary>
+	/// <param name="vector">変換したいベクトル</param>
+	/// <returns>変換後ベクトル</returns>
 	private Vector3 ZVectorToYVector(Vector3 vector)
 	{
 		return Vector3.right * vector.x + Vector3.up * vector.z;

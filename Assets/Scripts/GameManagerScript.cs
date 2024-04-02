@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// ゲームマネージャー
+/// </summary>
 public class GameManagerScript : MonoBehaviour
 {
 	private static GameManagerScript _myInstance = default;

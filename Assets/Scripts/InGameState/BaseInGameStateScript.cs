@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/// <summary>
+/// インゲーム用ステートのベース
+/// </summary>
 public class BaseInGameStateScript : BaseStateScript
 {
 }

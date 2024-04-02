@@ -1,9 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+/// <summary>
+/// デーモンガードのキャラクタースクリプト
+/// </summary>
 public class DemonGuardCharacterScript : BaseCharacterScript
 {
-	[SerializeField]
+	[SerializeField,Header("AIの強さ")]
 	private AIDifficulty myDifficulty = default;
+
 	public override void Init()
 	{
 		base.Init();
@@ -17,10 +22,10 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 		{
 #endif
 			input = new AIInputScript();
-			if (myDifficulty == AIDifficulty.Easy)
-			{
-			}
-			else if(myDifficulty == AIDifficulty.Normal)
+			//if (myDifficulty == AIDifficulty.Easy)
+			//{
+			//}
+			if(myDifficulty == AIDifficulty.Normal)
 			{
 				((IAIInputInitializable)input).Init(this
 					, new DemonGuardNormalAIStateMachineScript(_objectManagerScript.PlayerCharcterScript
@@ -39,6 +44,7 @@ public class DemonGuardCharacterScript : BaseCharacterScript
 		_myStateMachine = new DemonGuardCharacterStateMachineScript
 			(input, this, _myAnimator);
 	}
+
     private void OnDestroy()
     {
 		if (isDeath && GameManagerScript.Instance.NowState is InGameStateScript)

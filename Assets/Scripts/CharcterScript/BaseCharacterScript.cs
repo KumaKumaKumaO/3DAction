@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -8,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class BaseCharacterScript : BaseObjectScript
 {
-	[SerializeField]
+	[SerializeField,Header("ステータス")]
 	protected CharcterStatus _myCharcterStatus = default;
 	[SerializeField, Header("デバッグ用")]
 	protected BaseWeaponScript _myWeapon = default;
@@ -16,21 +14,20 @@ public class BaseCharacterScript : BaseObjectScript
 	protected Animator _myAnimator = default;
 	protected BaseCharacterScript _lockTarget = default;
 
-	[SerializeField]
+	[SerializeField,Tooltip("当たり判定があるか")]
 	protected bool canCollision = true;
-	[SerializeField]
+	[SerializeField,Tooltip("動作状態にあるか")]
 	protected bool isActive = default;
-	[SerializeField]
+	[SerializeField,Tooltip("ボスか")]
 	protected bool isBoss = default;
-	[SerializeField]
+	[SerializeField,Tooltip("向いている方向に対して入力が反応するか")]
 	protected bool isInputTowards = default;
-	[SerializeField]
+	[SerializeField,Tooltip("死んでいるか")]
 	protected bool isDeath = default;
 #if UNITY_EDITOR
-	[SerializeField, Tooltip("デバッグ用")]
+	[SerializeField, Tooltip("プレイヤー入力で操作できるようにする（プレイヤーがいない場合）")]
 	protected bool isDebugInputPlayer = default;
 #endif
-
 	protected float _lockDistance = default;
 	protected int _isGroundHashValue = default;
 	protected int _myJumpCount = default;
@@ -38,11 +35,7 @@ public class BaseCharacterScript : BaseObjectScript
 
 	public BaseCharacterScript LockTarget { get { return _lockTarget; } }
 	public BaseWeaponScript MyWeapon { get { return _myWeapon; } }
-	public bool IsGravity { get { return isGravity; } set { isGravity = value; } }
-	public Animator MyAnimator { get { return _myAnimator; } }
 	public CharcterStatus MyCharcterStatus { get { return _myCharcterStatus; } }
-	public ObjectManagerScript ObjectManagerScript { get { return _objectManagerScript; } }
-
 	public bool IsDeath { get { return isDeath; } }
 #if UNITY_EDITOR
 	public bool IsDebugInputPlayer { get { return isDebugInputPlayer; } }
@@ -68,6 +61,7 @@ public class BaseCharacterScript : BaseObjectScript
 		_beforePos = MyTransform.position;
 		_myCharcterStatus.Init();
 	}
+
 	public override void ObjectUpdate()
 	{
 		base.ObjectUpdate();
@@ -78,6 +72,9 @@ public class BaseCharacterScript : BaseObjectScript
 		_beforePos = _myTransform.position;
 	}
 
+	/// <summary>
+	/// ターゲットを設定する
+	/// </summary>
 	private void SettingLockTarget()
 	{
 		BaseCharacterScript lockTargetTemp = _objectManagerScript.GetNearCharcter(_myTransform);
@@ -88,13 +85,18 @@ public class BaseCharacterScript : BaseObjectScript
 		}
 	}
 
+	/// <summary>
+	/// めり込み制御
+	/// </summary>
 	public void ClampPos()
 	{
-		SearchHitObjects();
+		CollisionIndexInit();
+		_myCollisionObjects.Clear();
 
 		_myCollisionAreaData.MyTransform.position
 			= GetClampVector(_myCollisionAreaData.MyTransform.position - _beforePos);
 	}
+
 	public override void ObjectMove(Vector3 vector)
 	{
 		_myTransform.position += vector;
@@ -110,11 +112,11 @@ public class BaseCharacterScript : BaseObjectScript
 		}
 	}
 
-	public virtual void HealHP(float healValue)
-	{
-		_myCharcterStatus.Hp.Value += healValue;
-	}
-
+	/// <summary>
+	/// ダメージを受ける
+	/// </summary>
+	/// <param name="damage">与えられたダメージ</param>
+	/// <param name="staggerThreshold">怯み値</param>
 	public virtual void ReceiveDamage(float damage, float staggerThreshold)
 	{
 		if (_myCharcterStatus.Hp.Value <= damage)
@@ -225,9 +227,7 @@ public class BaseCharacterScript : BaseObjectScript
 			}
 		}
 		//Debug.Log(returnValue);
-
 		return returnValue;
-
 	}
 
 	public override void Delete()
@@ -248,6 +248,14 @@ public class BaseCharacterScript : BaseObjectScript
 		base.OnDrawGizmos();
 		if (isDebugColliderVisible)
 		{
+			if (canCollision)
+			{
+				Gizmos.color = Color.white;
+			}
+			else
+			{
+				Gizmos.color = Color.green;
+			}
 			//自分の当たり判定
 			//上
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset

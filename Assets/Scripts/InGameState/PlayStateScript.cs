@@ -9,27 +9,28 @@ public class PlayStateScript : BaseInGameStateScript
 	public PlayStateScript(InGamePlayerInput input)
 	{
 		GameObject objectManager = GameObject.FindWithTag("ObjectManager");
-		if (objectManager == null)
+#if UNITY_EDITOR
+		if (objectManager is null)
 		{
 			ErrorManagerScript.MyInstance.NullGameObjectError("ObjectManager");
 		}
-		else if (!objectManager.TryGetComponent<ObjectManagerScript>(out _objectManagerScript))
+#endif
+		_objectManagerScript = objectManager.GetComponent<ObjectManagerScript>();
+#if UNITY_EDITOR
+		if (_objectManagerScript is null)
 		{
 			ErrorManagerScript.MyInstance.NullScriptError("ObjectManagerScript");
 		}
+#endif
 		_objectManagerScript.Init(input);
 	}
 
-	public override void Enter()
-	{
-		
-		base.Enter();
-	}
 	public override void Execute()
 	{
 		base.Execute();
 		_objectManagerScript.AllObjectUpdate();
 	}
+
 	public override void Exit()
 	{
 		base.Exit();

@@ -3,6 +3,9 @@ using UniRx;
 using System;
 using Cysharp.Threading.Tasks;
 
+/// <summary>
+/// キャラクターのステータス
+/// </summary>
 [Serializable]
 public class CharcterStatus
 {
@@ -54,7 +57,9 @@ public class CharcterStatus
 	public float EvasionNoDamageTime { get { return _evasionNoDamageTime; } }
 	public float DecreaseEvasionStamina { get { return _decreaseEvasionStamina; } }
 	
-
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	public void Init()
 	{
 		_hp.Value = _maxHp;
@@ -67,12 +72,19 @@ public class CharcterStatus
 			.Subscribe(_ => RechargeStamina().Forget());
 	}
 
+	/// <summary>
+	/// 怯み値が限界を超えたときの処理
+	/// </summary>
 	private void OverStaggerThreshold()
 	{
 		_staggerThreshold.Value = 0;
 		RecoveryStagger().Forget();
 	}
 
+	/// <summary>
+	/// 怯み値の回復処理
+	/// </summary>
+	/// <returns></returns>
 	private async UniTaskVoid RecoveryStagger()
 	{
 		await UniTask.Delay(TimeSpan.FromSeconds(_staggerRecoveryStartTime));
@@ -84,6 +96,10 @@ public class CharcterStatus
 		}
 	}
 
+	/// <summary>
+	/// スタミナの回復処理
+	/// </summary>
+	/// <returns></returns>
 	private async UniTaskVoid RechargeStamina()
 	{
 		isRechageStamina = true;

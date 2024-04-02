@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 攻撃ステートのベース
+/// </summary>
 public class BaseAttackStateScript : BaseCharcterStateScript
 {
 	private BaseWeaponScript _myOwnerWeapon = default;
 	private int _attackTriggerHash = default;
 	private int _nowAnimationHash = default;
 	protected AttackState _nowState = default;
+
 	/// <summary>
 	/// 攻撃の状態遷移
 	/// </summary>
@@ -36,6 +38,7 @@ public class BaseAttackStateScript : BaseCharcterStateScript
 	{
 		_myOwnerWeapon = myOwner.MyWeapon;
 	}
+
 	public override void Enter()
 	{
 		base.Enter();

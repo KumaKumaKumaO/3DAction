@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// ïêäÌÇÃäÓñ{ÉNÉâÉX
+/// </summary>
 public class BaseWeaponScript : BaseObjectScript
 {
 	[SerializeField]
@@ -10,21 +13,19 @@ public class BaseWeaponScript : BaseObjectScript
 	protected WeaponStatus _myStatus = default;
 
 	public bool IsAttacking { get { return isAttacking; } set { isAttacking = value; } }
-	public override void Init()
-	{
-		base.Init();
-	}
+
 
 	public override void ObjectUpdate()
 	{
 		if (isAttacking && !IsDestroyObject)
 		{
-			SearchHitObjects();
+			CollisionIndexInit();
+			_myCollisionObjects.Clear();
+			_objectManagerScript.GetCollisionCharcter(_myCollisionAreaData,_myCollisionObjects);
 			isHit = _myCollisionObjects.Count > 0;
 			if (isHit)
 			{
 				isAttacking = false;
-				Debug.LogWarning("aadaaa");
 			}
 			foreach (BaseObjectScript resultData in _myCollisionObjects)
 			{
@@ -33,12 +34,6 @@ public class BaseWeaponScript : BaseObjectScript
 			}
 		}
 	}
-	protected override void SearchHitObjects()
-	{
-		_myCollisionObjects.Clear();
-		CollisionIndexInit();
-		_objectManagerScript.GetCollisionCharcter(_myCollisionAreaData, _myCollisionObjects);
-	}
 
 #if UNITY_EDITOR
 	protected override void OnDrawGizmos()
@@ -46,6 +41,14 @@ public class BaseWeaponScript : BaseObjectScript
 		base.OnDrawGizmos();
 		if (isDebugColliderVisible)
 		{
+			if (isAttacking)
+			{
+				Gizmos.color = Color.red;
+			}
+			else
+			{
+				Gizmos.color = Color.white;
+			}
 			//é©ï™ÇÃìñÇΩÇËîªíË
 			//è„
 			Gizmos.DrawWireCube(_myCollisionAreaData.Offset

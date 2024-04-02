@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// UIを管理するクラス
+/// </summary>
 public class UIManagerScript : MonoBehaviour
 {
 	[SerializeField]
@@ -11,20 +14,31 @@ public class UIManagerScript : MonoBehaviour
 	[SerializeField]
 	private EnemyHpBarPresenterScript _enemyHpBarPresenter = default;
 
-	public void PlayerUIInit(BaseCharacterScript script)
+	/// <summary>
+	/// プレイヤーUIの初期化
+	/// </summary>
+	/// <param name="characterScript">プレイヤーのキャラクタースクリプト</param>
+	public void PlayerUIInit(BaseCharacterScript characterScript)
 	{
-		_playerHpBarPresenterScript.PlayerHPBarInit(script);
-		_playerStaminaBarPresenterScript.StaminaBarInit(script);
+		_playerHpBarPresenterScript.PlayerHPBarInit(characterScript);
+		_playerStaminaBarPresenterScript.StaminaBarInit(characterScript);
 	}
 
-	public void BossUIInit(BaseCharacterScript script)
+	/// <summary>
+	/// ボスのUIの初期化
+	/// </summary>
+	/// <param name="characterScript">ボスのキャラクタースクリプト</param>
+	public void BossUIInit(BaseCharacterScript characterScript)
 	{
-		_bossHPBarPresenterScript.BossHPBarInit(script);
+		_bossHPBarPresenterScript.BossHPBarInit(characterScript);
 	}
 
-
-	public void EnemyUIInit(BaseCharacterScript script)
+	/// <summary>
+	/// 敵のUIの初期化
+	/// </summary>
+	/// <param name="characterScript">キャラクタースクリプト</param>
+	public void EnemyUIInit(BaseCharacterScript characterScript)
 	{
-		_enemyHpBarPresenter.HPBarInit(script);
+		_enemyHpBarPresenter.HPBarInit(characterScript);
 	}
 }

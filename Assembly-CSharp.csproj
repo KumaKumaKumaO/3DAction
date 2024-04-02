@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{8B41974B-1A7C-9D81-7AAA-B517040600BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -69,7 +70,6 @@
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\BaseAttackStateScript.cs" />
     <Compile Include="Assets\Scripts\WeaponScripts\BaseWeaponScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\InGameStateScript.cs" />
-    <Compile Include="Assets\Scripts\ScriptableScripts\AttackDistanceScriptableScript.cs" />
     <Compile Include="Assets\Scripts\GameStates\GameOverStateScript.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardNormalAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\InGameStateMachineScript.cs" />
@@ -94,8 +94,6 @@
     <Compile Include="Assets\Scripts\Interface\IErrorManager.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\DemonGuard\DemonGuardHardAIStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\PlayerStaminaBarViewScript.cs" />
-    <Compile Include="Assets\Scripts\Structs\AnimationSettingData.cs" />
-    <Compile Include="Assets\Scripts\ObjectScripts\BaseStageObjectScript.cs" />
     <Compile Include="Assets\Scripts\BaseScript\BaseStateScript.cs" />
     <Compile Include="Assets\Scripts\UI\Presenter\PlayerHpBarPresenterScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\PlayerCharacterScript.cs" />
@@ -108,7 +106,6 @@
     <Compile Include="Assets\Scripts\GameStates\GameStateMachineScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\EnemyHPBarViewScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerWalkStateScript.cs" />
-    <Compile Include="Assets\Scripts\Structs\CollisionResultData.cs" />
     <Compile Include="Assets\Scripts\Input\AIInput\AIInputScript.cs" />
     <Compile Include="Assets\Scripts\InGameState\BaseInGameStateScript.cs" />
     <Compile Include="Assets\Scripts\CollisionSystem.cs" />
@@ -124,14 +121,12 @@
     <Compile Include="Assets\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\Input\AIIdleStateScript.cs" />
     <Compile Include="Assets\Scripts\Input\MenuInputScript.cs" />
-    <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\JumpStateScript.cs" />
     <Compile Include="Assets\Scripts\CharcterScript\CharacterStateScripts\PlayerDeathStateScript.cs" />
     <Compile Include="Assets\Scripts\UI\View\HpBarViewScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_DemonGuard\__CubemapsShaders\ASE_Standart.shader" />
-    <None Include="Assets\ReadMe.txt" />
-    <None Include="Assets\AIMemo.txt" />
+    <None Include="Assets\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

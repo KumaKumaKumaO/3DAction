@@ -4,6 +4,7 @@
 public class BaseAIStateScript : BaseStateScript
 {
 	protected IInputCharcterActionControlable _input = default;
+
 	public BaseAIStateScript(IInputCharcterActionControlable input)
 	{
 		_input = input;

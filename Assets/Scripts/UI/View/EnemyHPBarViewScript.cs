@@ -1,6 +1,9 @@
 using UnityEngine.UI;
 using UnityEngine;
 
+/// <summary>
+/// 敵のHPのビュー
+/// </summary>
 public class EnemyHPBarViewScript : BaseViewScript
 {
 	[SerializeField]
@@ -13,6 +16,11 @@ public class EnemyHPBarViewScript : BaseViewScript
 	[SerializeField]
 	private Vector3 _offset = default;
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="transform">対象のTransform</param>
+	/// <param name="offsetVector">表示位置のオフセット</param>
 	public void Init(Transform transform,Vector3 offsetVector)
 	{
 		gameObject.SetActive(true);
@@ -21,6 +29,10 @@ public class EnemyHPBarViewScript : BaseViewScript
 		_targetTransform = transform;
 		UpdatePos();
 	}
+
+	/// <summary>
+	/// 位置を更新する
+	/// </summary>
 	public void UpdatePos()
 	{
 		if(_targetTransform is null) { return; }
@@ -41,6 +53,9 @@ public class EnemyHPBarViewScript : BaseViewScript
 		_backgroundHPBar.fillAmount = 1 - value;
 	}
 
+	/// <summary>
+	/// 隠す
+	/// </summary>
 	public void Hide()
 	{
 		gameObject.SetActive(false);

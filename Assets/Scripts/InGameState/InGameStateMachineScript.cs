@@ -1,5 +1,5 @@
 /// <summary>
-/// InGameのステートを遷移させる
+/// InGameのステートマシン
 /// </summary>
 public class InGameStateMachineScript
 {
@@ -27,60 +27,64 @@ public class InGameStateMachineScript
 	/// <returns>現在のステート</returns>
 	public BaseInGameStateScript UpdateState()
 	{
-		//入力が存在する場合
-		if (_playerInput is not null)
-		{
-			//インベントリーを開くボタンを押したら
-			if (_playerInput.IsOpenInventory)
-			{
-				//プレイ中だったら
-				if (_nowState is PlayStateScript)
-				{
-					//現在のステートを保持する
-					_beforeState = _nowState;
-					//現在のステートをインベントリーにする
-					_nowState = new InventoryStateScript(_playerInput);
+		////入力が存在する場合
+		//if (_playerInput is not null)
+		//{
+		//	//インベントリーを開くボタンを押したら
+		//	if (_playerInput.IsOpenInventory)
+		//	{
+		//		//プレイ中だったら
+		//		if (_nowState is PlayStateScript)
+		//		{
+		//			//現在のステートを保持する
+		//			_beforeState = _nowState;
+		//			//現在のステートをインベントリーにする
+		//			_nowState = new InventoryStateScript(_playerInput);
 					
-				}
-				//インベントリーを開いていたら
-				else if (_nowState is InventoryStateScript)
-				{
-					_nowState.Exit();
-					//前回のステートに戻す
-					_nowState = _beforeState;
-					//前回のステートのアドレスを破棄する
-					_beforeState = null;
-				}
-				_nowState.Enter();
-			}
-			//ポーズを開くボタンを押したら
-			else if (_playerInput.IsOpenPose)
-			{
-				//プレイ中だったら
-				if (_nowState is PlayStateScript)
-				{
-					//現在のステートを保持する
-					_beforeState = _nowState;
-					//現在のステートをポーズステートにする
-					_nowState = new PoseStateScript(_playerInput);
+		//		}
+		//		//インベントリーを開いていたら
+		//		else if (_nowState is InventoryStateScript)
+		//		{
+		//			_nowState.Exit();
+		//			//前回のステートに戻す
+		//			_nowState = _beforeState;
+		//			//前回のステートのアドレスを破棄する
+		//			_beforeState = null;
+		//		}
+		//		_nowState.Enter();
+		//	}
+		//	//ポーズを開くボタンを押したら
+		//	else if (_playerInput.IsOpenPose)
+		//	{
+		//		//プレイ中だったら
+		//		if (_nowState is PlayStateScript)
+		//		{
+		//			//現在のステートを保持する
+		//			_beforeState = _nowState;
+		//			//現在のステートをポーズステートにする
+		//			_nowState = new PoseStateScript(_playerInput);
 					
-				}
-				//ポーズを開いていたら
-				else if (_nowState is PoseStateScript)
-				{
-					_nowState.Exit();
-					//前回のステートに戻す
-					_nowState = _beforeState;
-					//前回のステートのアドレスを破棄する
-					_beforeState = null;
-				}
-				_nowState.Enter();
-			}
+		//		}
+		//		//ポーズを開いていたら
+		//		else if (_nowState is PoseStateScript)
+		//		{
+		//			_nowState.Exit();
+		//			//前回のステートに戻す
+		//			_nowState = _beforeState;
+		//			//前回のステートのアドレスを破棄する
+		//			_beforeState = null;
+		//		}
+		//		_nowState.Enter();
+		//	}
 
-		}
+		//}
 		//現在のステートを返す
 		return _nowState;
 	}
+
+	/// <summary>
+	/// 削除する
+	/// </summary>
 	public void Delete()
 	{
 		if(_beforeState is not null)

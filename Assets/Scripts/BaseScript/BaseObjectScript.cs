@@ -8,7 +8,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 {
 	[SerializeField,Header("自分に重力をつけるか")]
 	protected bool isGravity = false;
-	[SerializeField]
+	[SerializeField,Header("自分の当たり判定の設定")]
 	protected CollisionAreaData _myCollisionAreaData = default;
 	protected List<BaseObjectScript> _myCollisionObjects = new List<BaseObjectScript>();
 	protected int _bottomCollisionIndex = -1;
@@ -19,19 +19,24 @@ public abstract class BaseObjectScript : MonoBehaviour
 	protected int _backCollisionAreaDataIndex = -1;
 	protected ObjectManagerScript _objectManagerScript = default;
 	protected Matrix4x4 _matrixTemp = default;
-	[SerializeField]
 	protected bool isGround = false;
 	protected Transform _myTransform = default;
 	protected int _forwardCollisionCount = 0;
 	private bool isDestroyObject = false;
 
-
+#if UNITY_EDITOR
 	[SerializeField,Tooltip("デバッグ用")]
 	protected bool isDebugColliderVisible = false;
+#endif
+
 	public CollisionAreaData MyCollisionAreaData { get { return _myCollisionAreaData; } }
 	public Transform MyTransform { get { return _myTransform; } }
 	public bool IsGround { get { return isGround; } }
 	public bool IsDestroyObject { get { return isDestroyObject; } }
+	
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	public virtual void Init()
 	{
 		_myTransform = this.transform;
@@ -51,9 +56,14 @@ public abstract class BaseObjectScript : MonoBehaviour
 #endif
 		_myCollisionAreaData.Init(transform);
 	}
+
+	/// <summary>
+	/// 更新処理
+	/// </summary>
 	public virtual void ObjectUpdate()
 	{
-		SearchHitObjects();
+		CollisionIndexInit();
+		_myCollisionObjects.Clear();
 		if (isGravity)
 		{
 			GravityFall();
@@ -129,7 +139,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 倒す演出などが終わったあとの処理
+	/// オブジェクトが削除されるときの処理
 	/// </summary>
 	public virtual void Delete()
 	{
@@ -152,10 +162,15 @@ public abstract class BaseObjectScript : MonoBehaviour
 		if(isDestroyObject) { return; }
 		Destroy(gameObject);
 	}
+
 	protected virtual void Reset()
 	{
 		gameObject.tag = "Object";
 	}
+
+	/// <summary>
+	/// 当たり判定のインデックスの初期化
+	/// </summary>
 	protected void CollisionIndexInit()
 	{
 		_bottomCollisionIndex = -1;
@@ -166,6 +181,7 @@ public abstract class BaseObjectScript : MonoBehaviour
 		_backCollisionAreaDataIndex = -1;
 		_forwardCollisionCount = 0;
 	}
+
 	/// <summary>
 	/// オブジェクトを移動する
 	/// </summary>
@@ -174,15 +190,11 @@ public abstract class BaseObjectScript : MonoBehaviour
 	{
 		Vector3 beforPos = _myCollisionAreaData.MyTransform.position;
 		_myCollisionAreaData.MyTransform.position += vector;
-		SearchHitObjects();
+		CollisionIndexInit();
+		_myCollisionObjects.Clear();
 
 		_myCollisionAreaData.MyTransform.position
 			= GetClampVector(_myCollisionAreaData.MyTransform.position - beforPos);
-	}
-	protected virtual void SearchHitObjects()
-	{
-		CollisionIndexInit();
-		_myCollisionObjects.Clear();
 	}
 
 	/// <summary>
@@ -221,6 +233,9 @@ public abstract class BaseObjectScript : MonoBehaviour
 		return returnValue;
 	}
 
+	/// <summary>
+	/// 重力落下処理
+	/// </summary>
 	protected virtual void GravityFall()
 	{
 		GetColObjects(MoveDirection.Down);
@@ -248,6 +263,6 @@ public abstract class BaseObjectScript : MonoBehaviour
 	private void OnDestroy()
 	{
 		isDestroyObject = true;
-		//Debug.LogWarning("Destroy:" + gameObject.name);
+		Debug.LogWarning("Destroy:" + gameObject.name);
 	}
 }

@@ -1,16 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 
+/// <summary>
+/// プレイヤーの死亡ステート
+/// </summary>
 public class PlayerDeathStateScript : BaseCharcterStateScript
 {
 	private int _nowAnimationHash = default;
+
 	public PlayerDeathStateScript(BaseCharacterScript myOwner,Animator animator,IInputCharcterActionGetable input)
 		:base(myOwner,animator,input)
 	{
 	}
+
 	public override void Enter()
 	{
 		base.Enter();
@@ -30,10 +33,22 @@ public class PlayerDeathStateScript : BaseCharcterStateScript
 		base.Execute();
 	}
 	
+	/// <summary>
+	/// 死亡後の待機処理
+	/// </summary>
+	/// <returns></returns>
 	private async UniTaskVoid Wait()
 	{
 		await UniTask.Delay(System.TimeSpan.FromSeconds(5f));
-		if(GameManagerScript.Instance.NowState is InGameStateScript)
+		SceneChange();
+	}
+
+	/// <summary>
+	/// シーン変更
+	/// </summary>
+	private void SceneChange()
+	{
+		if (GameManagerScript.Instance.NowState is InGameStateScript)
 		{
 			SceneManager.LoadScene("GameOver");
 		}

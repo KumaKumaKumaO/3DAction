@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ポーズ状態の処理
+/// ポーズステート
 /// </summary>
 public class PoseStateScript : BaseInGameStateScript
 {
 	public PoseStateScript(InGamePlayerInput input)
 	{
-
 	}
 	public override void Enter()
 	{

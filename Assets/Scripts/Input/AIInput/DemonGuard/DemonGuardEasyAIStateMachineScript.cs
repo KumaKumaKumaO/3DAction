@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/// <summary>
+/// 弱いデーモンガードのAI
+/// </summary>
 public class DemonGuardEasyAIStateMachineScript : BaseAIStateMachineScript
 {
 	public DemonGuardEasyAIStateMachineScript(IInputCharcterActionControlable input):base(input)

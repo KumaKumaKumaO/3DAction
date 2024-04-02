@@ -2,6 +2,9 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
+/// <summary>
+/// AI—p“ü—Í
+/// </summary>
 public class AIInputScript : IInputCharcterActionGetable,IAIInputInitializable,IInputCharcterActionControlable
 {
 	private Vector2 _moveInput = default;
@@ -10,6 +13,7 @@ public class AIInputScript : IInputCharcterActionGetable,IAIInputInitializable,I
 	private bool isEvasion = default;
 	private bool isRun = default;
 	protected BaseAIStateMachineScript _myStateMachine = default;
+
 	public void Init(BaseCharacterScript baseCharacterScript,BaseAIStateMachineScript stateMachineScript)
 	{
 		_myStateMachine = stateMachineScript;

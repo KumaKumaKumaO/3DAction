@@ -1,3 +1,6 @@
+/// <summary>
+/// ˆÚ“®•ûŒü
+/// </summary>
 public enum MoveDirection
 {
 	Forward,

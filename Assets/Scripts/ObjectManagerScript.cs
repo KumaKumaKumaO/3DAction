@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// インスタンスされているオブジェクトを管理するクラス
@@ -16,7 +15,6 @@ public class ObjectManagerScript : MonoBehaviour
 	private UIManagerScript _uiManagerScript = default;
 
 	private List<StageFloorScript> _stageFloors = new List<StageFloorScript>();
-	private List<BaseStageObjectScript> _stageObjects = new List<BaseStageObjectScript>();
 	private List<BaseCharacterScript> _charcterObjects = new List<BaseCharacterScript>();
 	private List<BaseWeaponScript> _weaponObjects = new List<BaseWeaponScript>();
 	private CollisionSystem _collisionSystem = new CollisionSystem();
@@ -27,6 +25,7 @@ public class ObjectManagerScript : MonoBehaviour
 	public float CameraSpeed { get { return _cameraSpeed; } }
 	public CameraScript CameraScript { get { return _cameraScript; } }
 	public float GravityPower { get { return _grivityPower; } }
+
 	public BaseCharacterScript PlayerCharcterScript
 	{
 		get
@@ -57,14 +56,15 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 削除処理
+	/// </summary>
 	public void Delete()
 	{
 		DeleteListData(_stageFloors);
-		DeleteListData(_stageObjects);
 		DeleteListData(_weaponObjects);
 		DeleteListData(_charcterObjects);
 		_stageFloors = null;
-		_stageObjects = null;
 		_weaponObjects = null;
 		_charcterObjects = null;
 
@@ -73,6 +73,11 @@ public class ObjectManagerScript : MonoBehaviour
 		Destroy(this);
 	}
 
+	/// <summary>
+	/// リストの中身に削除処理を呼び出す
+	/// </summary>
+	/// <typeparam name="T">リスト</typeparam>
+	/// <param name="_objectList">オブジェクトが入っているリスト</param>
 	private void DeleteListData<T>(T _objectList) where T : IList
 	{
 		for (int i = 0; i < _objectList.Count; i++)
@@ -83,6 +88,11 @@ public class ObjectManagerScript : MonoBehaviour
 			}
 		}
 	}
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="playerInput">プレイヤー入力</param>
 	public void Init(InGamePlayerInput playerInput)
 	{
 		BaseObjectScript baseObjectScriptTemp;
@@ -103,13 +113,13 @@ public class ObjectManagerScript : MonoBehaviour
 		_uiManagerScript.PlayerUIInit(_playerCharcterScript);
 	}
 
+	/// <summary>
+	/// すべてのオブジェクトを初期化
+	/// </summary>
+	/// <param name="input">プレイヤー入力</param>
 	private void AllObjectInit(InGamePlayerInput input)
 	{
 		foreach (StageFloorScript item in _stageFloors)
-		{
-			item.Init();
-		}
-		foreach (BaseStageObjectScript item in _stageObjects)
 		{
 			item.Init();
 		}
@@ -127,13 +137,12 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// すべてのオブジェクトを更新
+	/// </summary>
 	public void AllObjectUpdate()
 	{
 		foreach (StageFloorScript item in _stageFloors)
-		{
-			item.ObjectUpdate();
-		}
-		foreach (BaseStageObjectScript item in _stageObjects)
 		{
 			item.ObjectUpdate();
 		}
@@ -150,6 +159,10 @@ public class ObjectManagerScript : MonoBehaviour
 		_cameraScript.UpdateCameraControl();
 	}
 
+	/// <summary>
+	/// UIの初期化していいかを確認して初期化する
+	/// </summary>
+	/// <param name="characterScript">キャラクタースクリプト</param>
 	private void UICanInitCheck(BaseCharacterScript characterScript)
 	{
 		if (characterScript.IsActive)
@@ -167,6 +180,11 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 一番近いキャラクタースクリプトを取得する
+	/// </summary>
+	/// <param name="transform">自身のTransform</param>
+	/// <returns></returns>
 	public BaseCharacterScript GetNearCharcter(Transform transform)
 	{
 		float distanceTemp;
@@ -186,18 +204,29 @@ public class ObjectManagerScript : MonoBehaviour
 		return characterScriptTemp;
 	}
 
+	/// <summary>
+	/// 当たっているオブジェクトをリストに格納する
+	/// </summary>
+	/// <param name="charcterColAreaData">自身のエリアデータ</param>
+	/// <param name="collisionObjectDatas">確認するオブジェクト</param>
+	/// <param name="moveDirection">確認する方向</param>
 	public void GetCollisionAllObject(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas
 		, MoveDirection moveDirection)
 	{
 		GetCollisionFloor(charcterColAreaData, collisionObjectDatas, moveDirection);
-		GetCollisionStageObject(charcterColAreaData, collisionObjectDatas, moveDirection);
 		GetCollisionCharcter(charcterColAreaData, collisionObjectDatas);
 	}
 
+	/// <summary>
+	/// キャラクターどうしが衝突しているかを確認する
+	/// </summary>
+	/// <param name="charcterColAreaData">自身のエリアデータ</param>
+	/// <param name="collisionObjectDatas">格納するリスト</param>
 	public void GetCollisionCharcter(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas)
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
 		{
+			//判定をとる必要がないものをはじく
 			if (item is null  || charcterColAreaData.MyTransform is null
 				|| charcterColAreaData.MyTransform.root == item.MyTransform
 				|| (item is BaseCharacterScript charcterScript &&( !charcterScript.CanCollision || charcterScript.IsDeath))) { continue; }
@@ -209,6 +238,12 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 衝突している床を格納する
+	/// </summary>
+	/// <param name="charcterColAreaData">自身のエリアデータ</param>
+	/// <param name="collisionObjectDatas">格納するリスト</param>
+	/// <param name="moveDirection">確認したい方向</param>
 	public void GetCollisionFloor(CollisionAreaData charcterColAreaData, List<BaseObjectScript> collisionObjectDatas
 		, MoveDirection moveDirection)
 	{
@@ -220,15 +255,13 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
-	public void GetCollisionStageObject(CollisionAreaData colAreaData, List<BaseObjectScript> collisionObjectDatas
-		, MoveDirection moveDirection)
-	{
-		foreach (BaseObjectScript item in _stageObjects)
-		{
-			AddCollisionObject(colAreaData, item, collisionObjectDatas, moveDirection);
-		}
-	}
-
+	/// <summary>
+	/// 衝突していたオブジェクトをリストに追加する
+	/// </summary>
+	/// <param name="colData">エリアデータ</param>
+	/// <param name="targetObject">対象のオブジェクト</param>
+	/// <param name="collisionObjects">格納するリスト</param>
+	/// <param name="moveDirection">確認したい方向</param>
 	private void AddCollisionObject(CollisionAreaData colData, BaseObjectScript targetObject
 		, List<BaseObjectScript> collisionObjects, MoveDirection moveDirection)
 	{
@@ -238,12 +271,24 @@ public class ObjectManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 当たり判定を確認する
+	/// </summary>
+	/// <param name="myData">エリアデータ</param>
+	/// <param name="targetObject">対象のオブジェクト</param>
+	/// <param name="moveDirection">移動方向</param>
+	/// <returns></returns>
 	public bool IsCollisionObject(CollisionAreaData myData, BaseObjectScript targetObject
 		, MoveDirection moveDirection)
 	{
 		return _collisionSystem.IsCollision(myData, targetObject.MyCollisionAreaData, moveDirection);
 	}
 
+	/// <summary>
+	/// 武器を取得する
+	/// </summary>
+	/// <param name="myData">自身のキャラクタースクリプト</param>
+	/// <returns>自分の武器</returns>
 	public BaseWeaponScript GetMyWeapon(BaseCharacterScript myData)
 	{
 		foreach (BaseWeaponScript item in _weaponObjects)
@@ -256,6 +301,11 @@ public class ObjectManagerScript : MonoBehaviour
 		return null;
 	}
 
+	/// <summary>
+	/// なにかのキャラクターに衝突しているか
+	/// </summary>
+	/// <param name="targetCharcterScript"></param>
+	/// <returns></returns>
 	public bool IsCollisionCharcter(BaseCharacterScript targetCharcterScript)
 	{
 		foreach (BaseObjectScript item in _charcterObjects)
@@ -268,15 +318,15 @@ public class ObjectManagerScript : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// オブジェクトリストにオブジェクトを追加する
+	/// </summary>
+	/// <param name="obj">追加するオブジェクト</param>
 	public void AddObject(BaseObjectScript obj)
 	{
 		if (obj is StageFloorScript stageFloor)
 		{
 			_stageFloors.Add(stageFloor);
-		}
-		else if (obj is BaseStageObjectScript stageObj)
-		{
-			_stageObjects.Add(stageObj);
 		}
 		else if (obj is BaseCharacterScript charcterObj)
 		{
@@ -294,15 +344,15 @@ public class ObjectManagerScript : MonoBehaviour
 #endif
 	}
 
+	/// <summary>
+	/// オブジェクトリストからオブジェクトを削除する
+	/// </summary>
+	/// <param name="obj">削除するオブジェクト</param>
 	public void SubtractObject(BaseObjectScript obj)
 	{
 		if (obj is StageFloorScript stageFloor)
 		{
 			_stageFloors.Remove(stageFloor);
-		}
-		else if (obj is BaseStageObjectScript stageObj)
-		{
-			_stageObjects.Remove(stageObj);
 		}
 		else if (obj is BaseCharacterScript charcterObj)
 		{

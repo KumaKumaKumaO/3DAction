@@ -1,9 +1,11 @@
 using UnityEngine;
+
 /// <summary>
 /// キャラクター用のステートマシンのベース
 /// </summary>
 public class BaseCharacterStateMachineScript : ICharacterStateMachine
 {
+
 	protected IInputCharcterActionGetable _input = default;
 	protected BaseCharcterStateScript _nowState = default;
 	protected BaseCharcterStateScript _beforeState = default;
@@ -19,6 +21,7 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		_nowState = new WalkStateScript(myOwner,myOwnerAnimator,input);
 		_nowState.Enter();
 	}
+
 	public virtual BaseCharcterStateScript UpdateState()
 	{
 		if (_nowState is DeathStateScript)
@@ -73,12 +76,21 @@ public class BaseCharacterStateMachineScript : ICharacterStateMachine
 		}
 		return _nowState;
 	}
+
+	/// <summary>
+	/// ステートを変更する
+	/// </summary>
+	/// <param name="nextState">変更後のステート</param>
 	protected void ChangeState(BaseCharcterStateScript nextState)
 	{
 		_nowState.Exit();
 		_nowState = nextState;
 		_nowState.Enter();
 	}
+
+	/// <summary>
+	/// 削除処理
+	/// </summary>
 	public virtual void Delete()
 	{
 		_input = null;

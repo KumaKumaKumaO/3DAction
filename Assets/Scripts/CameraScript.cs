@@ -14,7 +14,9 @@ public class CameraScript
 	private Vector3 _beforePlayerPos = default;
 	private Vector3 _initPos = new Vector3(0, 2, -3);
 	private Quaternion _initRotaion = Quaternion.Euler(10, 0, 0);
+
 	public Transform CameraTransform { get { return _cameraTransform; } }
+
 	public CameraScript(IInputCameraControl input)
 	{
 		this._input = input;
@@ -48,7 +50,9 @@ public class CameraScript
 
 		_cameraTransform.rotation = _playerCharcterScript.transform.rotation * _initRotaion;
 	}
-
+	/// <summary>
+	/// カメラを消す際に呼び出す
+	/// </summary>
 	public void Delete()
 	{
 		_cameraTransform = null;
@@ -75,10 +79,11 @@ public class CameraScript
 		_cameraTransform.position += _playerCharcterScript.MyTransform.position - _beforePlayerPos;
 		_beforePlayerPos = _playerCharcterScript.MyTransform.position;
 	}
+
 	/// <summary>
 	/// カメラの角度を更新する
 	/// </summary>
-	/// <param name="inputVector"></param>
+	/// <param name="inputVector">視点移動入力</param>
 	private void UpdateCameraRotation(Vector2 inputVector)
 	{
 		if (inputVector.x != 0)

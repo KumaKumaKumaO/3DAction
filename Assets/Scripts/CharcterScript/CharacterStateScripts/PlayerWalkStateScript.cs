@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーの歩くステート
+/// </summary>
 public class PlayerWalkStateScript : BaseCharcterStateScript
 {
 	private Vector2 _inputVector = default;
@@ -9,6 +10,7 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 	private int _motionSpeedAnimatorHashValue = default;
 	private float _nowCharcterSpeed = default;
 	private Transform _cameraTansform = default;
+
 	public PlayerWalkStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
 	 , IInputCharcterActionGetable input, Transform cameraTransform) : base(myOwner, ownerAnimator, input)
 	{
@@ -57,9 +59,8 @@ public class PlayerWalkStateScript : BaseCharcterStateScript
 			_myOwner.ObjectMove(_myOwner.MyCollisionAreaData.MyTransform.forward
 				* _myOwner.MyCharcterStatus.Speed * Time.deltaTime);
 		}
-
-
 	}
+
 	public override void Exit()
 	{
 		base.Exit();

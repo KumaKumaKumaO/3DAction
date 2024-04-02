@@ -22,13 +22,13 @@ public class GameStateMachineScript
 		_nowState = SelectState();
 		_nowState.Enter();
 	}
-	
 
 	public void Delete()
 	{
 		_nowState.Exit();
 		_nowState = null;
 	}
+
 	/// <summary>
 	/// ステートが変更できる場合は変更する
 	/// </summary>
@@ -51,6 +51,7 @@ public class GameStateMachineScript
 		}
 		return _nowState;
 	}
+
 	private BaseGameStateScript SelectState()
 	{
 		//現在のシーン名がTitleの場合

@@ -1,4 +1,8 @@
 using UnityEngine;
+
+/// <summary>
+/// “–‚½‚è”»’è‚Ì\‘¢‘Ì
+/// </summary>
 [System.Serializable]
 public struct CollisionAreaData
 {
@@ -9,6 +13,7 @@ public struct CollisionAreaData
 	private Transform _myTransform;
 	[SerializeField]
 	private float _areaWidth;
+
 	public Vector3 HalfAreaSize { get { return _halfAreaSize; } }
 	public Vector3 Offset { get { return _offset; } }
 	public float TopYPos { get { return _myTransform.position.y + _offset.y + _halfAreaSize.y; } }
@@ -20,19 +25,21 @@ public struct CollisionAreaData
 	public float HalfAreaWidth { get { return _areaWidth / 2; } }
 	public float AreaWidth { get { return _areaWidth; } }
 	public Transform MyTransform { get { return _myTransform; } }
+
+	/// <summary>
+	/// ‰Šú‰»
+	/// </summary>
+	/// <param name="myTransform">©•ª‚ÌTransform</param>
 	public void Init(Transform myTransform)
 	{
 		this._myTransform = myTransform;
 	}
+
+	/// <summary>
+	/// íœˆ—
+	/// </summary>
 	public void Delete()
 	{
 		_myTransform = null;
-	}
-	public CollisionAreaData(Vector3 halfAreaSize,Vector3 offset, Transform myTransform,float areaWidth)
-	{
-		_halfAreaSize = halfAreaSize;
-		_offset = offset;
-		_myTransform = myTransform;
-		_areaWidth = areaWidth;
 	}
 }

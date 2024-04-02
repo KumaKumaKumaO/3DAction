@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 /// プレイヤーのステートマシン
 /// </summary>
@@ -8,6 +7,7 @@ using UnityEngine;
 public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 {
 	private Transform _cameraTransform = default;
+
 	public PlayerCharacterStateMachineScript(PlayerCharacterScript myOwner, Animator myOwnerAnimator
 		, IInputCharcterActionGetable playerInput, Transform cameraTransform) : base(playerInput, myOwner, myOwnerAnimator)
 	{
@@ -15,6 +15,7 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 		_nowState.Enter();
 		_cameraTransform = cameraTransform;
 	}
+
 	public override BaseCharcterStateScript UpdateState()
 	{
 		if (_nowState is PlayerDeathStateScript)
@@ -65,6 +66,7 @@ public class PlayerCharacterStateMachineScript : BaseCharacterStateMachineScript
 		}
 		return _nowState;
 	}
+
 	public override void Delete()
 	{
 		base.Delete();

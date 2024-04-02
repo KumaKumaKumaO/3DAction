@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// 回避ステート
+/// </summary>
 public class EvasionStateScript : BaseCharcterStateScript
 {
 	private int _evationAnimationHash = default;
 	private int _nowAnimationHash = default;
 	private bool isMove = default;
+
 	public EvasionStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
 		, IInputCharcterActionGetable input) : base(myOwner, ownerAnimator, input)
 	{
@@ -43,13 +45,18 @@ public class EvasionStateScript : BaseCharcterStateScript
 				isMove = true;
 				if (_myOwner.CanCollision)
 				{
-					NoDamageTimer(_myOwner).Forget();
+					NoDamageLogic(_myOwner).Forget();
 				}
 			}
 		}
 	}
 	
-	private async UniTaskVoid NoDamageTimer(BaseCharacterScript myOwner)
+	/// <summary>
+	/// 当たり判定を一時的に消す
+	/// </summary>
+	/// <param name="myOwner"></param>
+	/// <returns></returns>
+	private async UniTaskVoid NoDamageLogic(BaseCharacterScript myOwner)
 	{
 		myOwner.CanCollision = false;
 		await UniTask.Delay(System.TimeSpan.FromSeconds(myOwner.MyCharcterStatus.EvasionNoDamageTime));

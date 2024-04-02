@@ -2,10 +2,18 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
+/// <summary>
+/// 敵のHPのプレゼンター
+/// </summary>
 public class EnemyHpBarPresenterScript : MonoBehaviour
 {
 	[SerializeField]
 	private EnemyHPBarViewScript _viewScript = default;
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="characterScript">キャラクタースクリプト</param>
 	public void HPBarInit(BaseCharacterScript characterScript)
 	{
 		_viewScript.Init(characterScript.MyTransform

@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 普通のデーモンガードのAI
+/// </summary>
 public class DemonGuardNormalAIStateMachineScript : BaseAIStateMachineScript
 {
 	private BaseCharacterScript _targetCharcter = default;
@@ -45,6 +46,12 @@ public class DemonGuardNormalAIStateMachineScript : BaseAIStateMachineScript
 
 		return _nowState;
 	}
+
+	/// <summary>
+	/// 自分の正面に敵が存在するか
+	/// </summary>
+	/// <param name="direction"></param>
+	/// <returns></returns>
 	private bool IsEnemyToWard(Vector3 direction)
 	{
 		const float TO_WARD_ANGLE = 5f;

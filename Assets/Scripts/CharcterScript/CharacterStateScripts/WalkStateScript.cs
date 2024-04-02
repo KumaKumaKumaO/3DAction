@@ -1,17 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 歩くステート
+/// </summary>
 public class WalkStateScript : BaseCharcterStateScript
 {
 	private Vector2 _inputVector = default;
 	private int _isMoveAnimamtorHashValue = default;
 	private int _motionSpeedAnimatorHashValue = default;
 	private float _nowCharcterSpeed = default;
+
 	public WalkStateScript(BaseCharacterScript myOwner, Animator ownerAnimator
 		, IInputCharcterActionGetable input) : base(myOwner, ownerAnimator, input)
 	{
 	}
+
 	public override void Enter()
 	{
 		base.Enter();
